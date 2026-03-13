@@ -1,0 +1,150 @@
+  <div class="animated fadeIn">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card border-primary">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-md-4"><strong>Mantenimiento Perfil Página</strong></div>
+            <div class="col-md-1"></div>
+            <div class="col-md-7" style="text-align:right">
+              <button type="button" class="btn btn-sm btn-success" (click)="regresar();"><i class="icons  mt-5 cui-chevron-left"></i> Regresar Consulta</button>
+              <button type="submit" class="btn btn-sm btn-success" (click)="actualizarPerfil();"><i class="fa fa-save"></i> {{labelBoton}}</button>
+              <button type="reset" class="btn btn-sm btn-primary" (click)="nuevoPerfil();"><i class="fa fa-file-o"></i> Nuevo Pagina Perfil</button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-sm-2 content" style="padding-right:0px;">
+              <div class="form-group ">
+                <label>Página Perfil*</label>
+              </div>
+            </div>
+            <div class="col-md-4 ">
+              <div class="form-group">
+                <select name="miselect" class="form-control" [(ngModel)]="modelPPagina.cod_Perfil" (change)="seleciona(modelPPagina.cod_Perfil)" [disabled]="isDisabled">
+                  <option [value]="item.codigo" *ngFor="let item of perfilPagina">{{item.descripcion}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <h5>Datos Perfil Página Asignar</h5>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-5">
+                      <select size="10" [(ngModel)]="select_desde" class="col-md-12">
+                        <option [value]="item.codigo" *ngFor="let item of listaDesde">{{item.descripcion}}</option>
+                      </select>
+                    </div>
+                    <div class="col-md-2 text-center">
+                      <button type="button" class="btn btn-sm btn-primary" (click)="devolver();"><i class="icons  mt-5 cui-chevron-left"></i></button>
+                      <button type="button" class="btn btn-sm btn-primary" (click)="pasar();"><i class="icons  mt-5 cui-chevron-right"></i> </button>
+                    </div>
+                    <div class="col-md-5">
+                      <select size="10" [(ngModel)]="select_hasta" class="col-md-12">
+                        <option [value]="item.codigo" *ngFor="let item of listaHasta">{{item.descripcion}}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <modalesSeguridad></modalesSeguridad>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--inicio session de modales -->
+<div bsModal #okModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-success" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Mensaje  Satisfactorio</h4>
+        <button type="button" class="close" (click)="okModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>{{mensaje}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="okActualizacion();okModal.hide();">Aceptar</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div bsModal #confirmacionModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-primary" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Confirmacion</h4>
+        <button type="button" class="close" (click)="confirmacionModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>{{mensaje}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="aceptarConfirmacion();confirmacionModal.hide();">Aceptar</button>
+        <button type="button" class="btn btn-secondary" (click)="confirmacionModal.hide()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #dangerModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-danger" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Atencion</h4>
+        <button type="button" class="close" (click)="dangerModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>{{mensaje}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="dangerModal.hide()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #infoModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-info" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Informativo</h4>
+        <button type="button" class="close" (click)="infoModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>{{mensaje}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="infoModal.hide()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--fin session de modales -->
+
+<ng-template #customLoadingTemplate>
+  <div class="custom-class">
+  </div>
+</ng-template>
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate"></ngx-loading>

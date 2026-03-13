@@ -1,0 +1,129 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-12">
+        <label class="input-group-text">Ingreso/Selección de Lotes</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <button type="button" class="btn botonpaso letraGlobal" mat-button (click)="aceptar()" [disabled]="habilitabotones"><mat-icon class="gren600 ">save</mat-icon>Aceptar</button>
+        <button type="button" class="btn botonpaso letraGlobal" mat-button (click)="cancelar()"><mat-icon class="redf600 ">redo</mat-icon>Cancelar</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <fieldset class="border p-2" style="border-radius: 15px!important;border-color:black!important">
+          <legend class="float-none w-auto p-2 letraGlobal">Colores</legend>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group ">
+                <label class="col-form-label negrillas letraGlobal"><span style="background-color:Orange;width:5%;">&nbsp;&nbsp;&nbsp;&nbsp;</span>Próximo a caducar (un mes o menor)</label>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group ">
+                <label class="col-form-label negrillas letraGlobal"><span style="background-color: Red; width: 5%;">&nbsp;&nbsp;&nbsp;&nbsp;</span>Caducado</label>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group ">
+                <label class="col-form-label negrillas letraGlobal"><span style="background-color: Navy; width: 5%;">&nbsp;&nbsp;&nbsp;&nbsp;</span>Inactivo</label>
+              </div>
+            </div>
+          </div>
+
+        </fieldset>
+      </div>
+    </div>
+    <div style="height: 400px !important; overflow-y: scroll !important; overflow-x: hidden!important">
+      <div class="row">
+        <div id="globalcontrol" class="col-12">
+          <div id="no-more-tables" class="material-datatables table-responsive">
+            <table responsive="true" class="letraGlobal table table-striped table-bordered table-sm row-border hover" cellspacing="0">
+              <thead>
+                <tr class="cabeceragrid">
+                  <th *ngFor="let head of ColumnaDetalle" scope="col">{{head}} </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of lotecontrol " class="clsForeColor{{row.color}}">
+                  <td data-title="Sel" (click)="clickGrid(row);" (dblclick)="dblclickGrid(row);" style="width: 35px; padding: 10px">
+                    <input type="checkbox" name="exampleRadios" id="exampleRadios1" [disabled]="habilitabotones"  [(ngModel)]="row.sel" [value]="row.sel">
+                  </td>
+                  <td data-title="Lote" (click)="clickGrid(row);" (dblclick)="dblclickGrid(row);" style="width: 25px !important; padding: 10px">{{row.lote}}</td>
+                  <td data-title="Nombre Lote" style="text-align: left !important; width: 240px ; padding: 10px" (click)="clickGrid(row);" (dblclick)="dblclickGrid(row);">{{row.nom_lote}}</td>
+                  <td data-title="Fecha Prod." style="text-align: left !important; width: 90px; padding: 10px" (click)="clickGrid(row);" (dblclick)="dblclickGrid(row);">{{row.fec_crea | date: 'yyyy-MM-dd'}}</td>
+                  <td data-title="Fecha Cad." style="text-align: left !important; width: 90px; padding: 10px" (click)="clickGrid(row);" (dblclick)="dblclickGrid(row);">{{row.fec_venc | date: 'yyyy-MM-dd'}}</td>
+                  <td data-title="Saldo" style="text-align: right !important; width: 100px ; padding: 10px " (click)="clickGrid(row);" (dblclick)="dblclickGrid(row);">{{row.saldo| number : '1.4-4'}}</td>
+                  <td data-title="Cantidad" style="text-align: right !important; width: 100px  " (click)="clickGrid(row);" (dblclick)="dblclickGrid(row);">
+                    <input type="text" class="form-control letraGlobal  " maxlength="20" style="text-align: right !important; " [disabled]="((habilitabotones)?true:((row.sel)?false:true))" onkeypress="return isNumberKey(this,event,5);" [(ngModel)]="row.cantidad">
+                  </td>
+                  <td style="text-align: center !important; cursor: pointer !important; width: 20px" (click)="clickGrid(row);clickenvase(row)" (dblclick)="dblclickGrid(row);">
+                    <img *ngIf="row.sel===true" [disabled]="((habilitabotones)?true:false)" src="../../assets/img/Categories.png" />
+                    <img *ngIf="row.sel===false" [disabled]="((habilitabotones)?true:false)" src="../../assets/img/CategoriesD.png" />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-modales [llamarModal]="llamarmodal"></app-modales>
+
+
+<ng-template #modalloteenvase style="z-index:700000">
+  <div class=" modal-primary modal-lg" role="document" dynamicHeight dynamicweiht>
+    <div class="modal-content ">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-12">
+                <label class="input-group-text">Ingreso de Envases por Lote</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <button type="button" class="btn botonpaso letraGlobal" mat-button (click)="aceptarenvase()" [disabled]="habilitabotones"><mat-icon class="gren600 ">save</mat-icon>Aceptar</button>
+                <button type="button" class="btn botonpaso letraGlobal" mat-button (click)="cancelarenvase()"><mat-icon class="redf600 ">redo</mat-icon>Cancelar</button>
+                <mat-divider class="material-devider">|</mat-divider>
+                <button type="button" class="btn botonpaso letraGlobal" mat-button (click)="masenvase()"><mat-icon class="gren600">add</mat-icon>Crear Rango</button>
+                <button type="button" class="btn botonpaso letraGlobal" mat-button (click)="menosenvase()"><mat-icon class="redf600">remove</mat-icon>Elimina Rango</button>
+              </div>
+            </div>
+            <div style="height: 400px !important; overflow-y: scroll !important; overflow-x: hidden!important">
+              <div class="row">
+                <div id="globalcontrol" class="col-12">
+                  <div id="no-more-tables" class="material-datatables table-responsive">
+                    <table responsive="true" class="letraGlobal table table-striped table-bordered table-sm row-border hover" cellspacing="0">
+                      <thead>
+                        <tr class="cabeceragrid">
+                          <th *ngFor="let head of ColumnaDetalleEnvase" scope="col">{{head}} </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let row of envasecontrol " class="clsForeColor{{row.color}}">
+                          <td data-title="Lin." (click)="clickGridenvase(row);" style="width: 25px !important; padding: 10px">{{row.linea}}</td>
+                          <td data-title="Envase Inicial" style="text-align: right !important; width: 100px  " (click)="clickGridenvase(row);" >
+                            <input type="text" class="form-control letraGlobal  " maxlength="20" style="text-align: right !important; " [disabled]="((habilitabotones)?true:false)" onkeypress="return isNumberKey(this,event,0);" [(ngModel)]="row.envase_ini">
+                          </td>
+                          <td data-title="Envase Final" style="text-align: right !important; width: 100px  " (click)="clickGridenvase(row);" >
+                            <input type="text" class="form-control letraGlobal  " maxlength="20" style="text-align: right !important; " [disabled]="((habilitabotones)?true:false)" onkeypress="return isNumberKey(this,event,0);" [(ngModel)]="row.envase_fin">
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

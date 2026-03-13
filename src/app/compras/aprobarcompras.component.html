@@ -1,0 +1,158 @@
+<div style="overflow-y: hidden!important;overflow-x:hidden!important">
+  <!--INICIO SESSION BOTONES-->
+  <div class="row barra-accion">
+    <div class=" col-md-12">
+      <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btngrabar" mat-button (click)="procesar()"><mat-icon class="gren600 ">app_shortcut</mat-icon>Procesar</button>
+      <mat-divider class="material-devider">|</mat-divider>
+      <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btncancelar" mat-button (click)="limpiar()"><mat-icon class="redf600 ">redo</mat-icon>Cancelar</button>
+      <mat-divider class="material-devider">|</mat-divider>
+      <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnsalir" mat-button (click)="salir()"><mat-icon class="redoff600 ">power_settings_new</mat-icon>Salir</button>
+      <mat-divider class="material-devider">|</mat-divider>
+      <label class="bordetitulopagina letraGlobalTitulo2 "><span class="d-none d-xl-block">&nbsp;&nbsp;&nbsp;&nbsp;COMPRAS Y CTAS. POR PAGAR - Aprobar Órdenes Compra&nbsp;&nbsp;&nbsp;&nbsp;</span></label>
+    </div>
+  </div>
+  <!--FIN SESSION BOTONES-->
+</div>
+<div class="custom-panel">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group ">
+        <label class="col-form-label negrillas letraGlobal" style="Font-Size:12px!important;color:Brown!important">Ingresar Parámetros para Mostrar Órdenes de Compra para su Aprobación</label>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2">
+      <fieldset class="border p-2" style="border-radius: 15px!important;border-color:black!important">
+        <legend class="float-none w-auto p-2 letraGlobal">Fecha</legend>
+        <div class="row">
+          <div class="col-md-2">
+            <div class="form-group ">
+              <label class="col-form-label negrillas letraGlobal">Inicial</label>
+            </div>
+          </div>
+          <div class="col-md-10">
+            <input type="date" class="form-control letraGlobal" [(ngModel)]="fechaInicial" maxlength="10">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <div class="form-group ">
+              <label class="col-form-label negrillas letraGlobal">Final</label>
+            </div>
+          </div>
+          <div class="col-md-10">
+            <input type="date" class="form-control letraGlobal" [(ngModel)]="fechaFinal" maxlength="10">
+          </div>
+        </div>
+      </fieldset>
+    </div>
+    <div class="col-md-8">
+      <fieldset class="border p-2" style="border-radius: 15px!important;border-color:black!important">
+        <legend class="float-none w-auto p-2 letraGlobal">Proveedor</legend>
+        <div class="row">
+          <div class="col-md-2">
+            <div class="form-group">
+              <input type="text" class="form-control letraGlobal" [(ngModel)]="proveedorIni" maxlength="10" (blur)="buscarcliente(1)">
+            </div>
+          </div>
+          <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 ">
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-11">
+                  <input type="text" class="form-control letraGlobal" [(ngModel)]="nomproveedorIni" maxlength="100" [disabled]="true">
+                </div>
+                <div class="col-md-1">
+                  <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl" style="align-items:inherit!important; min-width: 0px !important; " mat-button (click)="buscar(1)"> <span style="cursor:pointer"><mat-icon class="azul600 ">plagiarism</mat-icon></span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <div class="form-group">
+              <input type="text" class="form-control letraGlobal" [(ngModel)]="proveedorFin" maxlength="10" (blur)="buscarcliente(2)">
+            </div>
+          </div>
+          <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 ">
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-11">
+                  <input type="text" class="form-control letraGlobal" [(ngModel)]="nomproveedorFin" maxlength="100" [disabled]="true">
+                </div>
+                <div class="col-md-1">
+                  <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl" style="align-items:inherit!important; min-width: 0px !important; " mat-button (click)="buscar(2)"> <span style="cursor:pointer"><mat-icon class="azul600 ">plagiarism</mat-icon></span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+    <div class="col-md-2">
+      <br class="d-none d-xl-block" />
+      <br class="d-none d-xl-block" />
+      <br class="d-none d-xl-block" />
+      <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl " data-toggle="tooltip" title="Cargar Información" mat-button (click)="cargaOrdenPendiente()"><img class="" src="../../assets/img/Sync32.png" />Cargar Información</button>
+    </div>
+  </div>
+  <br />
+  <div class="row">
+    <div class="col-md-9">
+    </div>
+    <div class="col-md-3">
+      <div class="row">
+        <div class="col-md-2">
+          <label class="col-form-label negrillas letraGlobal">Busqueda:</label>
+        </div>
+        <div class="col-md-10">
+          <input id="busqueda" type="text" class="busqueda" style="width: 100%; padding: 0.3rem !important " [(ngModel)]="txtbusca" autocomplete="off" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row" style="overflow-y: hidden!important;overflow-x:hidden!important">
+    <div id="no-more-tables" class="col-md-12">
+      <div id="global" class="material-datatables table-responsive">
+        <table responsive="true" class="letraGlobal table table-striped table-bordered table-sm row-border hover" cellspacing="0">
+          <thead style="border: solid 1px #ABBAD0!important">
+            <tr class="cabeceragrid letraGlobal">
+              <th *ngFor="let head of ColumnaDetalle" scope="col">{{head}} </th>
+            </tr>
+          </thead>
+          <tbody class="cuerpogrid">
+            <tr *ngFor="let row of detalleOrden | grdFilter:{cco_fecha_doc:txtbusca,tcom_nombre:txtbusca,cco_numero:txtbusca,pr_nombre:txtbusca,com_nombre:txtbusca}" class="clsForeColor{{row.color}}">
+              <td data-title="Sel." (click)="clickGrid(row);" style="text-align: center !important; align-content: center !important; width:3% !important "><input type="checkbox" style="display:inherit!important" name="exampleRadios" id="exampleRadios1" [(ngModel)]="row.sel" [value]="row.sel"></td>
+              <td data-title="Fecha" (click)="clickGrid(row);" style="text-align: center !important; width: 8%  ">{{row.cco_fecha_doc | date: 'yyyy-MM-dd'}}</td>
+              <td data-title="Documento" (click)="clickGrid(row);" style="text-align: center !important; width: 10%  ">{{row.tcom_nombre}}</td>
+              <td data-title="Número" (click)="clickGrid(row);" style="text-align: right !important; width: 5%  ">{{row.cco_numero}}</td>
+              <td data-title="Proveedor" (click)="clickGrid(row);" style="width: 20%  ">{{row.pr_nombre}}</td>
+              <td data-title="Comprador" (click)="clickGrid(row);" style="width: 20% ">{{row.com_nombre}}</td>
+              <td data-title="Total" (click)="clickGrid(row);" style="text-align: right !important; width: 3% ">{{row.total | number : '1.4-4'}}</td>
+              <td data-title="" (click)="clickGrid(row);openCompra(row);" style="cursor: pointer !important; text-align: center !important; align-content: center !important; width: 3%  "><mat-icon data-toggle="tooltip" title="Cargar Orden Compra" class="azul600 ">search</mat-icon></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<app-ordencompra [openOrden]="openOrden"  [cargaitemes]="datogridgeneral" [cargaimpuesto]="cargaimpuesto"  ></app-ordencompra>
+
+<app-modales [llamarModal]="llamarmodal" (aceptarOk)="aceptarOk($event)"></app-modales>
+
+<ng-template #modalbusquedaproveedor style="z-index:50000">
+  <div class=" modal-primary modal-lg" role="document" dynamicHeight dynamicweiht>
+    <div class="modal-content ">
+      <div class="modal-body">
+        <app-busquedaproveedor (confirmacionCierre)="cierreProveedor($event)" (cierreModal)="cierreModal($event)" [listadoproveedor]="listproveedor"></app-busquedaproveedor>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+
+

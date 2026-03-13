@@ -1,0 +1,743 @@
+<div style="overflow-y: hidden!important;overflow-x:hidden!important">
+  <!--INICIO SESSION BOTONES-->
+  <div class="row barra-accion">
+    <div class=" col-md-12">
+      <select [(ngModel)]="cmbopcion" class="custom-select form-controlselectbarra  letraGlobal" [disabled]="botones.btnnuevo" panelClass="my-select-panel-class" (change)="selectopcionpanel()" [ngModelOptions]="{standalone: true}" id="inputGroupSelect01">
+        <option [value]="comp.valor" *ngFor="let comp of listopciones">{{comp.texto}}</option>
+      </select>
+      <mat-divider class="material-devider">|</mat-divider>
+      <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl" [disabled]="botones.btngrabar" (click)="guardaringresopedido(0)" mat-button><mat-icon class="gren600 ">save</mat-icon>Guardar</button>
+      <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl" [disabled]="botones.btnanular" (click)="anular();" mat-button><mat-icon class="red600">do_not_disturb_on</mat-icon>Anular</button>
+      <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl " [disabled]="botones.btneliminar" (click)="deletepedido()" mat-button><mat-icon class="red600 ">close</mat-icon>Eliminar</button>
+      <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl" [disabled]="botones.btncancelar" mat-button (click)="cancelarBoton()"><mat-icon class="redf600 ">redo</mat-icon>Cancelar</button>
+      <mat-divider class="material-devider">|</mat-divider>
+      <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl" [disabled]="botones.btnprocontrolados" mat-button (click)="cargarProductoControl()"><mat-icon class="amari600 ">folder_shared</mat-icon>Prod. Controlados</button>
+      <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl" [disabled]="botones.btnimprimir" mat-button (click)="guardaringresopedido(1)"><mat-icon class="azulbu600 ">print</mat-icon>Imprimir</button>
+      <mat-divider class="material-devider">|</mat-divider>
+      <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl" [disabled]="botones.btnsalir" mat-button (click)="salir()"><mat-icon class="redoff600 ">power_settings_new</mat-icon>Salir</button>
+      <mat-divider class="material-devider">|</mat-divider>
+      <label class="bordetitulopagina letraGlobalTitulo2 "><span class="d-none d-xl-block">&nbsp;&nbsp;&nbsp;&nbsp;VENTAS - Ingreso de Pedidos de Ventas&nbsp;&nbsp;&nbsp;&nbsp;</span></label>
+    </div>
+  </div>
+  <!--FIN SESSION BOTONES-->
+  <div class="custom-panelbig">
+    <div class="row">
+      <div class="col-md-9">
+        <mat-dialog-content class="mat-typography ">
+          <mat-tab-group dynamicHeight dynamicweiht [selectedIndex]="indextab" mat-align-tabs="start">
+            <mat-tab label="Cliente" class="letraGlobalTitulo3" [disabled]="tab.tab1">
+              <br />
+              <div class="row">
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 ">
+                  <div class="form-group ">
+                    <label class="col-form-label negrillas letraGlobal">Cliente<span class="obligatorio">*</span></label>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <input type="text" class="form-control letraGlobal" [(ngModel)]="iDocumento.clcodigo" maxlength="10" [disabled]="habilitacombotab1" (blur)="buscarcliente()">
+                  </div>
+                </div>
+                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 ">
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-11">
+                        <input type="text" class="form-control letraGlobal" [(ngModel)]="iDocumento.clnombre" maxlength="100" [disabled]="true">
+                      </div>
+                      <div class="col-md-1">
+                        <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl" style="align-items:inherit!important; min-width: 0px !important; " [disabled]="habilitacombotab1" mat-button (click)="buscar()"> <span style="cursor:pointer"><mat-icon class="azul600 ">plagiarism</mat-icon></span></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-10">
+                  <div class="row">
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 ">
+                      <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Cupo</label>
+                      </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 ">
+                      <div class="form-group">
+                        <input type="text" class="form-control letraGlobal colorfondo colornegro" maxlength="10" [disabled]="true" value="{{ clienteseleccionado.clcupo | number : '1.2-2'}}">
+                      </div>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 ">
+                      <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Utilizado</label>
+                      </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 ">
+                      <div class="form-group">
+                        <input type="text" class="form-control letraGlobal colorfondo colorBrown" maxlength="10" [disabled]="true" value="{{utilizado | number : '1.2-2'}}">
+                      </div>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 ">
+                      <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Disponible</label>
+                      </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 ">
+                      <div class="form-group">
+                        <input type="text" class="form-control letraGlobal colorfondo colorGreen" maxlength="10" [disabled]="true" value="{{disponible | number : '1.2-2'}}">
+                      </div>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 rowcll">
+                      <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Saldo Total</label>
+                      </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 ">
+                      <div class="form-group">
+                        <input type="text" class="form-control letraGlobal colorfondo colornegro" maxlength="10" [disabled]="true" value="{{saldo | number : '1.2-2'}}">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 rowcll">
+                  <div class="form-group ">
+                    <label class="col-form-label negrillas letraGlobal" style="color: red;" [hidden]="!visiblemora">{{lbMora}}</label>
+                  </div>
+                </div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 rowcll">
+                  <div class="form-group ">
+                    <label class="col-form-label negrillas letraGlobal" style="color: red;" [hidden]="!visiblecupo">{{lbCupo}}</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div id="no-more-tables" class="col-12">
+                  <div id="globalpantalla" class="material-datatables table-responsive">
+                    <table responsive="true" class="letraGlobal table table-striped table-bordered table-sm row-border hover" cellspacing="0">
+                      <thead style="border: solid 1px #ABBAD0!important">
+                        <tr class="cabeceragrid letraGlobal">
+                          <th colspan="2">Documento</th>
+                          <th rowspan="2" *ngFor="let head of ColumnaDetalle" scope="col">{{head}} </th>
+                        </tr>
+                        <tr class="cabeceragrid letraGlobal">
+                          <th>Tipo</th>
+                          <th>Número</th>
+                        </tr>
+                      </thead>
+                      <tbody class="cuerpogrid">
+                        <tr *ngFor="let row of detgridcliente ">
+                          <td data-title="Tipo">{{row.tcr_nombre}}</td>
+                          <td data-title="Número" style="text-align:right!important">{{row.doc_numero}}</td>
+                          <td data-title="Fecha" style="text-align: center !important ">{{row.doc_fecha | date: 'yyyy-MM-dd'}}</td>
+                          <td data-title="Fecha Venc." style="text-align: center !important">{{row.doc_fec_venc | date: 'yyyy-MM-dd'}}</td>
+                          <td data-title="Cuota" style="width: 100px !important;text-align:center!important">{{row.doc_cuota}}</td>
+                          <td data-title="Total Doc." style="text-align: right !important; ">{{row.doc_total | number : '1.2-2'}}</td>
+                          <td data-title="Abonos" style="text-align: right !important;  ">{{row.doc_abonos | number : '1.2-2'}}</td>
+                          <td data-title="Saldo" style="text-align: right !important;  ">{{row.saldo | number : '1.2-2'}}</td>
+                          <td data-title="Días Mora" style="text-align: right !important; ">{{row.diasMora}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </mat-tab>
+            <mat-tab label="Historial del Cliente" class="letraGlobalTitulo3" [disabled]="tab.tab2">
+              <br />
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group ">
+                    <label class="titulopersonales">{{clienteinfo}}</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-1 ">
+                  <div class="form-group ">
+                    <label class="col-form-label negrillas letraGlobal">Fecha Inicial</label>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <input type="date" class="form-control letraGlobal" [ngModelOptions]="{standalone: true}" [(ngModel)]="fechainicial" maxlength="10">
+                  </div>
+                </div>
+                <div class="col-md-1 ">
+                  <div class="form-group ">
+                    <label class="col-form-label negrillas letraGlobal">Fecha Final</label>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <input type="date" class="form-control letraGlobal" [ngModelOptions]="{standalone: true}" [(ngModel)]="fechafinal" maxlength="10">
+                  </div>
+                </div>
+                <div class="col-md-1 ">
+                  <div class="form-group ">
+                    <label class="col-form-label negrillas letraGlobal">Grupo</label>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group ">
+                    <ng-select2 [data]="listagrupo" [ngModelOptions]="{standalone: true}" [(ngModel)]="selectgrupo" [options]="options" class="custom-select letraGlobal" [disabled]="habilitaobjetofrom" panelClass="my-select-panel-class"></ng-select2>
+                  </div>
+                </div>
+                <div class="col-1">
+                  <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl d-none d-xl-block" data-toggle="tooltip" title="Cargar Histórico" (click)="cargahistorico();" mat-button> <img class="btnimg" src="../../assets/img/Sync32.png" />Cargar Histórico</button>
+                  <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl d-block d-sm-none d-sm-block d-md-block d-lg-none" data-toggle="tooltip" title="Cargar Histórico" (click)="cargahistorico();" mat-button> <img src="../../assets/img/Sync32.png" /></button>
+                </div>
+                <div class="col-1">
+                  <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl d-none d-xl-block" data-toggle="tooltip" title="Limpiar Histórico" (click)="limpiarhistorico();" mat-button><img class="btnimg" src="../../assets/img/Table.png" />Limpiar Histórico</button>
+                  <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl d-block d-sm-none d-sm-block d-md-block d-lg-none" data-toggle="tooltip" title="Limpiar Histórico" (click)="limpiarhistorico();" mat-button><img src="../../assets/img/Table.png" /></button>
+                </div>
+              </div>
+              <div class="row">
+                <div id="no-more-tables" class="col-12">
+                  <div id="globalpantallay" class="material-datatables table-responsive">
+                    <table responsive="true" class=" letraGlobal table table-striped table-bordered table-sm row-border hover" cellspacing="0">
+                      <thead style="border: solid 1px #ABBAD0!important">
+                        <tr class="cabeceragrid letraGlobal">
+                          <th rowspan="2">Fecha</th>
+                          <th colspan="2">Ítems</th>
+                          <th rowspan="2" *ngFor="let head of ColumnaDetalleHistorico" scope="col">{{head}} </th>
+                          <th colspan="2">Documento</th>
+                        </tr>
+                        <tr class="cabeceragrid letraGlobal">
+                          <th>Código</th>
+                          <th>Descripción</th>
+                          <th>Tipo</th>
+                          <th>Número</th>
+                        </tr>
+                      </thead>
+                      <tbody class="cuerpogrid">
+                        <tr *ngFor="let row of detgridhistorico ">
+                          <td data-title="Fecha">{{row.fecha | date: 'yyyy-MM-dd'}}</td>
+                          <td data-title="Código">{{row.codigo}}</td>
+                          <td data-title="Descripción">{{row.descrip}}</td>
+                          <td data-title="Cantidad" style="text-align: right !important; ">{{row.cantidad | number : '1.2-2'}}</td>
+                          <td data-title="Precio Vta." style="text-align: right !important; ">{{row.precio | number : '1.2-2'}}</td>
+                          <td data-title="Precio Lista" style="text-align: right !important; ">{{row.precioList | number : '1.2-2'}}</td>
+                          <td data-title="IVA" style="text-align: right !important; ">{{row.iva | number : '1.2-2'}}</td>
+                          <td data-title="Total" style="text-align: right !important; ">{{row.total | number : '1.2-2'}}</td>
+                          <td data-title="Tipo">{{row.tipo}}</td>
+                          <td data-title="Número" style="text-align: right !important; ">{{row.numero | number : '1.2-2'}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </mat-tab>
+            <mat-tab label="Datos Generales" class="letraGlobalTitulo3 " [disabled]="tab.tab3">
+              <br />
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group ">
+                    <label class="titulopersonales">{{clienteinfo}}</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row custom-panel2 b">
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-1 ">
+                      <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Tipo Pedido</label>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <select [(ngModel)]="iDocumento.captipo" class="custom-select form-controlselectbarra  letraGlobal" style="width: 100%!important" [disabled]="habilitabuscar" panelClass="my-select-panel-class" [ngModelOptions]="{standalone: true}" id="inputGroupSelect01">
+                          <option [value]="comp.vw_tipo_ped" *ngFor="let comp of listpedido">{{comp.vw_nombre}}</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-1 ">
+                      <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Número</label>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <input type="text" class="form-control letraGlobal colornone" [(ngModel)]="iDocumento.capnumero" maxlength="10" onkeypress="return numbersonly(event);" [ngModelOptions]="{standalone: true}" (blur)="buscarOrden()" [disabled]="habilitabuscar" value="0">
+                      </div>
+                    </div>
+                    <div class="col-md-1 ">
+                      <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Sucursal</label>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <select [(ngModel)]="iDocumento.sucodigo" (change)="selecttipoSucursal()" class="custom-select form-controlselectbarra  letraGlobal" style="width: 100%!important" [disabled]="(iDocumento.detallePed.length>0 || habilitacombosucur)?true:false" panelClass="my-select-panel-class" [ngModelOptions]="{standalone: true}" id="inputGroupSelect01">
+                          <option [value]="comp.sucodigo" *ngFor="let comp of listsucursal">{{comp.sudescripcion}}</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="form-check-inline form-check-inline2">
+                        <input type="radio" name="exampleRadios" id="exampleRadios1" style="display: inherit !important" [(ngModel)]="iDocumento.cappedreservado" [disabled]="habilitaobjetofrom" [value]="'N'">
+                        <label class="form-check-label" for="exampleRadios1">
+                          <span class="letraGlobal">Normal</span>
+                        </label>
+                      </div>
+                      <div class="form-check-inline">
+                        <input type="radio" name="exampleRadios" id="exampleRadios1" style="display: inherit !important" [(ngModel)]="iDocumento.cappedreservado" [disabled]="habilitaobjetofrom" [value]="'S'">
+                        <label class="form-check-label" for="exampleRadios1">
+                          <span class="letraGlobal">Reservado</span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-1 ">
+                      <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Fecha</label>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <input type="date" class="form-control letraGlobal" [ngModelOptions]="{standalone: true}" [disabled]="habilitaobjetofrom" [(ngModel)]="iDocumento.capfechadoc" maxlength="10">
+                      </div>
+                    </div>
+                    <div class="col-md-1 ">
+                      <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Tipo Doc.</label>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <select [(ngModel)]="iDocumento.tvcodigo" class="custom-select form-control letraGlobal" style="width: 100%!important" [disabled]="true" panelClass="my-select-panel-class" [ngModelOptions]="{standalone: true}" id="inputGroupSelect01">
+                          <option [value]="comp.tvcodigo" *ngFor="let comp of listtipodoc">{{comp.tvnombre}}</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-1 ">
+                      <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Referencia</label>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <input type="text" class="form-control letraGlobal" [ngModelOptions]="{standalone: true}" [(ngModel)]="iDocumento.capreferencia" [disabled]="habilitaobjetofrom" maxlength="15">
+                      </div>
+                    </div>
+                    <div class="col-md-1">
+                      <div class="form-group">
+                        <label class="col-form-label negrillas letraGlobal">F. despacho</label>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <input type="date" class="form-control letraGlobal" data-toggle="tooltip" title="Fecha tentativa de despacho" [disabled]="habilitaobjetofrom" [ngModelOptions]="{standalone: true}" [(ngModel)]="fechafinal" maxlength="10">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br />
+              <div class="row custom-panel2 b">
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-1 ">
+                      <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">List. Precios</label>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <select [(ngModel)]="iDocumento.lpcodigo" class="custom-select form-controlselectbarra  letraGlobal" style="width: 100%!important" [disabled]="habilitaobjetofrom" panelClass="my-select-panel-class" [ngModelOptions]="{standalone: true}" id="inputGroupSelect01">
+                          <option [value]="comp.lpcodigo" *ngFor="let comp of listprecio">{{comp.lpnombre}}</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-1 ">
+                      <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Vendedor</label>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <select [(ngModel)]="iDocumento.vecodigo" class="custom-select form-controlselectbarra  letraGlobal" style="width: 100%!important" [disabled]="true" panelClass="my-select-panel-class" [ngModelOptions]="{standalone: true}" id="inputGroupSelect01">
+                          <option [value]="comp.vecodigo" *ngFor="let comp of listvendedor">{{comp.venombre}}</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-1 ">
+                      <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Estado</label>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <select [ngModelOptions]="{standalone: true}" [(ngModel)]="iDocumento.capestado" class="custom-select form-control letraGlobal" [disabled]="habilitaobjetofrom" panelClass="my-select-panel-class" id="inputGroupSelect01">
+                          <option [value]="comp.valor" *ngFor="let comp of listEstado">{{comp.texto}}</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br />
+              <div class="row custom-panel2 b">
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <label class="col-form-label negrillas letraGlobal">Orden de Compra</label>
+                        <input type="text" class="form-control letraGlobal colornonesib" [(ngModel)]="iDocumento.capreferencia2" maxlength="10" [disabled]="habilitaobjetofrom">
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <label class="col-form-label negrillas letraGlobal ">Aprobado Venta</label>
+                        <select [ngModelOptions]="{standalone: true}" [(ngModel)]="iDocumento.capaprobadovta" class="custom-select form-control letraGlobal colornone" [disabled]="true" panelClass="my-select-panel-class" id="inputGroupSelect01">
+                          <option [value]="comp.valor" *ngFor="let comp of listoDatoNivel">{{comp.texto}}</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <label class="col-form-label negrillas letraGlobal">Aprobado Prod. Controlados</label>
+                        <select [ngModelOptions]="{standalone: true}" [(ngModel)]="iDocumento.capaprobadopc" class="custom-select form-control letraGlobal colornone" [disabled]="true" panelClass="my-select-panel-class" id="inputGroupSelect01">
+                          <option [value]="comp.valor" *ngFor="let comp of listoDatoNivel">{{comp.texto}}</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <label class="col-form-label negrillas letraGlobal">Aprobado Prod. FFAA</label>
+                        <select [ngModelOptions]="{standalone: true}" [(ngModel)]="iDocumento.capaprobadopfa" class="custom-select form-control letraGlobal colornone" [disabled]="true" panelClass="my-select-panel-class" id="inputGroupSelect01">
+                          <option [value]="comp.valor" *ngFor="let comp of listoDatoNivel">{{comp.texto}}</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <label class="col-form-label negrillas letraGlobal">Aprobado Crédito</label>
+                        <select [ngModelOptions]="{standalone: true}" [(ngModel)]="iDocumento.capaprobadocre" class="custom-select form-control letraGlobal colornone" [disabled]="true" panelClass="my-select-panel-class" id="inputGroupSelect01">
+                          <option [value]="comp.valor" *ngFor="let comp of listoDatoNivel">{{comp.texto}}</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <label class="col-form-label negrillas letraGlobal ">Aprobado Reservado</label>
+                        <select [ngModelOptions]="{standalone: true}" [(ngModel)]="iDocumento.aproreserva" class="custom-select form-control letraGlobal colornone" [disabled]="true" panelClass="my-select-panel-class" id="inputGroupSelect01">
+                          <option [value]="comp.valor" *ngFor="let comp of listoDatoNivel">{{comp.texto}}</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </mat-tab>
+            <mat-tab label="Datos Adicionales" class="letraGlobalTitulo3" [disabled]="tab.tab4">
+              <br />
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group ">
+                    <label class="titulopersonales">{{clienteinfo}}</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-1 ">
+                  <div class="form-group ">
+                    <label class="col-form-label negrillas letraGlobal">Atención</label>
+                  </div>
+                </div>
+                <div class="col-md-11 col-sm-11">
+                  <div class="form-group">
+                    <textarea type="text" rows="30" class="textinput letraGlobal col-md-12 col-sm-12" [(ngModel)]="iDocumento.capatencion" maxlength="1000" [disabled]="habilitaobjetofrom" value=""></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-1 ">
+                  <div class="form-group ">
+                    <label class="col-form-label negrillas letraGlobal">Observación</label>
+                  </div>
+                </div>
+                <div class="col-md-11 col-sm-11">
+                  <div class="form-group">
+                    <textarea type="text" rows="30" class="textinput letraGlobal col-md-12 col-sm-12" [(ngModel)]="iDocumento.capobservacion" maxlength="1000" [disabled]="habilitaobjetofrom" value=""></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-1 ">
+                  <div class="form-group ">
+                    <label class="col-form-label negrillas letraGlobal">Personas Autorizadas</label>
+                  </div>
+                </div>
+                <div class="col-md-11 col-sm-11">
+                  <div class="form-group">
+                    <textarea type="text" rows="30" class="textinput letraGlobal col-md-12 col-sm-12" [(ngModel)]="iDocumento.cappersonasautori" maxlength="1000" [disabled]="habilitaobjetofrom" value=""></textarea>
+                  </div>
+                </div>
+              </div>
+            </mat-tab>
+            <mat-tab label="Condición de Cobro" class="letraGlobalTitulo3" [disabled]="tab.tab5">
+              <br />
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group ">
+                    <label class="titulopersonales">{{clienteinfo}}</label>
+                  </div>
+                </div>
+              </div>
+              <app-gridformapago [limpiagridforma]="limpiagridfomapago" [basecerobaseivatotalforma]="basecerobaseivatotalpadre" [lineanueva]="nuevalinea" [actualizaformapago]="listformapago" [habilitarformapago]="habilitaformapago" [cargaitemespago]="datogridformapago" (valorFormaModelo)="valorFormaModelo($event)"></app-gridformapago>
+            </mat-tab>
+            <mat-tab label="Datos de Entrega" class="letraGlobalTitulo3" [disabled]="tab.tab6">
+              <br />
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group ">
+                    <label class="titulopersonales">{{clienteinfo}}</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-2 ">
+                  <div class="form-group ">
+                    <label class="col-form-label negrillas letraGlobal">Fecha de Entrega</label>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <input type="date" class="form-control letraGlobal" [ngModelOptions]="{standalone: true}" [(ngModel)]="iDocumento.datospedEntrega.vdpefechaentrega" maxlength="10">
+                  </div>
+                </div>
+                <div class="col-md-2 ">
+                  <div class="form-group ">
+                    <label class="col-form-label negrillas letraGlobal">Hora de Entrega</label>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <input type="time" step="1" Format="HH:mm" class="form-control letraGlobal" [ngModelOptions]="{standalone: true}" [(ngModel)]=" iDocumento.datospedEntrega.vdpehoraentrega" maxlength="10">
+                  </div>
+                </div>
+                <div class="col-md-2 ">
+                  <div class="form-group ">
+                    <label class="col-form-label negrillas letraGlobal">Tiempo de entrega</label>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <input type="text" class="form-control letraGlobal" [ngModelOptions]="{standalone: true}" [(ngModel)]="iDocumento.datospedEntrega.vdpetiempoentrega" style="text-align:right!important" onkeypress="return numbersonly(event);" maxlength="10">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-2 ">
+                  <div class="form-group ">
+                    <label class="col-form-label negrillas letraGlobal">Retira Mercadería</label>
+                  </div>
+                </div>
+                <div class="col-md-10">
+                  <div class="form-group">
+                    <input type="text" class="form-control letraGlobal " maxlength="100" [(ngModel)]="iDocumento.datospedEntrega.vdperetiramerc" [disabled]="habilitaobjetofrom" value="" />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-2 ">
+                  <div class="form-group ">
+                    <label class="col-form-label negrillas letraGlobal">Lugar de Envío</label>
+                  </div>
+                </div>
+                <div class="col-md-10">
+                  <div class="form-group">
+                    <select [(ngModel)]="iDocumento.datospedEntrega.vdpedireccionenvio" class="custom-select form-controlselectbarra  letraGlobal" style="width: 100%!important" [disabled]="habilitaobjetofrom" panelClass="my-select-panel-class" [ngModelOptions]="{standalone: true}" id="inputGroupSelect01">
+                      <option [value]="comp.direccion" *ngFor="let comp of listenvio">{{comp.direccion}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-2 ">
+                  <div class="form-group ">
+                    <label class="col-form-label negrillas letraGlobal">Transporte de Envío</label>
+                  </div>
+                </div>
+                <div class="col-md-10">
+                  <div class="form-group">
+                    <input type="text" class="form-control letraGlobal " [(ngModel)]="iDocumento.datospedEntrega.vdpeenvio" maxlength="100" [disabled]="habilitaobjetofrom" value="" />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-2 ">
+                  <div class="form-group ">
+                    <label class="col-form-label negrillas letraGlobal">Observación</label>
+                  </div>
+                </div>
+                <div class="col-md-10">
+                  <div class="form-group">
+                    <input type="text" class="form-control letraGlobal " [(ngModel)]="iDocumento.datospedEntrega.vdpeobservacion" maxlength="100" [disabled]="habilitaobjetofrom" value="" />
+                  </div>
+                </div>
+              </div>
+            </mat-tab>
+            <mat-tab label="Retiro Personal" class="letraGlobalTitulo3" [disabled]="tab.tab7">
+              <br />
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group ">
+                    <label class="titulopersonales">{{clienteinfo}}</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-check-inline">
+                    <input type="radio" name="selretpersonal" id="selretpersonal" style="display: inherit !important" [(ngModel)]="iDocumento.capretiramercaderia" [ngModelOptions]="{standalone: true}" (change)="cambiosino()" [disabled]="habilitaobjetofrom" [value]="'S'">
+                    <label class="form-check-label" for="selretpersonal">
+                      <span class="letraGlobal">SI</span>
+                    </label>
+                  </div>
+                  <div class="form-check-inline">
+                    <input type="radio" name="selretpersonal" id="selretpersonal" style="display: inherit !important" [(ngModel)]="iDocumento.capretiramercaderia" [ngModelOptions]="{standalone: true}" (change)="cambiosino()" [disabled]="habilitaobjetofrom" [value]="'N'">
+                    <label class="form-check-label" for="selretpersonal">
+                      <span class="letraGlobal">NO</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-2">
+                  <div class="form-check-inline">
+                    <input type="radio" name="selnuevocreado" style="display: inherit !important" id="selnuevocreado" [(ngModel)]="selectnuevocreado" [ngModelOptions]="{standalone: true}" (change)="cambionucre()" [disabled]="habilitacombocrnu" [value]="'N'">
+                    <label class="form-check-label" for="selnuevocreado">
+                      <span class="letraGlobal">Nuevo</span>
+                    </label>
+                  </div>
+                  <div class="form-check-inline">
+                    <input type="radio" name="selnuevocreado" style="display:inherit !important" id="selnuevocreado" [(ngModel)]="selectnuevocreado" [ngModelOptions]="{standalone: true}" (change)="cambionucre()" [disabled]="habilitacombocrnu" [value]="'C'">
+                    <label class="form-check-label" for="selnuevocreado">
+                      <span class="letraGlobal">Creado</span>
+                    </label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <span class="letraGlobal">
+                      Formato de Placa sin raya: GSD4469. En el caso de que la placa tenga 3 digitos numéricos<br />anteponer el 0 después de la última letra, ejemplo: GSD-495, se deberá ingresar GSD0495.
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-2 ">
+                  <div class="form-group ">
+                    <label class="col-form-label negrillas letraGlobal">Tipo/Identificación</label>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <select [(ngModel)]="iDocumento.bdgTransportista.btrtipoid" class="custom-select form-controlselectbarra  letraGlobal" style="width: 100%!important" [disabled]="habilitacombosino" panelClass="my-select-panel-class" id="inputGroupSelect01">
+                      <option [value]="comp.valor" *ngFor="let comp of listtipoident">{{comp.texto}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-1">
+                  <div class="form-group ">
+                    <label class="col-form-label negrillas letraGlobal">Identificación</label>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <input type="text" [(ngModel)]="iDocumento.bdgTransportista.btrructrans" class="form-control letraGlobal " maxlength="10" [disabled]="habilitacombosino" value="" />
+                  </div>
+                </div>
+                <div class="col-md-1">
+                  <div class="form-group ">
+                    <label class="col-form-label negrillas letraGlobal">Placa</label>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <input type="text" [(ngModel)]="iDocumento.bdgTransportista.btrplaca" class="form-control letraGlobal " pattern="[a-zA-Z]{3}[0-9]{4}" maxlength="10" [disabled]="habilitacombocrnu" value="" />
+                  </div>
+                </div>
+                <div class="col-md-1">
+                  <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl" style="align-items:inherit!important; min-width: 0px !important; " [disabled]="habilitacombocrnu" mat-button (click)="defaultplaca()"> <span style="cursor:pointer"><mat-icon class="azulbu600 ">disabled_by_default</mat-icon></span></button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-1">
+                  <div class="form-group ">
+                    <label class="col-form-label negrillas letraGlobal">Nombre</label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input type="text" [(ngModel)]="iDocumento.bdgTransportista.btrnomtrans" class="form-control letraGlobal " maxlength="100" [disabled]="habilitacombosino" value="" />
+                  </div>
+                </div>
+                <div class="col-md-1">
+                  <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl" style="align-items:inherit!important; min-width: 0px !important; " [disabled]="habilitacombotran" mat-button (click)="buscarchofer()"> <span style="cursor:pointer"><mat-icon class="azul600 ">plagiarism</mat-icon></span></button>
+                </div>
+              </div>
+            </mat-tab>
+          </mat-tab-group>
+        </mat-dialog-content>
+      </div>
+      <div class="col-md-3">
+        <app-totales [limpiartotales]="limpiatotales" [basecerobaseivatotaltotales]="basecerobaseivatotalpadre" [impuesto]="impuestos" [habilitar]="habilitaobjetofrom" (valorIvan)="cargavaloriva($event)" (valorTotalModelo)="valorTotalModelo($event)"></app-totales>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-9">
+        <marquee id="pedPend" direction="left" style="color: red; font-size: 15px;" behavior="alternate" width="100%">{{pedPend}}</marquee>
+      </div>
+    </div>
+    <app-gridetalle [habilitar]="habilitagriddetalle" [valorIva]="valorIva" [valorPrecio]="iDocumento.lpcodigo" [iCliExento]="iDocumento.iCliExento" [limpiagrid]="limpiagrid" [pasoitem]="lineagrid" [cargaitemes]="datogridgeneral" [prodControl]="prodControl" (buscaritem)="buscaritem($event)" (devuelvecontrolpro)="devuelvecontrolproducto($event)" (basecerobaseiva)="basecerobaseiva($event)" (valorDetalleModelo)="valorDetalleModelo($event)"></app-gridetalle>
+  </div>
+</div>
+<ng-template #modalbusquedacliente style="z-index:50000">
+  <div class=" modal-primary modal-lg" role="document" dynamicHeight dynamicweiht>
+    <div class="modal-content ">
+      <div class="modal-body">
+        <app-busquedaentidad (confirmacionCierre)="cierreCliente($event)" (cierreModal)="cierreModal($event)" [listadocliente]="listcliente"></app-busquedaentidad>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #modalbusquedatransportista style="z-index:50000">
+  <div class=" modal-primary modal-lg" role="document" dynamicHeight dynamicweiht>
+    <div class="modal-content ">
+      <div class="modal-body">
+        <app-busquedatransportista (confirmacionCierre)="cierreTransportista($event)" (cierreModal)="cierreModal($event)" [listadotransportista]="listtransportista"></app-busquedatransportista>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #modalbusquedaitem style="z-index:50000">
+  <div class=" modal-primary modal-lg" role="document" dynamicHeight dynamicweiht>
+    <div class="modal-content ">
+      <div class="modal-body">
+        <app-busquedaitem [listadoItem]="parametroitem" [datoBusquedad]="datobusquedadmodal" (confirmacionCierre)="cierreItem($event)" (cierreModal)="cierreModal($event)"></app-busquedaitem>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+
+<ng-template #modalproductocontrol style="z-index:50000">
+  <div class=" modal-primary modal-lg" role="document" dynamicHeight dynamicweiht>
+    <div class="modal-content ">
+      <div class="modal-body">
+        <app-productocontrol [listadoControl]="listcontrol" [habilitar]="habilitaobjetofrom"  (cierreModal)="cierreModal($event)" (retornoGrid)="retornoGrid($event)"></app-productocontrol>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<app-report [openReport]="openReport" ></app-report>
+
+<app-modales [llamarModal]="llamarmodal" (aceptarOk)="aceptarOk($event)" ></app-modales>
+
+
+

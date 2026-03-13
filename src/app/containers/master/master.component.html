@@ -1,0 +1,116 @@
+<mat-toolbar color="primary" class="toolbar styleprincipal" style="height:80px!important">
+    <button mat-icon-button (click)="sidenav.toggle()" matTooltip="Menu">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <img src="data:image/png;base64,{{modeluser.co_logo}}" width=120 height=46 class="d-none d-sm-block" />
+    <span class="toolbar-item-spacer d-none d-sm-block">
+        <img class="center d-sm-none" src="../../../assets/img/AGEVInw.png" width=120 height=75 />
+    </span>
+    <span class="toolbar-item-spacer d-md-none d-lg-none d-lg-none d-xl-none">
+
+    </span>
+    <span class="letraGlobalbarra d-none d-sm-block d-sm-none d-md-block">
+        {{modeluser.us_nombre }}
+        <span style="font-size:8px">{{modeluser.us_ambiente===0?'DESARROLLO':'PRODUCCION'}} </span><br />
+        <select [(ngModel)]="selectedCompa" class="custom-select form-control letraGlobal" [disabled]="true"style="width: 100%!important" panelClass="my-select-panel-class" id="inputGroupSelect01" [ngModelOptions]="{standalone: true}" (change)="seleccionaCompania()">
+            <option [value]="comp.co_codigo" *ngFor="let comp of compania">{{comp.co_nombre}}</option>
+        </select>
+
+
+    </span>
+   
+    <button mat-icon-button matTooltip="Mi Cuenta" [matMenuTriggerFor]="userAccountMenu">
+        <mat-icon><img class="icon" src="{{modeluser.us_foto}}" style="margin: 0 0px !important; vertical-align:unset !important " /></mat-icon>
+    </button>
+    <mat-menu #userAccountMenu [overlapTrigger]="false" yPosition="below">
+        <button mat-menu-item routerLink="#">
+            <mat-icon>person</mat-icon><span class="letraGlobal">{{modeluser.us_correo}}</span>
+        </button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item (click)="salirPortal()">
+            <mat-icon>exit_to_app</mat-icon><span class="letraGlobal">Salir</span>
+        </button>
+    </mat-menu>
+</mat-toolbar>
+
+<mat-sidenav-container class="app-container">
+  <mat-sidenav #sidenav [class.mat-elevation-z4]="true" class="app-sidenav">
+    <br />
+    <input id="busqueda" type="text" class="busqueda" style="width: 100%; padding: 0.3rem !important " [(ngModel)]="txtbusca" placeholder="Busqueda..." (keyup)="buscar()" autocomplete="off" />
+    <mat-nav-list class="side-navnar ">
+      <ng-container *ngFor="let menu of menuList | async; index as i;">
+        <mat-list-item class="alturamenu " style="cursor: pointer !important;" (click)="sidenav.toggle();footerclick();menuclick(menu.routerLink)"  routerLinkActive="is-active" (click)="sidenav.close()" [routerLinkActiveOptions]="{exact:true}" *ngIf="menu.nhijo==0">
+          <!--<mat-icon class="fontico">{{menu.icon}}</mat-icon>-->
+          <span class="letraGlobal">{{menu.text}}</span>
+        </mat-list-item>
+        <mat-expansion-panel [class.mat-elevation-z0]="true" *ngIf="menu.nhijo>0">
+          <mat-expansion-panel-header class=" alturamenu mat-nav-list">
+            <!--<mat-icon mat-list-icon class="fontico">{{menu.icon}}</mat-icon>-->
+            <span class="letraGlobal ">{{menu.text}}</span>
+          </mat-expansion-panel-header>
+          <mat-nav-list class="side-navnar " *ngFor="let submenu of menu.children">
+            <mat-list-item style="cursor:pointer!important" class="alturamenu mat-nav-list" (click)="sidenav.toggle();footerclick();menuclick(submenu.routerLink)"  routerLinkActive="is-active" [routerLinkActiveOptions]="{exact:true}" *ngIf="submenu.nhijo==0">
+              <!--  <mat-icon class="fontico">{{submenu.icon}}</mat-icon>-->
+              <span class="letraGlobal">{{submenu.text}}</span>
+            </mat-list-item>
+            <mat-expansion-panel [class.mat-elevation-z0]="true" *ngIf="submenu.nhijo>0">
+              <mat-expansion-panel-header class="alturamenu">
+                <!--<mat-icon mat-list-icon class="fontico">{{submenu.icon}}</mat-icon>-->
+                <span class="letraGlobal alturamenu">{{submenu.text}}</span>
+              </mat-expansion-panel-header>
+              <mat-nav-list class="side-navnar alturamenu " *ngFor="let submenu2 of submenu.children">
+                <mat-list-item style="cursor:pointer!important" class="alturamenu" (click)="sidenav.toggle();footerclick();menuclick(submenu2.routerLink)"  routerLinkActive="is-active" [routerLinkActiveOptions]="{exact:true}">
+                  <!--<mat-icon class="fontico">{{submenu2.icon}}</mat-icon>-->
+                  <span class="letraGlobal">{{submenu2.text}}</span>
+                </mat-list-item>
+              </mat-nav-list>
+            </mat-expansion-panel>
+          </mat-nav-list>
+        </mat-expansion-panel>
+      </ng-container>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet>
+      <div>
+      </div>
+    </router-outlet>
+    <app-footer *ngIf="footer"></app-footer>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+
+<ng-template #modalcompania style="z-index:1000">
+  <div class=" modal-primary modal-xs" role="document" dynamicHeight dynamicweiht>
+    <div class="modal-content ">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title"><span class=".letraGlobalTitulo"></span></h5>
+      </div>
+      <div class="modal-body">
+        <app-compania (confirmacionCierre)="cierreModal($event)"></app-compania>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #modalbusqueda style="z-index:1050">
+  <div class=" modal-primary modal-lg" role="document" dynamicHeight dynamicweiht>
+    <div class="modal-content ">
+      <div class="modal-body">
+        <app-busquedad (confirmacionCierre)="cierreModal($event)" (confirmacionCarga)="cierreCarga($event)"></app-busquedad>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ngx-spinner template="<img src='../../../assets/imgcabecera/loading.svg'>" [fullScreen]="true"><p style="color: white"> Por favor espere... </p></ngx-spinner>
+
+
+<ng-template #oksession style="z-index: 1000000">
+  <div class="modal-header okmodal">
+    <h4 class="modal-title" id="modal-basic-title">{{titulo}}</h4>
+  </div>
+  <div class="modal-body">
+    <div [innerHTML]="mensaje"></div>
+  </div>
+</ng-template>

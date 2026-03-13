@@ -1,0 +1,51 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@funciones/*": [
+        "src/funciones/*"
+      ],
+      "@services/*": [
+        "src/app/service/*"
+      ],
+      "@modelo/*": [
+        "src/app/modelo/*"
+      ],
+      "@modales/*": [
+        "src/app/modales/*"
+      ],
+      "@utility/*": [
+        "src/app/utility/*"
+      ]
+    },
+    "outDir": "./dist/out-tsc",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": false,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es6",
+    "module": "esnext",
+    "useDefineForClassFields": false,
+    "lib": [
+      "es6",
+      "dom"
+    ]
+  },
+  "angularCompilerOptions": {
+    "target": "ES6",
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  }
+}

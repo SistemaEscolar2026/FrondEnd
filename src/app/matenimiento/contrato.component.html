@@ -1,0 +1,229 @@
+<form [formGroup]="contratofrom" (ngSubmit)="guardarcontrato()">
+    <!--INICIO SESSION BOTONES-->
+    <div class="row barra-accion">
+        <div class=" col-md-12">
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnnuevo" mat-button (click)="limpiabotones(2);habilitarfrom(2);"><mat-icon class="orange600">search</mat-icon>Nuevo</button>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnmodificar" (click)="habilitarfrom(3);limpiabotones(2);" mat-button><mat-icon class="azul600 ">edit</mat-icon>Modificar</button>
+            <button type="submit" class="btn botonpaso letraGlobal" [disabled]="botones.btngrabar" mat-button><mat-icon class="gren600 ">save</mat-icon>Guardar</button>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btneliminar" (click)="deletecontrato()" mat-button><mat-icon class="red600 ">close</mat-icon>Eliminar</button>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btncancelar" mat-button (click)="limpiabotones(1);limpiarcontrato();habilitarfrom(1);"><mat-icon class="redf600 ">redo</mat-icon>Cancelar</button>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnbuscar" mat-button (click)="buscar()"><mat-icon class="azulbu600 ">plagiarism</mat-icon>buscar</button>
+            <mat-divider class="material-devider">|</mat-divider>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnsalir" mat-button (click)="salir()"><mat-icon class="redoff600 ">power_settings_new</mat-icon>Salir</button>
+            <mat-divider class="material-devider">|</mat-divider>
+            <label class="bordetitulopagina letraGlobalTitulo2 "><span class="d-none d-xl-block">&nbsp;&nbsp;&nbsp;&nbsp;Mantenimiento de Contratos&nbsp;&nbsp;&nbsp;&nbsp;</span></label>
+        </div>
+    </div>
+    <!--FIN SESSION BOTONES-->
+    <div class="custom-panel">
+        <div class="row" *ngIf="iAccion==='M'">
+            <div class="col-md-1">
+                <div class="form-group ">
+                    <label class="col-form-label negrillas letraGlobal">Codigo</label>
+                </div>
+            </div>
+            <div class="col-md-1 ">
+                <div class="form-group">
+                    <input type="text" class="form-control letraGlobal" formControlName='codigo' name="codigo" [disabled]="true" maxlength="6" onkeypress="return isNumberKey(this,event,3);">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1">
+                <div class="form-group ">
+                    <label class="col-form-label negrillas letraGlobal">Descripcion<span class="obligatorio">*</span></label>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
+                <div class="form-group">
+                    <input type="text" class="form-control letraGlobal" formControlName='descripcion' name="descripcion" maxlength="100" required="required" [ngClass]="{ 'is-invalid': submitted && f['descripcion'].errors }">
+                    <div *ngIf="submitted && f['descripcion'].errors" class="invalid-feedback">
+                        <div *ngIf="f['descripcion'].errors['required']">Descripcion de Contrato es requerido</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-1">
+                <div class="form-group ">
+                    <label class="col-form-label negrillas letraGlobal">Fecha Inicio<span class="obligatorio">*</span></label>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2  col-xs-2 ">
+                <div class="form-group">
+                    <input type="date" class="form-control letraGlobal" style="text-align:right!important" formControlName='fechaini' name="fechaini" maxlength="10" required="required" [ngClass]="{ 'is-invalid': submitted && f['fechaini'].errors }">
+                    <div *ngIf="submitted && f['fechaini'].errors" class="invalid-feedback">
+                        <div *ngIf="f['fechaini'].errors['required']">Fecha Inicio Contrato es requerido</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1">
+                <div class="form-group ">
+                    <label class="col-form-label negrillas letraGlobal">Fecha Fin<span class="obligatorio">*</span></label>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2  col-xs-2 ">
+                <div class="form-group">
+                    <input type="date" class="form-control letraGlobal" style="text-align:right!important" formControlName='fechafin' name="fechafin" maxlength="10" required="required" [ngClass]="{ 'is-invalid': submitted && f['fechafin'].errors }">
+                    <div *ngIf="submitted && f['fechafin'].errors" class="invalid-feedback">
+                        <div *ngIf="f['fechafin'].errors['required']">Fecha Fin Contrato es requerido</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1">
+                <div class="form-group ">
+                    <label class="col-form-label negrillas letraGlobal">Valor Contrato<span class="obligatorio">*</span></label>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2  col-xs-2 ">
+                <div class="form-group">
+                    <input type="text" class="form-control letraGlobal" style="text-align:right!important" formControlName='valor' name="valor" maxlength="15" required="required" onkeypress="return isNumberKey(this,event,3);" [ngClass]="{ 'is-invalid': submitted && f['valor'].errors }">
+                    <div *ngIf="submitted && f['valor'].errors" class="invalid-feedback">
+                        <div *ngIf="f['valor'].errors['required']">Valor de Contrato es requerido</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1">
+                <div class="form-group ">
+                    <label class="col-form-label negrillas letraGlobal">Valor Utilizado</label>
+                </div>
+            </div>
+            <div class="col-md-2 ">
+                <div class="form-group">
+                    <input type="text" class="form-control letraGlobal" formControlName='valorutilizado' style="text-align:right!important" name="valorutilizado" maxlength="80" required="required">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1">
+                <div class="form-group ">
+                    <label class="col-form-label negrillas letraGlobal">Valor Faltante</label>
+                </div>
+            </div>
+            <div class="col-md-2 ">
+                <div class="form-group">
+                    <input type="text" class="form-control letraGlobal" formControlName='valorfaltante' style="text-align:right!important" name="valorfaltante" maxlength="80" required="required">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1">
+                <div class="form-group ">
+                    <label class="col-form-label negrillas letraGlobal">Entidad<span class="obligatorio">*</span></label>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
+                <div class="form-group">
+                    <input type="text" class="form-control letraGlobal" formControlName='clnombre' name="clnombre" maxlength="80" required="required" [ngClass]="{ 'is-invalid': submitted && f['clnombre'].errors }">
+                    <div *ngIf="submitted && f['clnombre'].errors" class="invalid-feedback">
+                        <div *ngIf="f['clnombre'].errors['required']">Entidad es requerido</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1">
+                <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl" style="align-items:inherit!important; min-width: 0px !important; " [disabled]="habilita" mat-button (click)="cargaCliente()"> <span style="cursor:pointer"><mat-icon class="azul600 ">plagiarism</mat-icon></span></button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1">
+                <div class="form-group ">
+                    <label class="col-form-label negrillas letraGlobal">Administrador Contrato<span class="obligatorio">*</span></label>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
+                <div class="form-group">
+                    <input type="text" class="form-control letraGlobal" formControlName='admcontrato' name="admcontrato" maxlength="80" required="required" [ngClass]="{ 'is-invalid': submitted && f['admcontrato'].errors }">
+                    <div *ngIf="submitted && f['admcontrato'].errors" class="invalid-feedback">
+                        <div *ngIf="f['admcontrato'].errors['required']">Administrador Contrato es requerido</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-1">
+                <div class="form-group ">
+                    <label class="col-form-label negrillas letraGlobal">Estado</label>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 ">
+                <div class="form-group">
+                    <select formControlName='estado' name="estado" class="custom-select form-controlselect letraGlobal" panelClass="my-select-panel-class" id="inputGroupSelect01">
+                        <option [value]="comp.valor" *ngFor="let comp of listEstado">{{comp.texto}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <br />
+        <div class="row" style="overflow-y: hidden!important;overflow-x:hidden!important">
+            <div id="no-more-tables" class="col-md-6">
+                <div id="global" class="material-datatables table-responsive">
+                    <table responsive="true" class="letraGlobal table table-striped table-bordered table-sm row-border hover" cellspacing="0">
+                        <thead style="border: solid 1px #ABBAD0!important">
+                            <tr class="cabeceragrid letraGlobal">
+                                <th *ngFor="let head of ColumnaDetalle" scope="col">{{head}} </th>
+                            </tr>
+                        </thead>
+                        <tbody class="cuerpogrid">
+                            <tr *ngFor="let row of detallearchivo" class="clsForeColor{{row.color}}">
+                                <td data-title="IATA" (click)="clickGrid(row);" style="text-align: center !important; align-content: center !important; width:20% !important ">
+                                    <input type="text" class="form-control letraGlobal  " maxlength="20" [disabled]="habilitabotones" [ngModelOptions]="{standalone: true}" [(ngModel)]="row.descripcion">
+                                <td data-title="Nombre Archivo" (click)="clickGrid(row);" style="text-align: center !important; width: 5%  ">
+                                    <a href='{{row.archivo}}' download>{{row.nombrearchivo}}</a>
+                                </td>
+                                <td data-title="" (click)="clickGrid(row);" style="text-align: center !important; align-content: center !important; width: 3%  ">
+                                    <button type="button" class="btn botonpaso letraGlobal" (click)="fileInput.click()" mat-button><mat-icon class="red600 ">cloud_upload</mat-icon></button>
+                                    <input hidden (change)="handleFileInput($event,row)" #fileInput type="file" accept=".pdf,.jpeg,.jpg,.png">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl" [disabled]="habilitabotones" (click)="agregarlinea()" mat-button><mat-icon class="gren600 ">add</mat-icon>Aumenta L&iacute;nea</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl " [disabled]="habilitabotones" (click)="borrarlinea()" mat-button><mat-icon class="red600 ">remove</mat-icon>Disminuye L&iacute;nea</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<ng-template #modalbusquedacontrato style="z-index:50000">
+    <div class=" modal-primary modal-lg" role="document" dynamicHeight dynamicweiht>
+        <div class="modal-content ">
+            <div class="modal-body">
+                <app-busquedacontrato (confirmacionCierre)="cierreContrato($event)" (cierreModal)="cierreModalcontrato($event)" [listadocontrato]="listcontrato"></app-busquedacontrato>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+
+
+<ng-template #modalbusquedacliente style="z-index:50000">
+    <div class=" modal-primary modal-lg" role="document" dynamicHeight dynamicweiht>
+        <div class="modal-content ">
+            <div class="modal-body">
+                <app-busquedaentidad (confirmacionCierre)="cierreCliente($event)" (cierreModal)="cierreModalcliente($event)" [listadocliente]="listcliente"></app-busquedaentidad>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+

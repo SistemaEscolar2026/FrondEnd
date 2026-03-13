@@ -1,0 +1,76 @@
+<ng-template  #infoModal class="modal-dialog" style="z-index:1000000">
+    <div  class=" modal-header infomodal">
+      <h4 class="modal-title" id="modal-basic-title">{{titulo}}</h4>
+    </div>
+    <div class="modal-body">
+      <div [innerHTML]="mensaje"></div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-success btn-sm infomodal" style="padding: revert !important " (click)="cerrar(3)">Aceptar</button>
+    </div>
+</ng-template>
+
+<ng-template  #alertamodal style="z-index: 1000000">
+  <div  class="modal-header alertamodal">
+    <h4 class="modal-title" id="modal-basic-title">{{titulo}}</h4>
+  </div>
+  <div class="modal-body">
+    <div [innerHTML]="mensaje"></div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success btn-sm alertamodal" style="padding: revert !important "(click)="cerrar(2)">Aceptar</button>
+  </div>
+</ng-template>
+
+<ng-template  #okmodal style="z-index: 1000000">
+  <div class="modal-header okmodal">
+    <h4 class="modal-title" id="modal-basic-title">{{titulo}}</h4>
+  </div>
+  <div class="modal-body">
+    <div [innerHTML]="mensaje"></div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success btn-sm okmodal" style="padding: revert !important " (click)="cerrar(1)">Aceptar</button>
+  </div>
+</ng-template>
+
+
+<ng-template #confirmacion style="z-index: 1000000">
+    <div class="modal-header confirma">
+        <h4 class="modal-title" id="modal-basic-title">{{titulo}}</h4>
+    </div>
+    <div class="modal-body">
+        <div [innerHTML]="mensaje"></div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success btn-sm confirma" style="padding: revert !important " (click)="cerrar(4)">Aceptar</button>
+        <button type="button" class="btn btn-success btn-sm confirma" style="padding: revert !important " (click)="cerrar(5)">Cancelar</button>
+    </div>
+</ng-template>
+
+
+<ng-template #confirmacioneliminar style="z-index: 1000000">
+    <div class="modal-header confirma">
+        <h4 class="modal-title" id="modal-basic-title">{{titulo}}</h4>
+    </div>
+    <div class="modal-body">
+        <div [innerHTML]="mensaje"></div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success btn-sm confirma" style="padding: revert !important " (click)="cerrar(6)">Aceptar</button>
+        <button type="button" class="btn btn-success btn-sm confirma" style="padding: revert !important " (click)="cerrar(5)">Cancelar</button>
+    </div>
+</ng-template>
+
+<ng-template #confirmacioncarga style="z-index: 1000000">
+    <div class="modal-header confirma">
+        <h4 class="modal-title" id="modal-basic-title">{{titulo}}</h4>
+    </div>
+    <div class="modal-body">
+        <div [innerHTML]="mensaje"></div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success btn-sm confirma" style="padding: revert !important " (click)="cerrar(7)">Aceptar</button>
+        <button type="button" class="btn btn-success btn-sm confirma" style="padding: revert !important " (click)="cerrar(5)">Cancelar</button>
+    </div>
+</ng-template>

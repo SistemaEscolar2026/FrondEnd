@@ -1,0 +1,16 @@
+                <reembolso>
+                    <tipoComprobanteReemb>${tipoCompRe}</tipoComprobanteReemb>
+                    <tpIdProvReemb>${tipoIdRe}</tpIdProvReemb>
+                    <idProvReemb>${identRe}</idProvReemb>
+                    <establecimientoReemb>${estabRe}</establecimientoReemb>
+                    <puntoEmisionReemb>${puntoRe}</puntoEmisionReemb>
+                    <secuencialReemb>${numRe}</secuencialReemb>
+                    <fechaEmisionReemb>${fecEmiRe}</fechaEmisionReemb>
+                    <autorizacionReemb>${autRe}</autorizacionReemb>
+                    <baseImponibleReemb>${baseImpRe}</baseImponibleReemb>
+                    <baseImpGravReemb>${baseImpGravRe}</baseImpGravReemb>
+                    <baseNoGraIvaReemb>${baseNoGravRe}</baseNoGraIvaReemb>
+                    <baseImpExeReemb>${baseImpExeRe}</baseImpExeReemb>
+                    <montoIceRemb>${montoIceRe}</montoIceRemb>
+                    <montoIvaRemb>${montoIvaRe}</montoIvaRemb>
+                </reembolso>

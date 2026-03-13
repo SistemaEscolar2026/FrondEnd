@@ -1,0 +1,135 @@
+<form [formGroup]="rutafrom" (ngSubmit)="guardarconsolidador()">
+    <!--INICIO SESSION BOTONES-->
+    <div class="row barra-accion">
+        <div class=" col-md-12">
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnnuevo" mat-button (click)="limpiabotones(2);habilitarfrom(2);"><mat-icon class="orange600">search</mat-icon>Nuevo</button>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnmodificar" (click)="habilitarfrom(3);limpiabotones(2);" mat-button><mat-icon class="azul600 ">edit</mat-icon>Modificar</button>
+            <button type="submit" class="btn botonpaso letraGlobal" [disabled]="botones.btngrabar" mat-button><mat-icon class="gren600 ">save</mat-icon>Guardar</button>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btneliminar" (click)="deleteruta()" mat-button><mat-icon class="red600 ">close</mat-icon>Eliminar</button>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btncancelar" mat-button (click)="limpiabotones(1);limpiarruta();habilitarfrom(1);"><mat-icon class="redf600 ">redo</mat-icon>Cancelar</button>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnbuscar" mat-button (click)="buscar()"><mat-icon class="azulbu600 ">plagiarism</mat-icon>buscar</button>
+            <mat-divider class="material-devider">|</mat-divider>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnsalir" mat-button (click)="salir()"><mat-icon class="redoff600 ">power_settings_new</mat-icon>Salir</button>
+            <mat-divider class="material-devider">|</mat-divider>
+            <label class="bordetitulopagina letraGlobalTitulo2 "><span class="d-none d-xl-block">&nbsp;&nbsp;&nbsp;&nbsp;Mantenimiento de Ruta&nbsp;&nbsp;&nbsp;&nbsp;</span></label>
+        </div>
+    </div>
+    <!--FIN SESSION BOTONES-->
+    <div class="custom-panel">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row" *ngIf="iAccion==='M'">
+                    <div class="col-md-3">
+                        <div class="form-group ">
+                            <label class="col-form-label negrillas letraGlobal">Codigo</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 ">
+                        <div class="form-group">
+                            <input type="text" class="form-control letraGlobal" formControlName='codigo' name="codigo" [disabled]="true" maxlength="6" onkeypress="return isNumberKey(this,event,3);">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group ">
+                            <label class="col-form-label negrillas letraGlobal">Ruta<span class="obligatorio">*</span></label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" class="form-control letraGlobal" formControlName='ruta' name="ruta" maxlength="100" required="required" [ngClass]="{ 'is-invalid': submitted && f['ruta'].errors }">
+                            <div *ngIf="submitted && f['ruta'].errors" class="invalid-feedback">
+                                <div *ngIf="f['ruta'].errors['required']">Ruta es requerido</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group ">
+                            <label class="col-form-label negrillas letraGlobal">Descripcion</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <textarea type="text" rows="30" class="textinput letraGlobal col-md-12 col-sm-12" formControlName='rutanombre' name="rutanombre" maxlength="500" value=""></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group ">
+                            <label class="col-form-label negrillas letraGlobal">Estado</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <select formControlName='estado' name="estado" class="custom-select form-controlselect letraGlobal" panelClass="my-select-panel-class" id="inputGroupSelect01">
+                                <option [value]="comp.valor" *ngFor="let comp of listEstado">{{comp.texto}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label class="col-form-label negrillas letraGlobal">Busqueda:</label>
+                            </div>
+                            <div class="col-md-5">
+                                <input id="busqueda" type="text" class="busqueda" [ngModelOptions]="{standalone: true}" style="width: 100%; padding: 0.3rem !important " [(ngModel)]="txtbusca" autocomplete="off" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="overflow-y: hidden!important;overflow-x:hidden!important">
+                    <div id="no-more-tables" class="col-md-9">
+                        <div id="global" class="material-datatables table-responsive">
+                            <table responsive="true" class="letraGlobal table table-striped table-bordered table-sm row-border hover" cellspacing="0">
+                                <thead style="border: solid 1px #ABBAD0!important">
+                                    <tr class="cabeceragrid letraGlobal">
+                                        <th *ngFor="let head of ColumnaDetalle" scope="col">{{head}} </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="cuerpogrid">
+                                    <tr *ngFor="let row of detalleruta | grdFilter:{cco_fecha_doc:txtbusca,tcom_nombre:txtbusca,cco_numero:txtbusca,pr_nombre:txtbusca,com_nombre:txtbusca}" class="clsForeColor{{row.color}}">
+                                        <td data-title="IATA" (click)="clickGrid(row);" style="text-align: center !important; align-content: center !important; width:3% !important ">{{row.iata}}</td>
+                                        <td data-title="COD. IATA" (click)="clickGrid(row);" style="text-align: center !important; width: 8%  ">{{row.codnomiata}}</td>
+                                        <td data-title="" (click)="clickGrid(row);openRuta(row);" style="cursor: pointer !important; text-align: center !important; align-content: center !important; width: 3%  "><mat-icon data-toggle="tooltip" title="Cargar Orden Compra" class="azul600 ">search</mat-icon></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<ng-template #modalbusquedaruta style="z-index:50000">
+    <div class=" modal-primary modal-lg" role="document" dynamicHeight dynamicweiht>
+        <div class="modal-content ">
+            <div class="modal-body">
+                <app-busquedaruta (confirmacionCierre)="cierreRutas($event)" (cierreModal)="cierreModalrutas($event)" [listadoruta]="listrutas"></app-busquedaruta>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #modalbusquedaiata style="z-index:50000">
+    <div class=" modal-primary modal-lg" role="document" dynamicHeight dynamicweiht>
+        <div class="modal-content ">
+            <div class="modal-body">
+                <app-busquedaiata (confirmacionCierre)="cierreCiudad($event)" (cierreModal)="cierreModalforma($event)" [listadociudad]="listiata"></app-busquedaiata>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+
+
+
+

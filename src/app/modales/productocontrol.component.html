@@ -1,0 +1,69 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-12">
+        <label class="input-group-text">Control de Productos Controlados</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <button type="button" class="btn botonpaso letraGlobal" mat-button (click)="aceptar()" [disabled]="habilitabotones"><mat-icon class="gren600 ">save</mat-icon>Aceptar</button>
+        <button type="button" class="btn botonpaso letraGlobal" mat-button (click)="cancelar()"><mat-icon class="redf600 ">redo</mat-icon>Cancelar</button>
+      </div>
+    </div>
+    <div style="height: 400px !important; overflow-y: scroll !important; overflow-x: hidden!important">
+      <div class="row" *ngFor="let item of listacontrol">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group ">
+                <label class="col-form-label negrillas letraGlobal"><span style="color: Navy!important">Producto:</span>{{item.producto}}</label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group ">
+                <label class="col-form-label negrillas letraGlobal"><span style="color: Navy!important">Cant. Solicitada:</span>{{item.productocantidad| number : '1.4-4'}}</label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div id="globalcontrol" class="col-12">
+              <div id="no-more-tables" class="material-datatables table-responsive">
+                <table responsive="true" class="letraGlobal table table-striped table-bordered table-sm row-border hover" cellspacing="0">
+                  <thead>
+                    <tr class="cabeceragrid">
+                      <th *ngFor="let head of ColumnaDetalle" scope="col">{{head}} </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let row of item.items " class="clsForeColor{{row.color}}">
+                      <td data-title="Sel" (click)="clickGrid(row);" (dblclick)="dblclickGrid(row);"  style="width: 35px; padding: 10px">
+                        <input type="checkbox" name="exampleRadios" id="exampleRadios1"[disabled]="habilitabotones" (change)="habilitarcantitdad(row,item.productocantidad)" [(ngModel)]="row.sel" [value]="row.sel">
+                      </td>
+                      <td data-title="Certificado" (click)="clickGrid(row);" (dblclick)="dblclickGrid(row);" style="width: 240px !important; padding: 10px">{{row.certificado}}</td>
+                      <td data-title="Número" style="text-align: right !important; width: 77px ; padding: 10px" (click)="clickGrid(row);" (dblclick)="dblclickGrid(row);">{{row.numero}}</td>
+                      <td data-title="Cupo" style="text-align: right !important; width: 110px ; padding: 10px " (click)="clickGrid(row);" (dblclick)="dblclickGrid(row);">{{row.cupo| number : '1.4-4'}}</td>
+                      <td data-title="Cantidad" style="text-align: right !important; width: 110px  " (click)="clickGrid(row);" (dblclick)="dblclickGrid(row);">
+                        <input type="text" class="form-control letraGlobal  " maxlength="20" style="text-align: right !important; " [disabled]="((habilitabotones)?true:((row.sel)?false:true))" onkeypress="return isNumberKey(this,event,5);" [(ngModel)]="row.cantidad" >
+                      </td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <th colspan="3" style="text-align: right !important; color: Navy !important">TOTAL ===></th>
+                      <td style="text-align: right !important; " class="colorfondonegro colorGreen">{{sumtotales(item.items,1)  | number : '1.4-4'}}</td>
+                      <td style="text-align: right !important; " class="colorfondonegro colorGreen">{{sumtotales(item.items,2)  | number : '1.4-4'}}</td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-modales [llamarModal]="llamarmodal"></app-modales>

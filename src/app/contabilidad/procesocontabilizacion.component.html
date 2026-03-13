@@ -1,0 +1,118 @@
+<div style="overflow-y: hidden!important;overflow-x:hidden!important">
+    <!--INICIO SESSION BOTONES-->
+    <div class="row barra-accion">
+        <div class=" col-md-12">
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnbuscar" mat-button (click)="buscar()"><mat-icon class="azulbu600 ">plagiarism</mat-icon>buscar</button>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btneliminar" mat-button (click)="procesardocumento();"><mat-icon class="redf600 ">sync</mat-icon>Procesar</button>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btncancelar" mat-button (click)="limpiarfrom();"><mat-icon class="redf600 ">redo</mat-icon>Cancelar</button>
+            <mat-divider class="material-devider">|</mat-divider>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnsalir" mat-button (click)="salir()"><mat-icon class="redoff600 ">power_settings_new</mat-icon>Salir</button>
+            <mat-divider class="material-devider">|</mat-divider>
+            <label class="bordetitulopagina letraGlobalTitulo2 "><span class="d-none d-xl-block">&nbsp;&nbsp;&nbsp;&nbsp;Procesar Comprobante&nbsp;&nbsp;&nbsp;&nbsp;</span></label>
+        </div>
+    </div>
+    <!--FIN SESSION BOTONES-->
+    <div class="custom-panel">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row custom-panel2 b">
+
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group ">
+                                    <label class="col-form-label negrillas letraGlobal">Entidad</label>
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="form-group">
+                                    <input type="text" class="form-control letraGlobal" [(ngModel)]="iDocumento.cl_nombre" [disabled]="true" maxlength="80" [ngClass]="{ 'is-invalid': submitted && iDocumento.cl_nombre==='' }">
+                                    <div *ngIf="submitted && iDocumento.cl_nombre===''" class="invalid-feedback">
+                                        <div *ngIf="iDocumento.cl_nombre===''">Entidad es requerido</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl" style="align-items:inherit!important; min-width: 0px !important; " mat-button (click)="cargaCliente()"> <span style="cursor:pointer"><mat-icon class="azul600 ">plagiarism</mat-icon></span></button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group ">
+                                    <label class="col-form-label negrillas letraGlobal">Fecha Factura Desde</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="date" class="form-control letraGlobal" [(ngModel)]="iDocumento.bc_fecha_inicio_viaje" maxlength="10">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group ">
+                                    <label class="col-form-label negrillas letraGlobal">Fecha Factura Hasta</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="date" class="form-control letraGlobal" [(ngModel)]="iDocumento.bc_fecha_fin_viaje" maxlength="10">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+
+                <div class="row custom-panel2 b">
+                    <div id="no-more-tables" class="col-md-8">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div id="globalAU" class="material-datatables table-responsive" style="min-height:{{alto}}px!important">
+                                    <table responsive="true" class="letraGlobal table table-hover text-nowrap  table-bordered " cellspacing="0">
+                                        <thead style="zoom:85%; border: solid 1px #ABBAD0!important">
+                                            <tr class="cabeceragrid letraGlobal">
+                                                <th rowspan="2" *ngFor="let head of ColumnaDetalle" scope="col">{{head}} </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="cuerpogrid">
+                                            <tr *ngFor="let row of detallereporte " class="clsForeColor{{row.color}}">
+                                                <td data-title="" (click)="clickGrid(row);" style=" width: 30px ">
+                                                    <input type="checkbox" name="exampleRadios" id="exampleRadios1" style="margin-left:auto; margin-right:auto;" [(ngModel)]="row.sel" [value]="row.sel">
+                                                </td>
+                                                <td data-title="TIPO DOCUMENTO" (click)="clickGrid(row);" style="text-align: center !important; width: 250px ">{{row.tipodocumento}}</td>
+                                                <td data-title="ENTIDAD" (click)="clickGrid(row);" style="text-align: center !important; width: 250px ">{{row.entidad}}</td>
+                                                <td data-title="NUMERO DOCUMENTO" (click)="clickGrid(row);" style="text-align: center !important; width: 250px ">{{row.numerodocumento}}</td>
+                                                <td data-title="FECHA DOCUMENTO" (click)="clickGrid(row);" style="text-align: center !important; width: 250px ">{{row.fechadocumento}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <br />
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #modalbusquedaentidad style="z-index:50000">
+    <div class=" modal-primary modal-lg" role="document" dynamicHeight dynamicweiht>
+        <div class="modal-content ">
+            <div class="modal-body">
+                <app-busquedaentidad (confirmacionCierre)="cierreCliente($event)" (cierreModal)="cierreModalcliente($event)" [listadocliente]="listcliente"></app-busquedaentidad>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+
+
+
+<app-modales [llamarModal]="llamarmodal" (aceptarOk)="aceptarOk($event)" (aceptarConfi)="aceptarConfi($event)"></app-modales>
+
+

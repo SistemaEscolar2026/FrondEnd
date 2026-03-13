@@ -1,0 +1,126 @@
+  <!--INICIO SESSION BOTONES-->
+<div class="row barra-accion">
+    <div class=" col-md-12">
+        <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnnuevo" mat-button (click)="limpiabotones(2);habilitarfrom(2);"><mat-icon class="orange600">search</mat-icon>Nuevo</button>
+        <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnmodificar" (click)="modificarquincena();" mat-button><mat-icon class="azul600 ">edit</mat-icon>Modificar</button>
+        <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btngrabar" (click)="confirmarguardar();" mat-button><mat-icon class="gren600 ">save</mat-icon>Guardar</button>
+        <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btneliminar" (click)="delete()" mat-button><mat-icon class="red600 ">close</mat-icon>Eliminar</button>
+        <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btncancelar" mat-button (click)="cancelar();"><mat-icon class="redf600 ">redo</mat-icon>Cancelar</button>
+        <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnbuscar" mat-button (click)="buscar()"><mat-icon class="azulbu600 ">plagiarism</mat-icon>buscar</button>
+        <mat-divider class="material-devider">|</mat-divider>
+        <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnsalir" mat-button (click)="salir()"><mat-icon class="redoff600 ">power_settings_new</mat-icon>Salir</button>
+        <mat-divider class="material-devider">|</mat-divider>
+        <label class="bordetitulopagina letraGlobalTitulo2 "><span class="d-none d-xl-block">&nbsp;&nbsp;&nbsp;&nbsp;NOMINA - Anticipo Quincena&nbsp;&nbsp;&nbsp;&nbsp;</span></label>
+    </div>
+</div>
+<!--FIN SESSION BOTONES-->
+<div class="custom-panel">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Año</label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group ">
+                        <input type="number" class="form-control letraGlobal" [(ngModel)]="iDocumento.naq_anio" [disabled]="habilitaobjetofrom" [ngModelOptions]="{standalone: true}" maxlength="4" required="required">
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Mes</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group ">
+                        <select [(ngModel)]="iDocumento.naq_mes" class="custom-select form-controlselectbarra  letraGlobal" style="width: 100%!important" [disabled]="habilitaobjetofrom" panelClass="my-select-panel-class" [ngModelOptions]="{standalone: true}" id="inputGroupSelect01">
+                            <option [value]="comp.mesDec" *ngFor="let comp of listmeses">{{comp.mesD}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group ">
+                        <button type="button" class="btn  letraGlobal " [disabled]="habilitaobjetofrom" (click)="calcularcuota()" mat-button><mat-icon class="red600 ">sync</mat-icon>Carga Anticipo</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-auto">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Fecha Registro</label>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <div class="form-group ">
+                        <input type="date" class="form-control letraGlobal" [(ngModel)]="iDocumento.naq_fecharegistro" [disabled]="true" [ngModelOptions]="{standalone: true}" maxlength="10" required="required">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Valor Anticipo</label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group ">
+                        <input type="text" class="form-control letraGlobal" value="{{calculoquincena()}}" [disabled]="true" style="text-align:right!important" >
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-auto">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Observacion</label>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <textarea type="text" rows="30" class="textinput letraGlobal bordeno " [(ngModel)]="iDocumento.naq_observacion  " maxlength="300" [disabled]="habilitaobjetofrom" value=""></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row" style="overflow-y: hidden!important;overflow-x:hidden!important">
+        <div id="no-more-tables" class="col-md-6">
+            <div id="global" class="material-datatables table-responsive">
+                <table responsive="true" class="letraGlobal table table-striped table-bordered table-sm row-border hover" cellspacing="0">
+                    <thead style="border: solid 1px #ABBAD0!important">
+                        <tr class="cabeceragrid letraGlobal">
+                            <th *ngFor="let head of ColumnaDetalle" scope="col">{{head}} </th>
+                        </tr>
+                    </thead>
+                    <tbody class="cuerpogrid">
+                        <tr *ngFor="let row of detallequincena" class="clsForeColor{{row.color}}">
+                            <td data-title="Identificacion" (click)="clickGrid(row);" style="text-align: center !important; width: 5%  ">{{row.nom_empcodigo}}</td>
+                            <td data-title="Nombre Empleado" (click)="clickGrid(row);" style="text-align: left !important; width: 20%  ">{{row.nom_empnombresempleado}}</td>
+                            <td data-title="Sueldo Empleado" (click)="clickGrid(row);" style="text-align: right !important;  width: 10%  ">{{row.nomf_confsalario| number : '1.2-2'}}</td>
+                            <td data-title="Anticipo Quincena" (click)="clickGrid(row);" style="text-align: right !important; align-content: center !important; width: 10% ">{{row.nqd_valorquincena}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #modalbusquedaanticipo style="z-index:50000">
+    <div class=" modal-primary modal-lg" role="document" dynamicHeight dynamicweiht>
+        <div class="modal-content ">
+            <div class="modal-body">
+                <app-busquedaquincena (confirmacionCierre)="cierreAnticipo($event)" (cierreModal)="cierreModalforma($event)" [listfaltas]="listanticipoquincena"></app-busquedaquincena>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+
+
+<app-modales [llamarModal]="llamarmodal" (aceptarOk)="aceptarOk($event)" (aceptarConfi)="aceptarConfi($event)" (aceptarConfieli)="aceptarConfiEli($event)"></app-modales>
+
+
+
+

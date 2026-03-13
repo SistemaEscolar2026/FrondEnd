@@ -1,0 +1,306 @@
+<ng-template #modalordencompra style="z-index: 1000000">
+  <div class="modal-header okmodal" style="height:30px!important">
+    <h4 class="modal-title" style="margin:0 0 5px!important" id="modal-basic-title">{{titulo}}</h4>
+  </div>
+  <div class="modal-body">
+    <div class="custom-panelbig">
+      <div class="row">
+        <div class="col-md-9">
+          <mat-dialog-content class="mat-typography ">
+            <mat-tab-group dynamicHeight dynamicweiht mat-align-tabs="start">
+              <mat-tab label="Datos Generales" class="letraGlobalTitulo3">
+                <br />
+                <div class="row custom-panel2 b">
+                  <div class="col-md-12">
+                    <div class="row">
+                      <div class="col-md-1 ">
+                        <div class="form-group ">
+                          <label class="col-form-label negrillas letraGlobal">Sucursal</label>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <select [(ngModel)]="iDocumento.sucodigo" class="custom-select form-control  letraGlobal" style="width: 100%!important" [disabled]="true" panelClass="my-select-panel-class" [ngModelOptions]="{standalone: true}" id="inputGroupSelect01">
+                            <option [value]="comp.sucodigo" *ngFor="let comp of listsucursal">{{comp.sudescripcion}}</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-1 ">
+                        <div class="form-group ">
+                          <label class="col-form-label negrillas letraGlobal">Tipo Doc.</label>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <select [(ngModel)]="iDocumento.tcomcodigo" class="custom-select form-control letraGlobal" style="width: 100%!important" [disabled]="true" panelClass="my-select-panel-class" [ngModelOptions]="{standalone: true}" id="inputGroupSelect01">
+                            <option [value]="comp.tcomcodigo" *ngFor="let comp of listtipodoc">{{comp.tcomnombre}}</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-1 ">
+                        <div class="form-group ">
+                          <label class="col-form-label negrillas letraGlobal">Número</label>
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="form-group">
+                          <input type="text" class="form-control letraGlobal colornone" [(ngModel)]="iDocumento.cconumero" maxlength="10" onkeypress="return numbersonly(event);" [ngModelOptions]="{standalone: true}" [disabled]="true" value="0">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 ">
+                        <div class="form-group ">
+                          <label class="col-form-label negrillas letraGlobal">Proveedor</label>
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="form-group">
+                          <input type="text" class="form-control letraGlobal" [(ngModel)]="iDocumento.prcodigo" maxlength="10" [disabled]="true">
+                        </div>
+                      </div>
+                      <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 ">
+                        <div class="form-group">
+                          <input type="text" class="form-control letraGlobal" [(ngModel)]="iDocumento.prNombre" maxlength="100" [disabled]="true">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-1 ">
+                        <div class="form-group ">
+                          <label class="col-form-label negrillas letraGlobal">Comprador</label>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <select [(ngModel)]="iDocumento.comcodigo" class="custom-select form-control letraGlobal" style="width: 100%!important" [disabled]="true" panelClass="my-select-panel-class" [ngModelOptions]="{standalone: true}" id="inputGroupSelect01">
+                            <option [value]="comp.comcodigo" *ngFor="let comp of listcomprador">{{comp.comnombre}}</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-1 ">
+                        <div class="form-group ">
+                          <label class="col-form-label negrillas letraGlobal">Orígen</label>
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="form-group">
+                          <select [(ngModel)]="iDocumento.ccoorigen" class="custom-select form-control letraGlobal" style="width: 100%!important" [disabled]="true" panelClass="my-select-panel-class" [ngModelOptions]="{standalone: true}" id="inputGroupSelect01">
+                            <option [value]="comp.valor" *ngFor="let comp of listorigen">{{comp.texto}}</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="form-group ">
+                          <label class="col-form-label negrillas letraGlobal">Tipo Compra</label>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <select [(ngModel)]="iDocumento.ccotipocompra" class="custom-select form-control letraGlobal" style="width: 100%!important" [disabled]="true" panelClass="my-select-panel-class" [ngModelOptions]="{standalone: true}" id="inputGroupSelect01">
+                            <option [value]="comp.valor" *ngFor="let comp of listtipocompra">{{comp.texto}}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-1">
+                        <div class="form-group ">
+                          <label class="col-form-label negrillas letraGlobal">Fecha</label>
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="form-group">
+                          <input type="date" class="form-control letraGlobal" [ngModelOptions]="{standalone: true}" [(ngModel)]="iDocumento.ccofechadoc" [disabled]="true" maxlength="10">
+                        </div>
+                      </div>
+                      <div class="col-md-2 ">
+                        <div class="form-group ">
+                          <label class="col-form-label negrillas letraGlobal">Fecha Entrega</label>
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="form-group">
+                          <input type="date" class="form-control letraGlobal" [ngModelOptions]="{standalone: true}" [(ngModel)]="iDocumento.ccofechavencimiento" [disabled]="true" maxlength="10">
+                        </div>
+                      </div>
+                      <div class="col-md-1">
+                        <div class="form-group ">
+                          <label class="col-form-label negrillas letraGlobal">Estado</label>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <select [ngModelOptions]="{standalone: true}" [(ngModel)]="iDocumento.ccoestado" class="custom-select form-control letraGlobal" [disabled]="true" panelClass="my-select-panel-class" id="inputGroupSelect01">
+                            <option [value]="comp.valor" *ngFor="let comp of listEstado">{{comp.texto}}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <br />
+                <div class="row custom-panel2 b">
+                  <div class="col-md-12">
+                    <div class="row">
+                      <div class="col-md-2">
+                        <div class="form-group ">
+                          <label class="col-form-label negrillas letraGlobal">Tipo Ref. #1</label>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <select [ngModelOptions]="{standalone: true}" [(ngModel)]="iDocumento.ccotiporeferencia" class="custom-select form-control letraGlobal" [disabled]="true" panelClass="my-select-panel-class" id="inputGroupSelect01">
+                            <option [value]="comp.valor" *ngFor="let comp of listoReferencia">{{comp.texto}}</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-2 ">
+                        <div class="form-group ">
+                          <label class="col-form-label negrillas letraGlobal">Referencia #1</label>
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="form-group">
+                          <input type="text" class="form-control letraGlobal" [ngModelOptions]="{standalone: true}" [(ngModel)]="iDocumento.ccoreferencia" [disabled]="true" maxlength="10">
+                        </div>
+                      </div>
+                      <div class="col-md-1 ">
+                        <div class="form-group ">
+                          <label class="col-form-label negrillas letraGlobal">Aprobado</label>
+                        </div>
+                      </div>
+                      <div class="col-md-1">
+                        <div class="form-group">
+                          <select [ngModelOptions]="{standalone: true}" [(ngModel)]="iDocumento.ccoaprobado" class="custom-select form-control letraGlobal" [disabled]="true" panelClass="my-select-panel-class" id="inputGroupSelect01">
+                            <option [value]="comp.valor" *ngFor="let comp of listoDatoNivel">{{comp.texto}}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-2">
+                        <div class="form-group ">
+                          <label class="col-form-label negrillas letraGlobal">Tipo Ref. #2</label>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <select [ngModelOptions]="{standalone: true}" [(ngModel)]="iDocumento.ccotiporeferencia2" class="custom-select form-control letraGlobal" [disabled]="true" panelClass="my-select-panel-class" id="inputGroupSelect01">
+                            <option [value]="comp.valor" *ngFor="let comp of listoReferencia">{{comp.texto}}</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-2 ">
+                        <div class="form-group ">
+                          <label class="col-form-label negrillas letraGlobal">Referencia #2</label>
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="form-group">
+                          <input type="text" class="form-control letraGlobal" [ngModelOptions]="{standalone: true}" [(ngModel)]="iDocumento.ccoreferencia2" [disabled]="true" maxlength="10">
+                        </div>
+                      </div>
+                      <div class="col-md-1 ">
+                        <div class="form-group ">
+                          <label class="col-form-label negrillas letraGlobal">Compra</label>
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="form-group">
+                          <select [ngModelOptions]="{standalone: true}" [(ngModel)]="iDocumento.ccoestadocompra" class="custom-select form-control letraGlobal" [disabled]="true" panelClass="my-select-panel-class" id="inputGroupSelect01">
+                            <option [value]="comp.valor" *ngFor="let comp of listoCompra">{{comp.texto}}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-1 ">
+                        <div class="form-group ">
+                          <label class="col-form-label negrillas letraGlobal">Observación</label>
+                        </div>
+                      </div>
+                      <div class="col-md-11">
+                        <div class="form-outline mb-4">
+                          <textarea type="text" rows="25" class="textinput letraGlobal col-md-12" [(ngModel)]="iDocumento.ccoobservacion" maxlength="1000" [disabled]="true" value=""></textarea>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </mat-tab>
+              <mat-tab label="Descuentos y Recargos" class="letraGlobalTitulo3">
+                <br />
+                <app-griddescuentorecargo [actualizadescuetorecargo]="listfdescuentorecargo" [lineanueva]="nuevalineadescuentorecargo"></app-griddescuentorecargo>
+              </mat-tab>
+              <mat-tab label="Condición de Pago" class="letraGlobalTitulo3">
+                <br />
+                <app-gridformapago  [actualizaformapago]="listformapago" [lineanueva]="nuevalinea"></app-gridformapago>
+              </mat-tab>
+            </mat-tab-group>
+          </mat-dialog-content>
+        </div>
+        <div class="col-md-3">
+          <app-totales [impuesto]="impuestos" [basecerobaseivatotaltotales]="basecerobaseivatotalpadre"></app-totales>
+        </div>
+      </div>
+      <br />
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row" style="overflow-y: hidden!important;overflow-x:hidden!important">
+            <div id="globalpantalla2" class="col-md-12">
+              <div id="no-more-tables" class="material-datatables table-responsive">
+                <table responsive="true" class="letraGlobal table table-striped table-bordered table-sm row-border hover" cellspacing="0">
+                  <thead style="border: solid 1px #ABBAD0!important">
+                    <tr class="cabeceragrid letraGlobal">
+                      <th rowspan="2">Lin.</th>
+                      <th colspan="3">Ítems / Servicios</th>
+                      <th rowspan="2" *ngFor="let head of ColumnaDetalle" scope="col">{{head}} </th>
+                    </tr>
+                    <tr class="cabeceragrid letraGlobal">
+                      <th>Tipo Item</th>
+                      <th>Código</th>
+                      <th>Descripción</th>
+                    </tr>
+                  </thead>
+                  <tbody class="cuerpogrid">
+                    <tr *ngFor="let row of detgrid " class="clsForeColor{{row.color}}">
+                      <td data-title="Lin." style="text-align: right !important;">{{row.dcolinea}}</td>
+                      <td data-title="Tipo Item" style="width: 100px ">
+                        <select [(ngModel)]="row.dcotipoitem" class="custom-select form-controlselectbarra  letraGlobal" style="width: 100%!important" [disabled]="true" panelClass="my-select-panel-class" id="inputGroupSelect01">
+                          <option [value]="comp.valor" *ngFor="let comp of listitems">{{comp.texto}}</option>
+                        </select>
+                      </td>
+                      <td data-title="Código" style="width: 130px ">{{row.dcocodigo}}</td>
+                      <td data-title="Descripción">{{row.descripItmGas}}</td>
+                      <td data-title="Centro Costo" style="width: 150px  ">
+                        <select [(ngModel)]="row.cccodigo" class="custom-select form-controlselectbarra  letraGlobal" style="width: 100%" [disabled]="true" panelClass="my-select-panel-class" id="inputGroupSelect01">
+                          <option [value]="comp.cccodigo" *ngFor="let comp of listcosto">{{comp.ccnombre}}</option>
+                        </select>
+                      </td>
+                      <td data-title="Medida" style="width: 100px ">
+                        <select [(ngModel)]="row.mecodigo" class="custom-select form-controlselectbarra  letraGlobal" style="width: 100%" [disabled]="true" panelClass="my-select-panel-class" id="inputGroupSelect01">
+                          <option [value]="comp.mecodigo" *ngFor="let comp of listmedida">{{comp.menombre}}</option>
+                        </select>
+                      </td>
+                      <td data-title="Cantidad" style="text-align: right !important; width: 100px  "><input type="text" class="form-control letraGlobal  " maxlength="20" style="text-align: right !important; " [disabled]="true" value="{{row.dcocantpedalterna | number : '1.4-4'}}"></td>
+                      <td data-title="Precio" style="text-align: right !important; width: 100px  "><input type="text" class="form-control letraGlobal " maxlength="20" style="text-align: right !important; " [disabled]="true" value="{{row.dcocostomedalter | number : '1.4-4'}}"></td>
+                      <td data-title="Total" style="text-align: right !important; width: 100px  "><input type="text" class="form-control letraGlobal colorfondonegro colorGreen" maxlength="10" [disabled]="true" value="{{sumtotales(row)  | number : '1.4-4'}}"></td>
+                      <td data-title="IVA" style="text-align: center !important; align-content: center !important; "><input type="checkbox" name="exampleRadios"style="display:inherit!important" id="exampleRadios1" [disabled]="true" [(ngModel)]="row.dcoivalin" [value]="row.dcoivalin"></td>
+                      <td data-title="Valor IVA" style="text-align: right !important; width: 100px  ">{{row.dcoiva | number : '1.4-4'}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer" style="height: 45px !important">
+    <button type="button" class="btn btn-success btn-sm okmodal" style="padding: revert !important " (click)="cerrar()">Aceptar</button>
+  </div>
+</ng-template>
+

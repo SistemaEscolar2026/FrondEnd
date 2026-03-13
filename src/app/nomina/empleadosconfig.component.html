@@ -1,0 +1,295 @@
+<div>
+    <!--INICIO SESSION BOTONES-->
+    <div class="row barra-accion">
+        <div class=" col-md-12">
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnnuevo" mat-button (click)="limpiabotones(2);habilitarfrom(2);"><mat-icon class="orange600">search</mat-icon>Nuevo</button>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnmodificar" (click)="habilitarfrom(3);limpiabotones(2);" mat-button><mat-icon class="azul600 ">edit</mat-icon>Modificar</button>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btngrabar" (click)="guardarempleado()" mat-button><mat-icon class="gren600 ">save</mat-icon>Guardar</button>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btneliminar" (click)="deleteempleado()" mat-button><mat-icon class="red600 ">close</mat-icon>Eliminar</button>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btncancelar" mat-button (click)="limpiabotones(1);limpiaritem();habilitarfrom(1);"><mat-icon class="redf600 ">redo</mat-icon>Cancelar</button>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnbuscar" mat-button (click)="buscar(1)"><mat-icon class="azulbu600 ">plagiarism</mat-icon>buscar</button>
+            <mat-divider class="material-devider">|</mat-divider>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnsalir" mat-button (click)="salir()"><mat-icon class="redoff600 ">power_settings_new</mat-icon>Salir</button>
+            <mat-divider class="material-devider">|</mat-divider>
+            <label class="bordetitulopagina letraGlobalTitulo2 ">
+                <span class="d-none d-xl-block">
+                    &nbsp;&nbsp;&nbsp;&nbsp;Configuracion Empleados&nbsp;&nbsp;&nbsp;&nbsp;
+                </span>
+            </label>
+        </div>
+    </div>
+    <div class="custom-panel">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group ">
+                            <label class="col-form-label negrillas letraGlobal">Código</label>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group ">
+                            <input type="text" class="form-control letraGlobal" [(ngModel)]="iEmpleado.empcodigo" [disabled]="true" [ngModelOptions]="{standalone: true}" maxlength="10" required="required">
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl" [disabled]="habilitaobjetofrom" style="align-items:inherit!important; min-width: 0px !important; " mat-button (click)="buscar(2)"> <span style="cursor:pointer"><mat-icon class="azul600 ">plagiarism</mat-icon></span></button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group ">
+                            <label class="col-form-label negrillas letraGlobal">Nombres</label>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-group ">
+                            <input type="text" class="form-control letraGlobal" [(ngModel)]="iEmpleado.empnombres" [disabled]="true" [ngModelOptions]="{standalone: true}" maxlength="100" required="required">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group ">
+                            <label class="col-form-label negrillas letraGlobal">Apellido Paterno</label>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-group ">
+                            <input type="text" class="form-control letraGlobal" [(ngModel)]="iEmpleado.empapellidopaterno" [disabled]="true" [ngModelOptions]="{standalone: true}" maxlength="150" required="required">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group ">
+                            <label class="col-form-label negrillas letraGlobal">Apellido Materno</label>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-group ">
+                            <input type="text" class="form-control letraGlobal" [(ngModel)]="iEmpleado.empapellidomaterno" [disabled]="true" [ngModelOptions]="{standalone: true}" maxlength="150" required="required">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row custom-panel2 b">
+        <div class="col-md-12">
+            <div class="row ">
+                <div class="col-md-1">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Salario</label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group ">
+                        <input type="text" class="form-control letraGlobal" [(ngModel)]="iEmpleado.confsalario" style="text-align:right!important" [disabled]="habilitaobjetofrom" onkeypress="return isNumberKey(this,event,3);" [ngModelOptions]="{standalone: true}" maxlength="10" required="required">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-check-inline">
+                        <input type="checkbox" name="selretpersonal" id="selretpersonal" style="display: inherit !important" [disabled]="habilitaobjetofrom" [(ngModel)]="iEmpleado.confiess" [ngModelOptions]="{standalone: true}">
+                        <label class="form-check-label" for="selretpersonal">
+                            <span class="letraGlobal">Aporte IESS</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-check-inline">
+                        <input type="checkbox" name="confquincena" id="confquincena" style="display: inherit !important" [disabled]="habilitaobjetofrom" [(ngModel)]="iEmpleado.confquincena" [ngModelOptions]="{standalone: true}">
+                        <label class="form-check-label" for="confquincena">
+                            <span class="letraGlobal">Recibe Quincena</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Estado</label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-check-inline">
+                                <input type="radio" name="selretpersonal" id="selretpersonal" style="display: inherit !important"  [disabled]="habilitaobjetofrom" [(ngModel)]="iEmpleado.confpestado" [ngModelOptions]="{standalone: true}" [value]="'A'">
+                                <label class="form-check-label" for="selretpersonal">
+                                    <span class="letraGlobal">Activo</span>
+                                </label>
+                            </div>
+                            <div class="form-check-inline">
+                                <input type="radio" name="selretpersonal" id="selretpersonal" style="display: inherit !important"  [disabled]="habilitaobjetofrom" [(ngModel)]="iEmpleado.confpestado" [ngModelOptions]="{standalone: true}" [value]="'I'">
+                                <label class="form-check-label" for="selretpersonal">
+                                    <span class="letraGlobal">Inactivo</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Alimentacion</label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-check-inline">
+                                <input type="radio" name="alimenta" id="alimenta" style="display: inherit !important"  [disabled]="habilitaobjetofrom" [(ngModel)]="iEmpleado.confalimentacion" [ngModelOptions]="{standalone: true}" [value]="'S'">
+                                <label class="form-check-label" for="alimenta">
+                                    <span class="letraGlobal">Si</span>
+                                </label>
+                            </div>
+                            <div class="form-check-inline">
+                                <input type="radio" name="alimenta" id="alimenta" style="display: inherit !important"  [disabled]="habilitaobjetofrom" [(ngModel)]="iEmpleado.confalimentacion" [ngModelOptions]="{standalone: true}" [value]="'N'">
+                                <label class="form-check-label" for="alimenta">
+                                    <span class="letraGlobal">No</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Movilizacion</label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-check-inline">
+                                <input type="radio" name="movilisa" id="movilisa" style="display: inherit !important"  [disabled]="habilitaobjetofrom" [(ngModel)]="iEmpleado.confmovilizacion" [ngModelOptions]="{standalone: true}" [value]="'S'">
+                                <label class="form-check-label" for="movilisa">
+                                    <span class="letraGlobal">Si</span>
+                                </label>
+                            </div>
+                            <div class="form-check-inline">
+                                <input type="radio" name="movilisa" id="movilisa" style="display: inherit !important"  [disabled]="habilitaobjetofrom" [(ngModel)]="iEmpleado.confmovilizacion" [ngModelOptions]="{standalone: true}" [value]="'N'">
+                                <label class="form-check-label" for="movilisa">
+                                    <span class="letraGlobal">No</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <fieldset class="border p-2" style="border-radius: 15px!important;border-color:black!important">
+                        <legend class="float-none w-auto p-2 letraGlobal">Decimo Tercero</legend>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-check-inline">
+                                    <input type="checkbox" name="selretpersonal" id="selretpersonal" style="display: inherit !important" [disabled]="habilitaobjetofrom" [(ngModel)]="iEmpleado.confdecicmo13" [ngModelOptions]="{standalone: true}">
+                                    <label class="form-check-label" for="selretpersonal">
+                                        <span class="letraGlobal">Decimo Tercero</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-check-inline">
+                                    <input type="radio" name="decimoacu" id="decimoacu" style="display: inherit !important" [disabled]="(iEmpleado.confdecicmo13)?false:true" [(ngModel)]="iEmpleado.confdecicmo13_pago" [ngModelOptions]="{standalone: true}" [value]="'A'">
+                                    <label class="form-check-label" for="decimoacu">
+                                        <span class="letraGlobal">Acumulado</span>
+                                    </label>
+                                </div>
+                                <div class="form-check-inline">
+                                    <input type="radio" name="decimoacu" id="decimoacu" style="display: inherit !important" [disabled]="(iEmpleado.confdecicmo13)?false:true" [(ngModel)]="iEmpleado.confdecicmo13_pago" [ngModelOptions]="{standalone: true}" [value]="'M'">
+                                    <label class="form-check-label" for="decimoacu">
+                                        <span class="letraGlobal">Mensualisado</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="col-md-4">
+                    <fieldset class="border p-2" style="border-radius: 15px!important;border-color:black!important">
+                        <legend class="float-none w-auto p-2 letraGlobal">Decimo Cuarto</legend>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-check-inline">
+                                    <input type="checkbox" name="selretpersonal" id="selretpersonal" style="display: inherit !important" [disabled]="habilitaobjetofrom" [(ngModel)]="iEmpleado.confdecicmo14" [ngModelOptions]="{standalone: true}">
+                                    <label class="form-check-label" for="selretpersonal">
+                                        <span class="letraGlobal">Decimo Cuarto</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-check-inline">
+                                    <input type="radio" name="decimoacu14" id="decimoacu14" style="display: inherit !important" [disabled]="(iEmpleado.confdecicmo14)?false:true" [(ngModel)]="iEmpleado.confdecicmo14_pago" [ngModelOptions]="{standalone: true}" [value]="'A'">
+                                    <label class="form-check-label" for="decimoacu14">
+                                        <span class="letraGlobal">Acumulado</span>
+                                    </label>
+                                </div>
+                                <div class="form-check-inline">
+                                    <input type="radio" name="decimoacu14" id="decimoacu14" style="display: inherit !important" [disabled]="(iEmpleado.confdecicmo14)?false:true" [(ngModel)]="iEmpleado.confdecicmo14_pago" [ngModelOptions]="{standalone: true}" [value]="'M'">
+                                    <label class="form-check-label" for="decimoacu14">
+                                        <span class="letraGlobal">Mensualisado</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="col-md-4">
+                    <fieldset class="border p-2" style="border-radius: 15px!important;border-color:black!important">
+                        <legend class="float-none w-auto p-2 letraGlobal">Fondo Reserva</legend>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-check-inline">
+                                    <input type="checkbox" name="selretpersonal" id="selretpersonal" style="display: inherit !important" [disabled]="habilitaobjetofrom" [(ngModel)]="iEmpleado.conffondoreserva" [ngModelOptions]="{standalone: true}">
+                                    <label class="form-check-label" for="selretpersonal">
+                                        <span class="letraGlobal">Fondo Reserva</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-check-inline">
+                                    <input type="radio" name="fondore" id="fondore" style="display: inherit !important" [disabled]="(iEmpleado.conffondoreserva)?false:true" [(ngModel)]="iEmpleado.conffondoreserva_pago" [ngModelOptions]="{standalone: true}" [value]="'A'">
+                                    <label class="form-check-label" for="fondore">
+                                        <span class="letraGlobal">Acumulado</span>
+                                    </label>
+                                </div>
+                                <div class="form-check-inline">
+                                    <input type="radio" name="fondore" id="fondore" style="display: inherit !important" [disabled]="(iEmpleado.conffondoreserva)?false:true" [(ngModel)]="iEmpleado.conffondoreserva_pago" [ngModelOptions]="{standalone: true}" [value]="'M'">
+                                    <label class="form-check-label" for="fondore">
+                                        <span class="letraGlobal">Mensualisado</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+
+<ng-template #modalbusquedaempleado style="z-index:50000">
+    <div class=" modal-primary modal-lg" role="document" dynamicHeight dynamicweiht>
+        <div class="modal-content ">
+            <div class="modal-body">
+                <app-busquedaempleado [listadoempleado]="listadoempleado" (confirmacionCierre)="cierreEmpleado($event)" (cierreModal)="cierreModal($event)"></app-busquedaempleado>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+
+
+<app-modales [llamarModal]="llamarmodal" (aceptarOk)="aceptarOk($event)"></app-modales>
+
+
+

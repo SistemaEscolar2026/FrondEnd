@@ -1,0 +1,44 @@
+
+<div class="login">
+  <form [formGroup]="formGroup" class="custom-form" (ngSubmit)="cambioclave()" autocomplete="off">
+    <h1>Cambio de Clave</h1>
+    <div class="form-group ">
+      <input type="text" Style="text-transform: uppercase" class="form-control letraGlobal" id="txtNombreUsuario" MaxLength="150" [(ngModel)]="modelo.usdescrip" placeholder="Nombre de Usuario" [disabled]="true" [ngModelOptions]="{standalone: true}">
+    </div>
+    <div class="form-group">
+      <input type="password" formControlName="clave_Usuario" class="form-control letraGlobal"   autocomplete="new-password"
+             [ngClass]="{ 'is-invalid': submitted && f['clave_Usuario'].errors }"
+             required="required"
+             id="txtClave" MaxLength="150" placeholder="CLAVE DE USUARIO">
+      <div *ngIf="submitted && f['clave_Usuario'].errors" class="invalid-feedback">
+        <div *ngIf="f.clave_Usuario.errors.required">Contraseña es requerido</div>
+        <div *ngIf="f.clave_Usuario.errors.minlength">Contraseña debe tener minimo 8 caracteres</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <input type="password" formControlName="clave_ConUsuario"
+             class="form-control letraGlobal"
+             [ngClass]="{ 'is-invalid': submitted && f['clave_ConUsuario'].errors }"   autocomplete="new-password"
+             id="txtConfirmarClave"
+             MaxLength="150" placeholder="CONFIRMAR CLAVE DE USUARIO">
+      <div *ngIf="submitted && f['clave_ConUsuario'].errors" class="invalid-feedback">
+        <div *ngIf="f.clave_ConUsuario.errors.required">Confirmacion de Contraseña es requerido</div>
+        <div *ngIf="f.clave_ConUsuario.errors.mustMatch">Contraseña no son iguales</div>
+      </div>
+    </div>
+    <br />
+    <div class="row">
+      <div class="col-md-6">
+        <button type="submit" class=" letraGlobal btn btn-success btn-sm">Guardar Clave</button>
+      </div>
+      <div class="col-md-6" style="text-align: right !important">
+        <button type="button" class=" letraGlobal btn btn-primary " (click)="regresar()">Regresar</button>
+      </div>
+    </div>
+
+  </form>
+</div>
+<ngx-spinner template="<img src='../../../assets/imgcabecera/loading.svg'>" [fullScreen]="true"><p style="color: white"> Por favor espere... </p></ngx-spinner>
+
+<app-modales [llamarModal]="llamarmodal" (aceptarOk)="aceptarOk($event)"></app-modales>
+

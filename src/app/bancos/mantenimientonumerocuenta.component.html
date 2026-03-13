@@ -1,0 +1,96 @@
+<form [formGroup]="bancosfrom" (ngSubmit)="guardarbanco()">
+  <!--INICIO SESSION BOTONES-->
+  <div class="row barra-accion">
+    <div class=" col-md-12">
+      <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnnuevo" mat-button (click)="limpiabotones(2);habilitarfrom(2);"><mat-icon class="orange600">search</mat-icon>Nuevo</button>
+      <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnmodificar" (click)="habilitarfrom(3);limpiabotones(2);" mat-button><mat-icon class="azul600 ">edit</mat-icon>Modificar</button>
+      <button type="submit" class="btn botonpaso letraGlobal" [disabled]="botones.btngrabar" mat-button><mat-icon class="gren600 ">save</mat-icon>Guardar</button>
+      <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btneliminar" (click)="deletebancos()" mat-button><mat-icon class="red600 ">close</mat-icon>Eliminar</button>
+      <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btncancelar" mat-button (click)="limpiabotones(1);limpiarpais();habilitarfrom(1);"><mat-icon class="redf600 ">redo</mat-icon>Cancelar</button>
+      <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnbuscar" mat-button (click)="buscar()"><mat-icon class="azulbu600 ">plagiarism</mat-icon>buscar</button>
+      <mat-divider class="material-devider">|</mat-divider>
+      <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnsalir" mat-button (click)="salir()"><mat-icon class="redoff600 ">power_settings_new</mat-icon>Salir</button>
+      <mat-divider class="material-devider">|</mat-divider>
+      <label class="bordetitulopagina letraGlobalTitulo2 "><span class="d-none d-xl-block">&nbsp;&nbsp;&nbsp;&nbsp;Mantenimiento de Numero Cuenta&nbsp;&nbsp;&nbsp;&nbsp;</span></label>
+    </div>
+  </div>
+  <!--FIN SESSION BOTONES-->
+  <div class="custom-panel">
+      <div class="row">
+          <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 ">
+              <div class="form-group ">
+                  <label class="col-form-label negrillas letraGlobal">Banco</label>
+              </div>
+          </div>
+          <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 ">
+              <div class="form-group">
+                  <select formControlName='banco' name="banco" class="custom-select form-controlselect letraGlobal" panelClass="my-select-panel-class" id="inputGroupSelect01" required="required" [ngClass]="{ 'is-invalid': submitted && f['banco'].errors }">
+                      <option [value]="comp.ban_codigo" *ngFor="let comp of listbanco">{{comp.ban_descripcion}}</option>
+                  </select>
+                  <div *ngIf="submitted && f['banco'].errors" class="invalid-feedback">
+                      <div *ngIf="f['banco'].errors['required']">Banco es requerido</div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 ">
+              <div class="form-group ">
+                  <label class="col-form-label negrillas letraGlobal">Tipo Cuenta</label>
+              </div>
+          </div>
+          <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 ">
+              <div class="form-group">
+                  <select formControlName='tipocuenta' name="tipocuenta" class="custom-select form-controlselect letraGlobal" panelClass="my-select-panel-class" id="inputGroupSelect01" required="required" [ngClass]="{ 'is-invalid': submitted && f['tipocuenta'].errors }">
+                      <option [value]="comp.bcb_codigo" *ngFor="let comp of listtipocuenta">{{comp.bcb_descripcion}}</option>
+                  </select>
+                  <div *ngIf="submitted && f['tipocuenta'].errors" class="invalid-feedback">
+                      <div *ngIf="f['tipocuenta'].errors['required']">Tipo Cuenta es requerido</div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 ">
+              <div class="form-group ">
+                  <label class="col-form-label negrillas letraGlobal">Descripcion<span class="obligatorio">*</span></label>
+              </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
+              <div class="form-group">
+                  <input type="text" class="form-control letraGlobal" formControlName='descripcion' name="descripcion" maxlength="100" required="required" [ngClass]="{ 'is-invalid': submitted && f['descripcion'].errors }">
+                  <div *ngIf="submitted && f['descripcion'].errors" class="invalid-feedback">
+                      <div *ngIf="f['descripcion'].errors['required']">Descripcion es requerido</div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 ">
+              <div class="form-group ">
+                  <label class="col-form-label negrillas letraGlobal">Estado</label>
+              </div>
+          </div>
+          <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 ">
+              <div class="form-group">
+                  <select formControlName='estado' name="estado" class="custom-select form-controlselect letraGlobal" panelClass="my-select-panel-class" id="inputGroupSelect01">
+                      <option [value]="comp.valor" *ngFor="let comp of listEstado">{{comp.texto}}</option>
+                  </select>
+              </div>
+          </div>
+      </div>
+  </div>
+</form>
+
+<ng-template #modalbusquedanumerocuenta style="z-index:50000">
+  <div class=" modal-primary modal-lg" role="document" dynamicHeight dynamicweiht>
+    <div class="modal-content ">
+      <div class="modal-body">
+        <app-busquedanumerocuenta (confirmacionCierre)="cierreNumeroCuenta($event)" (cierreModal)="cierreModalforma($event)" [listtipodocumento]="listtipodocumento"></app-busquedanumerocuenta>
+      </div>
+    </div>
+  </div>
+</ng-template>  
+
+
+

@@ -1,0 +1,138 @@
+<div style="overflow-y: hidden!important;overflow-x:hidden!important">
+  <!--INICIO SESSION BOTONES-->
+  <div class="row barra-accion">
+    <div class=" col-md-12">
+      <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btngrabar" mat-button (click)="procesar()"><mat-icon class="gren600 ">sync</mat-icon>Aplicar</button>
+      <mat-divider class="material-devider">|</mat-divider>
+      <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnmodificar" mat-button (click)="uf_exporta()"><mat-icon class="grenf600">download_for_offline</mat-icon>Exportar</button>
+      <mat-divider class="material-devider">|</mat-divider>
+      <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btncancelar" mat-button (click)="limpiar()"><mat-icon class="redf600 ">redo</mat-icon>Cancelar</button>
+      <mat-divider class="material-devider">|</mat-divider>
+      <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnsalir" mat-button (click)="salir()"><mat-icon class="redoff600 ">power_settings_new</mat-icon>Salir</button>
+      <mat-divider class="material-devider">|</mat-divider>
+      <label class="bordetitulopagina letraGlobalTitulo2 "><span class="d-none d-xl-block">&nbsp;&nbsp;&nbsp;&nbsp;SERVICIO DE RENTAS INTERNAS - Compras Sustento Credito Tributario&nbsp;&nbsp;&nbsp;&nbsp;</span></label>
+    </div>
+  </div>
+  <!--FIN SESSION BOTONES-->
+</div>
+<div class="custom-panel">
+  <br />
+  <div class="row">
+    <div class="col-auto">
+    </div>
+    <div class="col-md-6">
+      <fieldset class="border p-1" style="border-radius: 15px!important;border-color:black!important">
+        <legend class="float-none w-auto p-1 letraGlobal">Sustento Tributario</legend>
+        <div class="row">
+          <div class="col-md-12">
+            <select [(ngModel)]="ddw_sustento" class="custom-select form-controlselectbarra  letraGlobal" style="width: 100%!important" [disabled]="cbx_todos" panelClass="my-select-panel-class" [ngModelOptions]="{standalone: true}" id="inputGroupSelect01">
+              <option [value]="comp.ctcodigo" *ngFor="let comp of listsustento">{{comp.presenta}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-auto">
+            <div class="form-check-inline">
+              <input type="checkbox" name="tiporeporte" id="tiporeporte" style="display: inherit !important" (change)="cbx_todos_CheckedChanged()" [(ngModel)]="cbx_todos">
+              <label class="form-check-label" for="tiporeporte">
+                <span class="letraGlobal">&nbsp;Todos</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-auto">
+    </div>
+    <div class="col-md-3">
+      <fieldset class="border p-1" style="border-radius: 15px!important;border-color:black!important">
+        <legend class="float-none w-auto p-1 letraGlobal">Periodos</legend>
+        <div class="row">
+          <div class="col-md-2">
+            <div class="form-group ">
+              <label class="col-form-label negrillas letraGlobal">Inicial</label>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group ">
+              <input type="number" class="form-control letraGlobal colornone" [(ngModel)]="ne_anioIni" maxlength="4" onkeypress="return numbersonly(event);" [ngModelOptions]="{standalone: true}" value="0">
+            </div>
+          </div>
+          <div class="col-md-5">
+            <div class="form-group ">
+              <select [(ngModel)]="ddw_mesIni" class="custom-select form-controlselectbarra  letraGlobal" style="width: 100%!important" panelClass="my-select-panel-class" [ngModelOptions]="{standalone: true}" id="inputGroupSelect01">
+                <option [value]="comp.mes" *ngFor="let comp of listmes">{{comp.mesD}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <div class="form-group ">
+              <label class="col-form-label negrillas letraGlobal">Final</label>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group ">
+              <input type="number" class="form-control letraGlobal colornone" [(ngModel)]="ne_anioFin" maxlength="4" onkeypress="return numbersonly(event);" [ngModelOptions]="{standalone: true}" value="0">
+            </div>
+          </div>
+          <div class="col-md-5">
+            <div class="form-group ">
+              <select [(ngModel)]="ddw_mesFin" class="custom-select form-controlselectbarra  letraGlobal" style="width: 100%!important" panelClass="my-select-panel-class" [ngModelOptions]="{standalone: true}" id="inputGroupSelect01">
+                <option [value]="comp.mes" *ngFor="let comp of listmes">{{comp.mesD}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+    <div class="col-md-3">
+      <fieldset class="border p-1" style="border-radius: 15px!important;border-color:black!important">
+        <legend class="float-none w-auto p-1 letraGlobal">Agrupado Por</legend>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-check-inline">
+              <input type="radio" name="rb_listado" id="rb_listado" style="display: inherit !important" [(ngModel)]="rb_agrupado" [value]="'S'">
+              <label class="form-check-label" for="rb_listado">
+                <span class="letraGlobal">&nbsp;Sustento Tributario</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-check-inline">
+              <input type="radio" name="rb_listado" id="rb_listado" style="display: inherit !important" [(ngModel)]="rb_agrupado" [value]="'T'">
+              <label class="form-check-label" for="rb_listado">
+                <span class="letraGlobal">&nbsp;Sustento Tributario - Tipo Documento</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-check-inline">
+              <input type="radio" name="rb_listado" id="rb_listado" style="display: inherit !important" [(ngModel)]="rb_agrupado" [value]="'D'">
+              <label class="form-check-label" for="rb_listado">
+                <span class="letraGlobal">&nbsp;Tipo Documento - Sustento Tributario</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+  <br />
+</div>
+
+
+<app-modales [llamarModal]="llamarmodal"></app-modales>
+
+<app-report [openReport]="openReport"></app-report>
+
+
+
+

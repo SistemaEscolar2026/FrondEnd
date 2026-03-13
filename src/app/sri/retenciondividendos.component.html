@@ -1,0 +1,217 @@
+  <!--INICIO SESSION BOTONES-->
+<div class="row barra-accion">
+  <div class=" col-md-12">
+    <select [(ngModel)]="cmbopcion" class="custom-select form-controlselectbarra  letraGlobal" [disabled]="botones.btnnuevo" panelClass="my-select-panel-class" (change)="selectopcionpanel()" [ngModelOptions]="{standalone: true}" id="inputGroupSelect01">
+      <option [value]="comp.valor" *ngFor="let comp of listopciones">{{comp.texto}}</option>
+    </select>
+    <mat-divider class="material-devider">|</mat-divider>
+    <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl" [disabled]="botones.btngrabar" (click)="guardar(0)" mat-button><mat-icon class="gren600 ">save</mat-icon>Guardar</button>
+    <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl" [disabled]="botones.btncancelar" mat-button (click)="cancelar()"><mat-icon class="redf600 ">redo</mat-icon>Cancelar</button>
+    <mat-divider class="material-devider">|</mat-divider>
+    <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl" [disabled]="botones.btnimprimir" mat-button (click)="guardar(1)"><mat-icon class="azulbu600 ">print</mat-icon>Imprimir</button>
+    <mat-divider class="material-devider">|</mat-divider>
+    <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl" [disabled]="botones.btnsalir" mat-button (click)="salir()"><mat-icon class="redoff600 ">power_settings_new</mat-icon>Salir</button>
+    <mat-divider class="material-devider">|</mat-divider>
+    <label class="bordetitulopagina letraGlobalTitulo2 "><span class="d-none d-xl-block">&nbsp;&nbsp;&nbsp;&nbsp;SERVICIO DE RENTAS INTERNAS - Ingreso Retenciones (Dividendos)&nbsp;&nbsp;&nbsp;&nbsp;</span></label>
+  </div>
+</div>
+<!--FIN SESSION BOTONES-->
+<div class="custom-panel">
+  <div class="row custom-panel2 b">
+    <div class="col-md-8">
+      <div class="row">
+        <div class="col-auto">
+          <div class="form-group ">
+            <label class="col-form-label negrillas letraGlobal">Fecha Ret.</label>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group">
+            <input type="date" class="form-control letraGlobal campoBloqueado" [disabled]="habilitaobjetofrom" [(ngModel)]="iDocumentoRet.cretfecha" maxlength="10">
+          </div>
+        </div>
+        <div class="col-auto">
+          <div class="form-group ">
+            <label class="col-form-label negrillas letraGlobal">Tipo de Documento</label>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group ">
+            <ng-select2 [data]="listtipodocumento" [ngModelOptions]="{standalone: true}" [disabled]="(cmbopcion==='I')?habilitaobjetofrom:habilitabuscar" [allowClear]="true" (ngModelChange)="cargarTipoDocRet($event)" [(ngModel)]="iDocumentoRet.tretcodigo" [options]="options" class="custom-select letraGlobal" panelClass="my-select-panel-class"></ng-select2>
+          </div>
+        </div>
+        <div class="col-auto">
+          <div class="form-group ">
+            <label class="col-form-label negrillas letraGlobal">Numero Retención</label>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <input type="text" class="form-control letraGlobal colornone" [(ngModel)]="iDocumentoRet.cretnumero" [disabled]="habilitabuscar" maxlength="10" min="0"  (blur)="buscarRetencion()" onkeypress="return numbersonly(event);" [ngModelOptions]="{standalone: true}">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-auto">
+          <div class="form-group ">
+            <label class="col-form-label negrillas letraGlobal">Proveedor&nbsp;</label>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group">
+            <input type="text" class="form-control letraGlobal campoBloqueado"  [disabled]="habilitaobjetofrom" [(ngModel)]="iDocumentoRet.prcodigo" maxlength="10">
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-11">
+                <input type="text" class="form-control letraGlobal campoBloqueado" [(ngModel)]="iDocumentoRet.txt_nomPro" maxlength="100" [disabled]="true">
+              </div>
+              <div class="col-md-1">
+                <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl" style="align-items:inherit!important; min-width: 0px !important; " [disabled]="habilitaobjetofrom" mat-button (click)="buscar(0)"> <span style="cursor:pointer"><mat-icon class="azul600 ">plagiarism</mat-icon></span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-auto">
+          <div class="form-group ">
+            <label class="col-form-label negrillas letraGlobal">Tipo de Identificación</label>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group ">
+            <ng-select2 [data]="listipoidentificacion" [ngModelOptions]="{standalone: true}" [disabled]="habilitaobjetofrom" [allowClear]="true" [(ngModel)]="iDocumentoRet.ddw_tipoId" [options]="options" class="custom-select letraGlobal" panelClass="my-select-panel-class"></ng-select2>
+          </div>
+        </div>
+        <div class="col-auto">
+          <div class="form-group ">
+            <label class="col-form-label negrillas letraGlobal">Núm. de Identificación</label>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <input type="text" class="form-control letraGlobal colornone" [(ngModel)]="iDocumentoRet.numidret" [disabled]="habilitaobjetofrom" maxlength="13" min="0" [ngModelOptions]="{standalone: true}">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-auto">
+          <div class="form-group ">
+            <label class="col-form-label negrillas letraGlobal">Telefono&nbsp;&nbsp;&nbsp;&nbsp;</label>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <input type="text" class="form-control letraGlobal colornone" [(ngModel)]="iDocumentoRet.telefonoret" style="text-align:left!important" [disabled]="habilitaobjetofrom" maxlength="30" min="0" [ngModelOptions]="{standalone: true}">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-auto" style="align-content:center!important">
+          <div class="form-group ">
+            <label class="col-form-label negrillas letraGlobal">Dirección&nbsp;&nbsp;&nbsp;&nbsp;</label>
+          </div>
+        </div>
+        <div class="col-md-7">
+          <textarea type="text" rows="30" class="textinput letraGlobal col-md-12 col-sm-12" [(ngModel)]="iDocumentoRet.direccionret" maxlength="100" [disabled]="habilitaobjetofrom" value=""></textarea>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-auto">
+          <div class="form-group ">
+            <label class="col-form-label negrillas letraGlobal">E-Mail&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <input type="text" class="form-control letraGlobal colornone" [(ngModel)]="iDocumentoRet.mailret" style="text-align:left!important" [disabled]="habilitaobjetofrom" maxlength="400" min="0" [ngModelOptions]="{standalone: true}">
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <br />
+      <div class="row">
+        <div class="col-md-12">
+          <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl " data-toggle="tooltip" title="Datos por Default" [disabled]="habilitaobjetofrom" mat-button (click)="btn_datos_Click()"><img class="" src="../../assets/img/TaskChecked.png" />Datos por Default</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <div class="row custom-panel2 b">
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-12">
+          <input id="busqueda" type="text" class="busqueda" style="width: 100%; padding: 0.3rem !important " [disabled]="habilitaobjetofrom" [(ngModel)]="txtbusca" placeholder="Busqueda..." autocomplete="off" />
+        </div>
+      </div>
+      <div class="row">
+        <div id="global" class="col-10">
+          <div id="no-more-tables" class="material-datatables table-responsive">
+            <table responsive="true" class="letraGlobal table table-striped table-bordered table-sm row-border hover" cellspacing="0">
+              <thead>
+                <tr class="cabeceragrid">
+                  <th *ngFor="let head of ColumnaDetalle" scope="col">{{head}} </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of dg_retenciones | grdFilter:{cl_codigo:txtbusca,tco_descripcion:txtbusca};" class="clsForeColor{{row.color}}">
+                  <td data-title="Lin." (click)="clickGrid(row);" (dblclick)="dblclickGrid(row);" style="text-align: center; width: 5%">{{row.dretlinea}}</td>
+                  <td data-title="Credito Tributario" (click)="clickGrid(row);" (dblclick)="dblclickGrid(row);" style="text-align:center;width:40%">
+                    <select [ngModelOptions]="{standalone: true}" [(ngModel)]="row.ctcodigo" class="custom-select form-control letraGlobal" [disabled]="true" panelClass="my-select-panel-class" id="inputGroupSelect01">
+                      <option [value]="comp.ctcodigo" *ngFor="let comp of listcredito">{{comp.ctdescripcion}}</option>
+                    </select>
+                  </td>
+                  <td data-title="Tipo Retención" (click)="clickGrid(row);" (dblclick)="dblclickGrid(row);" style="width: 15% ">{{row.trscodigo}}</td>
+                  <td data-title="" (click)="cargaRetencion(row);clickGrid(row);" style="cursor: pointer !important; width: 5%; text-align: center !important"><mat-icon class="azul600 ">search</mat-icon></td>
+                  <td data-title="%" (click)="clickGrid(row);" (dblclick)="dblclickGrid(row);" style="width:10%">
+                    <input type="text" class="form-control letraGlobal  " maxlength="20" style="text-align: right !important; " (input)="calculo(row)" [disabled]="habilitaobjetofrom" onkeypress="return isNumberKey(this,event,3);" [(ngModel)]="row.dretporim">
+                  </td>
+                  <td data-title="Base" (click)="clickGrid(row);" (dblclick)="dblclickGrid(row);" style="text-align:left;width:10%">
+                    <input type="text" class="form-control letraGlobal  " maxlength="20" style="text-align: right !important; " (input)="calculo(row)" [disabled]="habilitaobjetofrom" onkeypress="return isNumberKey(this,event,3);" [(ngModel)]="row.dretvalornominal">
+                  </td>
+                  <td data-title="Valor" (click)="clickGrid(row);" (dblclick)="dblclickGrid(row);" style="text-align: right; width: 10%">{{row.dretvalor| number : '1.2-2' }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="row">
+            <div class="col-md-12">
+              <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl" [disabled]="habilitaobjetofrom" (click)="agregarlinea()" mat-button><mat-icon class="gren600 ">add</mat-icon>Aumenta Línea</button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl " [disabled]="habilitaobjetofrom" (click)="borrarlinea()" mat-button><mat-icon class="red600 ">remove</mat-icon>Disminuye Línea</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #modalbusquedaproveedor style="z-index:50000">
+  <div class=" modal-primary modal-lg" role="document" dynamicHeight dynamicweiht>
+    <div class="modal-content ">
+      <div class="modal-body">
+        <app-busquedaproveedor (confirmacionCierre)="cierreProveedor($event)" (cierreModal)="cierreModal($event)" [listadoproveedor]="listproveedor"></app-busquedaproveedor>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+
+<ng-template #modalbusquedaretencion style="z-index:50000">
+  <div class=" modal-primary modal-lg" role="document" dynamicHeight dynamicweiht>
+    <div class="modal-content ">
+      <div class="modal-body">
+        <app-busquedatiporetencion (confirmacionCierre)="cierreRetencion($event)" (cierreModal)="cierreModal($event)" [listtiporetencion]="listretencionsri" [controlmultiple]="false"></app-busquedatiporetencion>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+
+<app-modales [llamarModal]="llamarmodal" (aceptarOk)="aceptarOk($event)" (aceptarConfi)="aceptarConfi($event)"></app-modales>
+
+<app-report [openReport]="openReport"></app-report>
+

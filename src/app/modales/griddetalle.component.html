@@ -1,0 +1,50 @@
+<div class="row" style="overflow-y: hidden!important;overflow-x:hidden!important"> 
+  <div id="globalpantalla2" class="col-md-10">
+    <div id="no-more-tables" class="material-datatables table-responsive">
+      <table responsive="true" class="letraGlobal table table-striped table-bordered table-sm row-border hover" cellspacing="0">
+        <thead style="border: solid 1px #ABBAD0!important">
+          <tr class="cabeceragrid letraGlobal">
+            <th rowspan="2">Lin.</th>
+            <th colspan="3">Ítems</th>
+            <th rowspan="2" *ngFor="let head of ColumnaDetalle" scope="col">{{head}} </th>
+          </tr>
+          <tr class="cabeceragrid letraGlobal">
+            <th>Código</th>
+            <th>Descripción</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody class="cuerpogrid">
+          <tr *ngFor="let row of detgrid " class="clsForeColor{{row.color}}">
+            <td data-title="Lin." (click)="clickGrid(row);" >{{row.deplinea}}</td>
+            <td data-title="Código" (click)="clickGrid(row);"style="width: 150px " ><input type="text" class="form-control letraGlobal  " maxlength="20" [disabled]="habilitabotones" [(ngModel)]="row.itcodigo" (blur)="buscaritems(row.itcodigo)"></td>
+            <td data-title="Descripción" (click)="clickGrid(row);" >{{row.itdescripcion}}</td>
+            <td data-title="" (click)="buscaritems(row);clickGrid(row);"  style="cursor: pointer !important; " ><mat-icon class="azul600 ">search</mat-icon></td>
+            <td data-title="Bodega" (click)="clickGrid(row);"  style="width: 100px  ">{{row.bocodigodes}}</td>
+            <td data-title="Medida"  (click)="clickGrid(row);" style="width: 100px ">{{row.medida}}</td>
+            <td data-title="" (click)="buscarmedida(row);clickGrid(row);" style="cursor: pointer !important; "><mat-icon class="azul600 ">search</mat-icon></td>
+            <td data-title="Cantidad" (click)="clickGrid(row);" style="text-align: right !important; "><input type="text" class="form-control letraGlobal  "  maxlength="20"style="text-align: right !important; "(input)="calculo(row)" [disabled]="habilitabotones" onkeypress="return isNumberKey(this,event,5);"  [(ngModel)]="row.depcantmedalter"></td>
+            <td data-title="Precio" (click)="clickGrid(row);" style="text-align: right !important;  "><input type="text" class="form-control letraGlobal  " maxlength="20"style="text-align: right !important; "(input)="calculo(row)" [disabled]="habilitabotones"onkeypress="return isNumberKey(this,event,5);"  [(ngModel)]="row.deppreciomedalter"></td>
+            <td data-title="Total" (click)="clickGrid(row);" style="text-align: right !important; "><input type="text" class="form-control letraGlobal colorfondonegro colorGreen" maxlength="10"  [disabled]="true"  value="{{row.total | number : '1.4-4'}}"></td>
+            <td data-title="IVA" (click)="clickGrid(row);" style="text-align: right !important;  "><input type="checkbox" name="exampleRadios" id="exampleRadios1" (change)="calculoivadet(row)"[disabled]="habilitabotones" [(ngModel)]="row.depiva" [value]="row.depiva"></td>
+            <td data-title="Valor IVA" (click)="clickGrid(row);" style="text-align: right !important; ">{{row.depivalin | number : '1.4-4'}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class="row">
+      <div class="col-md-12">
+        <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl" [disabled]="habilitabotones" (click)="agregarlinea()" mat-button><mat-icon class="gren600 ">add</mat-icon>Aumenta Línea</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl " [disabled]="habilitabotones" (click)="borrarlinea()"  mat-button><mat-icon class="red600 ">remove</mat-icon>Disminuye Línea</button>
+      </div>
+    </div>
+  </div>
+  </div>
+<app-modales [llamarModal]="llamarmodal"></app-modales>
+

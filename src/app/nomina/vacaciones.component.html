@@ -1,0 +1,130 @@
+  <!--INICIO SESSION BOTONES-->
+<div class="row barra-accion">
+    <div class=" col-md-12">
+        <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnnuevo" mat-button (click)="limpiabotones(2);habilitarfrom(2);"><mat-icon class="orange600">search</mat-icon>Nuevo</button>
+        <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btngrabar" (click)="guardarprestamo();" mat-button><mat-icon class="gren600 ">save</mat-icon>Guardar</button>
+        <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btneliminar" (click)="delete()" mat-button><mat-icon class="red600 ">close</mat-icon>Eliminar</button>
+        <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btncancelar" mat-button (click)="cancelar();"><mat-icon class="redf600 ">redo</mat-icon>Cancelar</button>
+        <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnbuscar" mat-button (click)="buscar()"><mat-icon class="azulbu600 ">plagiarism</mat-icon>buscar</button>
+        <mat-divider class="material-devider">|</mat-divider>
+        <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnsalir" mat-button (click)="salir()"><mat-icon class="redoff600 ">power_settings_new</mat-icon>Salir</button>
+        <mat-divider class="material-devider">|</mat-divider>
+        <label class="bordetitulopagina letraGlobalTitulo2 "><span class="d-none d-xl-block">&nbsp;&nbsp;&nbsp;&nbsp;NOMINA - Vacaciones&nbsp;&nbsp;&nbsp;&nbsp;</span></label>
+    </div>
+</div>
+<!--FIN SESSION BOTONES-->
+<div class="custom-panel">
+    <div class="row">
+        <div class="col-md-7">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Empleado</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group ">
+                        <input type="text" class="form-control letraGlobal" [(ngModel)]="iVacaciones.empcodigo" [disabled]="true" [ngModelOptions]="{standalone: true}" maxlength="10" required="required">
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group ">
+                        <input type="text" class="form-control letraGlobal" [(ngModel)]="iVacaciones.empnombres" [disabled]="true" [ngModelOptions]="{standalone: true}" maxlength="100" required="required">
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl" [disabled]="habilitaobjetofrom" style="align-items:inherit!important; min-width: 0px !important; " mat-button (click)="buscaremp(2)"> <span style="cursor:pointer"><mat-icon class="azul600 ">plagiarism</mat-icon></span></button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Periodo</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group ">
+                        <select [(ngModel)]="iVacaciones.nve_codigo" class="custom-select form-controlselectbarra  letraGlobal" style="width: 100%!important" (change)="cargaDia()" [disabled]="habilitaobjetofrom" panelClass="my-select-panel-class" [ngModelOptions]="{standalone: true}" id="inputGroupSelect01">
+                            <option [value]="comp.nve_codigo" *ngFor="let comp of listperiodo">{{comp.nve_periodo}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Dias Pendiente</label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group ">
+                        <input type="text" class="form-control letraGlobal" [(ngModel)]="iVacaciones.nva_dias_vacacionespe" [disabled]="true" style="text-align:right!important" [ngModelOptions]="{standalone: true}" maxlength="10" required="required">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Inicio Vacaciones</label>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <div class="form-group ">
+                        <input type="date" class="form-control letraGlobal" [(ngModel)]="iVacaciones.nva_inicio_vacaciones" [disabled]="habilitaobjetofrom" (change)="diastomados()" [ngModelOptions]="{standalone: true}" maxlength="10" required="required">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Fin Vacaciones</label>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <div class="form-group ">
+                        <input type="date" class="form-control letraGlobal" [(ngModel)]="iVacaciones.nva_fin_vacaciones" [disabled]="habilitaobjetofrom" (change)="diastomados()" [ngModelOptions]="{standalone: true}" maxlength="10" required="required">
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Dias Solicitado</label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group ">
+                        <input type="text" class="form-control letraGlobal" [(ngModel)]="iVacaciones.nva_dias_vacaciones" [disabled]="true" [ngModelOptions]="{standalone: true}" maxlength="10" required="required">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+</div>
+
+
+<ng-template #modalbusquedaempleado style="z-index:50000">
+    <div class=" modal-primary modal-lg" role="document" dynamicHeight dynamicweiht>
+        <div class="modal-content ">
+            <div class="modal-body">
+                <app-busquedaempleado [listadoempleado]="listadoempleado" (confirmacionCierre)="cierreEmpleado($event)" (cierreModal)="cierreModal($event)"></app-busquedaempleado>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #modalbusquedavacaciones style="z-index:50000">
+    <div class=" modal-primary modal-lg" role="document" dynamicHeight dynamicweiht>
+        <div class="modal-content ">
+            <div class="modal-body">
+                <app-busquedavacaciones (confirmacionCierre)="cierreVacaciones($event)" (cierreModal)="cierreModalforma($event)" [listvacaciones]="listvacaciones"></app-busquedavacaciones>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+
+
+<app-modales [llamarModal]="llamarmodal" (aceptarOk)="aceptarOk($event)" (aceptarConfi)="aceptarConfi($event)" (aceptarConfieli)="aceptarConfiEli($event)"></app-modales>
+
+
+
+

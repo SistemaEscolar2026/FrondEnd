@@ -1,0 +1,64 @@
+<div style="overflow-y: hidden!important;overflow-x:hidden!important">
+  <!--INICIO SESSION BOTONES-->
+  <div class="row barra-accion">
+    <div class=" col-md-12">
+      <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btngrabar" mat-button (click)="procesar()"><mat-icon class="gren600 ">sync</mat-icon>Aplicar</button>
+      <mat-divider class="material-devider">|</mat-divider>
+      <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnmodificar" mat-button (click)="uf_exporta()"><mat-icon class="grenf600">download_for_offline</mat-icon>Exportar</button>
+      <mat-divider class="material-devider">|</mat-divider>
+      <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btncancelar" mat-button (click)="limpiar()"><mat-icon class="redf600 ">redo</mat-icon>Cancelar</button>
+      <mat-divider class="material-devider">|</mat-divider>
+      <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnsalir" mat-button (click)="salir()"><mat-icon class="redoff600 ">power_settings_new</mat-icon>Salir</button>
+      <mat-divider class="material-devider">|</mat-divider>
+      <label class="bordetitulopagina letraGlobalTitulo2 "><span class="d-none d-xl-block">&nbsp;&nbsp;&nbsp;&nbsp;SERVICIO DE RENTAS INTERNAS - Informe de Retenciones Efectuadas&nbsp;&nbsp;&nbsp;&nbsp;</span></label>
+    </div>
+  </div>
+  <!--FIN SESSION BOTONES-->
+</div>
+<div class="custom-panel">
+  <br />
+  <div class="row">
+    <div class="col-auto">
+    </div>
+    <div class="col-md-4">
+      <fieldset class="border p-1" style="border-radius: 15px!important;border-color:black!important">
+        <legend class="float-none w-auto p-1 letraGlobal">Periodo</legend>
+        <div class="row">
+          <div class="col-md-1">
+            <div class="form-group ">
+              <label class="col-form-label negrillas letraGlobal">Mes</label>
+            </div>
+          </div>
+          <div class="col-md-5">
+            <div class="form-group ">
+              <select [(ngModel)]="ddw_mes" class="custom-select form-controlselectbarra  letraGlobal" style="width: 100%!important" panelClass="my-select-panel-class" [ngModelOptions]="{standalone: true}" id="inputGroupSelect01">
+                <option [value]="comp.mes" *ngFor="let comp of listmes">{{comp.mesD}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-1">
+            <div class="form-group ">
+              <label class="col-form-label negrillas letraGlobal">Año</label>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group ">
+              <input type="number" class="form-control letraGlobal colornone" [(ngModel)]="ne_anio" maxlength="4" onkeypress="return numbersonly(event);" [ngModelOptions]="{standalone: true}" value="0">
+            </div>
+          </div>
+
+        </div>
+      </fieldset>
+    </div>
+  </div>
+  <br />
+</div>
+
+
+<app-modales [llamarModal]="llamarmodal"></app-modales>
+
+<app-report [openReport]="openReport"></app-report>
+
+
+
+

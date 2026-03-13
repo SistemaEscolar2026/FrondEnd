@@ -1,0 +1,83 @@
+<div style="overflow-y: hidden!important;overflow-x:hidden!important">
+  <!--INICIO SESSION BOTONES-->
+  <div class="row barra-accion">
+    <div class=" col-md-12">
+      <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btngrabar" mat-button (click)="procesar()"><mat-icon class="gren600 ">sync</mat-icon>Aplicar</button>
+      <mat-divider class="material-devider">|</mat-divider>
+      <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btncancelar" mat-button (click)="limpiar()"><mat-icon class="redf600 ">redo</mat-icon>Cancelar</button>
+      <mat-divider class="material-devider">|</mat-divider>
+      <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnsalir" mat-button (click)="salir()"><mat-icon class="redoff600 ">power_settings_new</mat-icon>Salir</button>
+      <mat-divider class="material-devider">|</mat-divider>
+      <label class="bordetitulopagina letraGlobalTitulo2 "><span class="d-none d-xl-block">&nbsp;&nbsp;&nbsp;&nbsp;SERVICIO DE RENTAS INTERNAS - Liquidación De Iva&nbsp;&nbsp;&nbsp;&nbsp;</span></label>
+    </div>
+  </div>
+  <!--FIN SESSION BOTONES-->
+</div>
+<div class="custom-panel">
+  <br />
+  <div class="row">
+    <div class="col-auto">
+    </div>
+    <div class="col-md-3">
+      <fieldset class="border p-1" style="border-radius: 15px!important;border-color:black!important">
+        <legend class="float-none w-auto p-1 letraGlobal">Fechas</legend>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group ">
+              <label class="col-form-label negrillas letraGlobal">Fecha Inicial:</label>
+            </div>
+          </div>
+          <div class="col-md-7">
+            <input type="date" class="form-control letraGlobal" [(ngModel)]="dp_fechaIni" maxlength="10">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group ">
+              <label class="col-form-label negrillas letraGlobal">Fecha Final:</label>
+            </div>
+          </div>
+          <div class="col-md-7">
+            <input type="date" class="form-control letraGlobal" [(ngModel)]="dp_fechaFin" maxlength="10">
+          </div>
+        </div>
+      </fieldset>
+    </div>
+    <div class="col-md-2">
+      <fieldset class="border p-1" style="border-radius: 15px!important;border-color:black!important">
+        <legend class="float-none w-auto p-1 letraGlobal">Tipo de Presentación</legend>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-check-inline">
+              <input type="radio" name="tipopresentacion" id="tipopresentacion" style="display: inherit !important" [(ngModel)]="rb_excel" [value]="'N'">
+              <label class="form-check-label" for="tipopresentacion">
+                <span class="letraGlobal">&nbsp;Reporte</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-check-inline">
+              <input type="radio" name="tipopresentacion" id="tipopresentacion" style="display: inherit !important" [(ngModel)]="rb_excel" [value]="'S'">
+              <label class="form-check-label" for="tipopresentacion">
+                <span class="letraGlobal">&nbsp;Exportar Excel</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+
+  <br />
+</div>
+
+
+<app-modales [llamarModal]="llamarmodal"></app-modales>
+
+<app-report [openReport]="openReport"></app-report>
+
+
+
+

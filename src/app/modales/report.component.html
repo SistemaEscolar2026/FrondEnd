@@ -1,0 +1,21 @@
+<ng-template #modalreport style="z-index: 1000000">
+  <div class="modal-header okmodal" style="height:30px!important">
+    <h4 class="modal-title" style="margin:0 0 5px!important" id="modal-basic-title">{{titulo}}</h4>
+  </div>
+  <div class="modal-body">
+    <div class="container">
+      <ssrs-reportviewer [reportserver]="reportServer"
+                         [reporturl]="reportUrl"
+                         [showparameters]="showParameters"
+                         [parameters]="parameters"
+                         [language]="language"
+                         [height]="height"
+                         [toolbar]="toolbar">
+      </ssrs-reportviewer>
+    </div>
+  </div>
+  <div class="modal-footer" style="height: 45px !important">
+    <button type="button" class="btn btn-success btn-sm okmodal" style="padding: revert !important " (click)="cerrar()">Aceptar</button>
+  </div>
+</ng-template>
+

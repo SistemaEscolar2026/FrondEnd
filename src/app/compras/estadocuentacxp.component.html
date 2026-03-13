@@ -1,0 +1,171 @@
+<div style="overflow-y: hidden!important;overflow-x:hidden!important">
+  <!--INICIO SESSION BOTONES-->
+  <div class="row barra-accion">
+    <div class=" col-md-12">
+      <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btngrabar" mat-button (click)="procesar()"><mat-icon class="gren600 ">sync</mat-icon>Aplicar</button>
+      <mat-divider class="material-devider">|</mat-divider>
+      <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btncancelar" mat-button (click)="limpiar()"><mat-icon class="redf600 ">redo</mat-icon>Cancelar</button>
+      <mat-divider class="material-devider">|</mat-divider>
+      <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnsalir" mat-button (click)="salir()"><mat-icon class="redoff600 ">power_settings_new</mat-icon>Salir</button>
+      <mat-divider class="material-devider">|</mat-divider>
+      <label class="bordetitulopagina letraGlobalTitulo2 "><span class="d-none d-xl-block">&nbsp;&nbsp;&nbsp;&nbsp;COMPRAS Y CTAS. POR PAGAR - Estado de Cuenta CXP&nbsp;&nbsp;&nbsp;&nbsp;</span></label>
+    </div>
+  </div>
+  <!--FIN SESSION BOTONES-->
+</div>
+<div class="custom-panel">
+  <div class="row">
+    <div class="col-md-8">
+      <fieldset class="border p-2" style="border-radius: 15px!important;border-color:black!important">
+        <legend class="float-none w-auto p-2 letraGlobal">Proveedor</legend>
+        <div class="row">
+          <div class="col-md-1">
+            <div class="form-group ">
+              <label class="col-form-label negrillas letraGlobal">Proveedor</label>
+            </div>
+          </div>
+          <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 ">
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-11">
+                  <select size="4" class="letraGlobal" style="width: 100%!important">
+                    <option [value]="item.codigo" *ngFor="let item of listproveedoresseleccionado">{{item.descripcion}}</option>
+                  </select>
+                </div>
+                <div class="col-md-1">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl" style="align-items:inherit!important; min-width: 0px !important; " mat-button (click)="buscar(1)"> <span style="cursor:pointer"><mat-icon class="azul600 ">plagiarism</mat-icon></span></button>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl" style="align-items:inherit!important; min-width: 0px !important; " mat-button (click)="limpiarproveedor()"> <span style="cursor:pointer"><mat-icon class="redf600 ">disabled_by_default</mat-icon></span></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2">
+      <fieldset class="border p-2" style="border-radius: 15px!important;border-color:black!important">
+        <legend class="float-none w-auto p-2 letraGlobal">Fecha</legend>
+        <div class="row">
+          <div class="col-md-2">
+            <div class="form-group ">
+              <label class="col-form-label negrillas letraGlobal">Inicial</label>
+            </div>
+          </div>
+          <div class="col-md-10">
+            <input type="date" class="form-control letraGlobal" [(ngModel)]="fechaInicial" maxlength="10">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <div class="form-group ">
+              <label class="col-form-label negrillas letraGlobal">Final</label>
+            </div>
+          </div>
+          <div class="col-md-10">
+            <input type="date" class="form-control letraGlobal" [(ngModel)]="fechaFinal" maxlength="10">
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <fieldset class="border p-2" style="border-radius: 15px!important;border-color:black!important">
+        <legend class="float-none w-auto p-2 letraGlobal">Opciones</legend>
+        <div class="row">
+          <div class="col-md-12">
+            <div >
+              <label class="form-check-label" for="exampleRadios1">
+                <span class="letraGlobal">Ver Facturas con Saldo 0&nbsp;</span>
+              </label>
+              <input type="checkbox" name="exampleRadios" id="exampleRadios1" [(ngModel)]="estadocero" style="display: initial!important">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div>
+              <label class="form-check-label" for="exampleRadios1">
+                <span class="letraGlobal">Ver Anticipos&nbsp;</span>
+              </label>
+              <input type="checkbox" name="exampleRadios" id="exampleRadios1" [(ngModel)]="estadoanticipo" style="display: initial!important">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <div class="form-group ">
+              <label class="col-form-label negrillas letraGlobal">Tipo de Reporte</label>
+            </div>
+          </div>
+          <div class="col-md-10">
+            <div class="form-check-inline">
+              <input type="radio" name="tiporeporte" id="tiporeporte" style="display: inherit !important" [(ngModel)]="tiporeporte" [value]="'D'">
+              <label class="form-check-label" for="tiporeporte">
+                <span class="letraGlobal">&nbsp;Detallado</span>
+              </label>
+            </div>
+            &nbsp;
+            <div class="form-check-inline">
+              <input type="radio" name="tiporeporte" id="tiporeporte" style="display: inherit !important" [(ngModel)]="tiporeporte" [value]="'R'">
+              <label class="form-check-label" for="tiporeporte">
+                <span class="letraGlobal">&nbsp;Resumido</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <fieldset class="border p-2" style="border-radius: 15px!important;border-color:black!important">
+        <legend class="float-none w-auto p-2 letraGlobal">Tipo de Presentación</legend>
+        <div class="row">
+          <div class="col-md-10">
+            <div class="form-check-inline">
+              <input type="radio" name="tipopresentacion" id="tipopresentacion" style="display: inherit !important" [(ngModel)]="tipopresentacion" [value]="'N'">
+              <label class="form-check-label" for="tipopresentacion">
+                <span class="letraGlobal">&nbsp;Reporte</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-10">
+            <div class="form-check-inline">
+              <input type="radio" name="tipopresentacion" id="tipopresentacion" style="display: inherit !important" [(ngModel)]="tipopresentacion" [value]="'S'">
+              <label class="form-check-label" for="tipopresentacion">
+                <span class="letraGlobal">&nbsp;Exportar Excel</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+</div>
+
+<app-modales [llamarModal]="llamarmodal" ></app-modales>
+
+<app-report [openReport]="openReport"></app-report>
+
+<ng-template #modalbusquedaproveedor style="z-index:50000">
+  <div class=" modal-primary modal-lg" role="document" dynamicHeight dynamicweiht>
+    <div class="modal-content ">
+      <div class="modal-body">
+        <app-busquedaproveedor (cierreProveedorarray)="cierreProveedorarray($event)"  (cierreModal)="cierreModal($event)" [listadoproveedor]="listproveedor" [controlmultiple]="controlmultiple"></app-busquedaproveedor>
+      </div>
+    </div>
+  </div>
+</ng-template>

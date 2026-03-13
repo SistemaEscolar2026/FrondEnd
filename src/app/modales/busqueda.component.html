@@ -1,0 +1,52 @@
+<mat-dialog-content class="mat-typography">
+  <mat-tab-group dynamicHeight dynamicweiht>
+    <mat-tab label="Productos" class="letraGlobalTitulo2">
+      <br />
+
+      <div class="col-md-12">
+        <div class="form-group">
+          <input type="text"
+                 class="form-control letraGlobal"
+                 [(ngModel)]="busProducto"
+                 name="BUSQUEDA"
+                 placeholder="Busqueda..."
+                 required="required" />
+        </div>
+      </div>
+      <br />
+      <mat-dialog-actions align="start">
+        <button class="btn btn-primary btn-sm letraGlobal" (click)="buscarProducto()">Buscar</button>
+      </mat-dialog-actions>
+    </mat-tab>
+    <mat-tab label="Importación" class="letraGlobalTitulo2">
+      <br />
+      <div class="col-12 scroll">
+        <div class="row">
+          <div class="col-md-2" *ngFor="let item of rbOpBus">
+            <div class="form-check ">
+              <input type="radio" name="exampleRadios" id="exampleRadios1" [(ngModel)]="selectopt" [value]="item.codigo">
+              <label class="form-check-label" for="exampleRadios1">
+                <span class="letraGlobal">{{item.value}}</span>
+              </label>
+            </div>
+            </div>
+          </div>
+      </div>
+      <div class="form-group">
+        <input type="text"
+               class="form-control letraGlobal"
+               [(ngModel)]="busProductoimp"
+               name="BUSQUEDA"
+               placeholder="Busqueda..."
+               required="required" />
+      </div>
+      <br />
+      <mat-dialog-actions align="start">
+        <button class="btn btn-primary btn-sm letraGlobal" (click)="buscarProductoimp()">Buscar</button>
+      </mat-dialog-actions>
+    </mat-tab>
+  </mat-tab-group>
+</mat-dialog-content>
+
+
+<app-report [openReport]="openReport"></app-report>

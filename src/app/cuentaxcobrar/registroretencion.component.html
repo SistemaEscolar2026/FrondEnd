@@ -1,0 +1,246 @@
+<div style="overflow-y: hidden!important;overflow-x:hidden!important">
+    <!--INICIO SESSION BOTONES-->
+    <div class="row barra-accion">
+        <div class=" col-md-12">
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnnuevo" mat-button (click)="limpiabotones(2);habilitarfrom(1);"><mat-icon class="orange600">search</mat-icon>Nuevo</button>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btngrabar" (click)="confirmarguardar()" mat-button><mat-icon class="gren600 ">save</mat-icon>Guardar</button>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btneliminar" (click)="confirmareliminar()" mat-button><mat-icon class="red600 ">close</mat-icon>Eliminar</button>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btncancelar" mat-button (click)="limpiabotones(1);habilitarfrom(4);cancelar();"><mat-icon class="redf600 ">redo</mat-icon>Cancelar</button>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnbuscar" mat-button (click)="buscar()"><mat-icon class="azulbu600 ">plagiarism</mat-icon>buscar</button>
+            <mat-divider class="material-devider">|</mat-divider>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnsalir" mat-button (click)="salir()"><mat-icon class="redoff600 ">power_settings_new</mat-icon>Salir</button>
+            <mat-divider class="material-devider">|</mat-divider>
+            <label class="bordetitulopagina letraGlobalTitulo2 "><span class="d-none d-xl-block">&nbsp;&nbsp;&nbsp;&nbsp;Ingreso Retencion Factura&nbsp;&nbsp;&nbsp;&nbsp;</span></label>
+        </div>
+    </div>
+    <!--FIN SESSION BOTONES-->
+    <div class="custom-panel">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="row custom-panel2 b">
+                    <div class="col-md-12">
+                        <div class="row ">
+                            <div class="col-md-1">
+                                <div class="form-group ">
+                                    <label class="col-form-label negrillas letraGlobal">Factura</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <input type="text" class="form-control letraGlobal" [(ngModel)]="iDocumento.fa_numero_factura" [disabled]="true" maxlength="80" [ngClass]="{ 'is-invalid': submitted && iDocumento.cl_nombre==='' }">
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl" [disabled]="habilitaobjetofrom" style="align-items:inherit!important; min-width: 0px !important; " mat-button (click)="buscarfactura()"> <span style="cursor:pointer"><mat-icon class="azul600 ">plagiarism</mat-icon></span></button>
+                            </div>
+                            <div class="col-md-1">
+                                <div class="form-group ">
+                                    <label class="col-form-label negrillas letraGlobal">Entidad</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <input type="text" class="form-control letraGlobal" [(ngModel)]="iDocumento.cl_nombre" [disabled]="true" maxlength="80" [ngClass]="{ 'is-invalid': submitted && iDocumento.cl_nombre==='' }">
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <div class="form-group ">
+                                    <label class="col-form-label negrillas letraGlobal">Fecha Factura</label>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <input type="date" class="form-control letraGlobal" [disabled]="true" [(ngModel)]="iDocumento.fa_fecha_factura" maxlength="10">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-auto">
+                                <div class="form-group ">
+                                    <label class="col-form-label negrillas letraGlobal">Fecha Retencion</label>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <input type="date" class="form-control letraGlobal" [disabled]="(habilitaobjetofrom)?true:((iDocumento.fa_codigo==='')?true:false)" [(ngModel)]="iDocumento.ret_fecha_registro" maxlength="10">
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <div class="form-group ">
+                                    <label class="col-form-label negrillas letraGlobal">Numero Retencion</label>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <input type="text" class="form-control letraGlobal"mask="000-000-000000000" [(ngModel)]="iDocumento.ret_numero_retencion"  [disabled]="(habilitaobjetofrom)?true:((iDocumento.fa_codigo==='')?true:false)" maxlength="17" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-auto">
+                                <div class="form-group ">
+                                    <label class="col-form-label negrillas letraGlobal">Autorizacion</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control letraGlobal" [disabled]="(habilitaobjetofrom)?true:((iDocumento.fa_codigo==='')?true:false)" [(ngModel)]="iDocumento.ret_autorizacion" onkeypress="return numbersonly(event);" maxlength="60">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="row custom-panel2 b">
+                    <div id="no-more-tables" class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-11">
+                                <div id="globalpantalla3" class="material-datatables table-responsive">
+                                    <table responsive="true" class="letraGlobal table table-hover text-nowrap  table-bordered " cellspacing="0">
+                                        <thead style="zoom:85%; border: solid 1px #ABBAD0!important">
+                                            <tr class="cabeceragrid letraGlobal">
+                                                <th rowspan="2" scope="col">TIPO RETENCION</th>
+                                                <th rowspan="2" scope="col">RETENCION</th>
+                                                <th rowspan="2" scope="col">VALOR RETENCION</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="cuerpogrid">
+                                            <tr *ngFor="let row of detalleregistroretencion " class="clsForeColor{{row.color}}">
+                                                <td data-title="TIPO RETENCION" (click)="clickGridpret(row);" style="text-align: right !important; width: 180px ">
+                                                    <select [(ngModel)]="row.red_tipo_retenciones" class="custom-select form-controlselect letraGlobal" (change)="cogeRetencion(row)" [disabled]="habilitaobjetofrom" panelClass="my-select-panel-class" id="inputGroupSelect01">
+                                                        <option [value]="comp.valor" *ngFor="let comp of listotiporetencion">{{comp.texto}}</option>
+                                                    </select>
+                                                </td>
+                                                <td data-title="RETENCION" (click)="clickGridpret(row);" style="text-align: right !important; width: 350px" *ngIf="row.red_tipo_retenciones==='01'">
+                                                    <select [(ngModel)]="row.rt_codigo" class="custom-select form-controlselect letraGlobal" (change)="cogevalorret(row)" [disabled]="habilitaobjetofrom" panelClass="my-select-panel-class" id="inputGroupSelect01">
+                                                        <option [value]="comp.rt_codigo" *ngFor="let comp of listoretiva">{{comp.rt_descripcion}}</option>
+                                                    </select>
+                                                </td>
+                                                <td data-title="RETENCION" (click)="clickGridpret(row);" style="text-align: right !important; width: 350px" *ngIf="row.red_tipo_retenciones==='02'">
+                                                    <select [(ngModel)]="row.rt_codigo" class="custom-select form-controlselect letraGlobal" (change)="cogevalorret(row)" [disabled]="habilitaobjetofrom" panelClass="my-select-panel-class" id="inputGroupSelect01">
+                                                        <option [value]="comp.rt_codigo" *ngFor="let comp of listoretrenta">{{comp.rt_descripcion}}</option>
+                                                    </select>
+                                                </td>
+                                                <td data-title="VALOR RETENCION" (click)="clickGridpret(row);" style="text-align: right !important;align-content:center; width: 50px ">{{row.red_valor | number : '1.2-2'}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl amumen" [disabled]="habilitaobjetofrom" (click)="agregarlinearet()" mat-button><mat-icon class="gren600 ">add</mat-icon></button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl amumen" [disabled]="habilitaobjetofrom" (click)="borrarlinearet()" mat-button><mat-icon class="red600 ">remove</mat-icon></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              
+            </div>
+            <div class="col-md-3">
+                <div class="row">
+                    <div class="col-md-12" style="border-radius: 15px !important; border: solid 1px #000000!important ">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group ">
+                                    <label class="col-form-label negrillas letraGlobal colorBrown ">Subtotal</label>
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="form-group">
+                                    <input type="text" class="form-control letraGlobal colorfondo" maxlength="20" [disabled]="habilitaobjetofrom" value="{{iDocumento.fa_subtotal | number : '1.2-2'}}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group ">
+                                    <label class="col-form-label negrillas letraGlobal colornegro ">Exento</label>
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="form-group">
+                                    <input type="text" class="form-control letraGlobal colorfondonegro colorGreen" maxlength="20" [disabled]="habilitaobjetofrom" value="{{iDocumento.fa_subtotalexento | number : '1.2-2'}}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group ">
+                                    <label class="col-form-label negrillas letraGlobal colorNavy ">Gravable</label>
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="form-group">
+                                    <input type="text" class="form-control letraGlobal colorfondonegro colorwhite" maxlength="20" [disabled]="habilitaobjetofrom" value="{{iDocumento.fa_baseiva | number : '1.2-2'}}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group ">
+                                    <label class="col-form-label negrillas letraGlobal colorBrown ">Impuestos</label>
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="form-group">
+                                    <input type="text" class="form-control letraGlobal colorfondo" maxlength="10" [disabled]="true" value="{{iDocumento.fa_iva | number : '1.2-2'}}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="row" style="border-radius: 15px !important; border: solid 1px #000000!important ">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group ">
+                                    <label class="col-form-label negrillas letraGlobal colorNavy " style="font-size:18px!important">TOTAL</label>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <input type="text" class="form-control letraGlobal colorfondonegro colorwhite" style="font-size:20px!important;height:35px!important" maxlength="10" [disabled]="true" value="{{iDocumento.fa_total | number : '1.2-2'}}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+       
+    </div>
+</div>
+
+<ng-template #modalbusquedafactura style="z-index:50000">
+    <div class=" modal-primary modal-lg" role="document" dynamicHeight dynamicweiht>
+        <div class="modal-content ">
+            <div class="modal-body">
+                <app-busquedafactura (confirmacionCierre)="cierreFactura($event)" (cierreModal)="cierreModal($event)" [listadoboleto]="listfacturas"></app-busquedafactura>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #busquedaretenciones style="z-index:50000">
+    <div class=" modal-primary modal-lg" role="document" dynamicHeight dynamicweiht>
+        <div class="modal-content ">
+            <div class="modal-body">
+                <app-busquedaretenciones (confirmacionCierre)="cierreRetenciones($event)" (cierreModal)="cierreModal($event)" [listretenciones]="listretenciones"></app-busquedaretenciones>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<app-modales [llamarModal]="llamarmodal" (aceptarOk)="aceptarOk($event)" (aceptarConfi)="aceptarConfi($event)" (aceptarConfieli)="aceptarConfiEli($event)" (aceptarConficarga)="aceptarConficarga($event)"></app-modales>
+

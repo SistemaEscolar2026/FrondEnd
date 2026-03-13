@@ -1,0 +1,179 @@
+<div style="overflow-y: hidden!important;overflow-x:hidden!important">
+    <!--INICIO SESSION BOTONES-->
+    <div class="row barra-accion">
+        <div class=" col-md-12">
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnnuevo" mat-button (click)="limpiabotones(2);habilitarfrom(1);"><mat-icon class="orange600">search</mat-icon>Nuevo</button>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnmodificar" (click)="habilitarfrom(3);limpiabotones(2);" mat-button><mat-icon class="azul600 ">edit</mat-icon>Modificar</button>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btngrabar" (click)="guardarInterfazContable()" mat-button><mat-icon class="gren600 ">save</mat-icon>Guardar</button>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btneliminar" (click)="deleteInterfazContable()" mat-button><mat-icon class="red600 ">close</mat-icon>Eliminar</button>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btncancelar" mat-button (click)="limpiabotones(1);habilitarfrom(4);"><mat-icon class="redf600 ">redo</mat-icon>Cancelar</button>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnbuscar" mat-button (click)="buscar('1')"><mat-icon class="azulbu600 ">plagiarism</mat-icon>buscar</button>
+            <mat-divider class="material-devider">|</mat-divider>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnsalir" mat-button (click)="salir()"><mat-icon class="redoff600 ">power_settings_new</mat-icon>Salir</button>
+            <mat-divider class="material-devider">|</mat-divider>
+            <label class="bordetitulopagina letraGlobalTitulo2 "><span class="d-none d-xl-block">&nbsp;&nbsp;&nbsp;&nbsp;Interfaz Contable&nbsp;&nbsp;&nbsp;&nbsp;</span></label>
+        </div>
+    </div>
+    <!--FIN SESSION BOTONES-->
+    <div class="custom-panel">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row custom-panel2 b">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="form-group ">
+                                            <label class="col-form-label negrillas letraGlobal">Tipo Comprobante</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <select [(ngModel)]="iDocumento.cob_tipo" class="custom-select form-controlselect letraGlobal" panelClass="my-select-panel-class" [disabled]="(isAccion==='I')?habilitaobjetofrom:true" id="inputGroupSelect01" [ngClass]="{ 'is-invalid': submitted && iDocumento.cob_tipo==='' }">
+                                                <option [value]="comp.cob_tipo" *ngFor="let comp of listitipocomprobante">{{comp.cob_tipo}}-{{comp.ctc_descripcion}}</option>
+                                            </select>
+                                            <div *ngIf="submitted && iDocumento.cob_tipo==''" class="invalid-feedback">
+                                                <div *ngIf="iDocumento.cob_tipo===''">Tipo Comprobante es requerido</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group ">
+                                            <label class="col-form-label negrillas letraGlobal">Fecha</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <input type="date" class="form-control letraGlobal" [disabled]="habilitaobjetofrom" [(ngModel)]="iDocumento.cci_fecha_registro" maxlength="10">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <div class="form-group ">
+                                            <label class="col-form-label negrillas letraGlobal">Estado</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <select [(ngModel)]="iDocumento.cci_estado" class="custom-select form-control letraGlobal" [disabled]="true" panelClass="my-select-panel-class" id="inputGroupSelect01">
+                                                <option [value]="comp.valor" *ngFor="let comp of listEstado">{{comp.texto}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="row custom-panel2 b">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div class="form-group">
+                                <label class="col-form-label negrillas letraGlobal">Referencias</label>
+                                <textarea type="text" rows="20" class="textinput letraGlobal col-md-12 col-sm-12" [(ngModel)]="iDocumento.cci_glosa" maxlength="300" [disabled]="habilitaobjetofrom" value=""></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+                <div class="row custom-panel2 b">
+                    <div id="no-more-tables" class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-11">
+                                <div id="globalAU" style="min-height:{{alto}}px!important;" class="material-datatables table-responsive">
+                                    <table responsive="true" class="letraGlobal table table-hover text-nowrap  table-bordered " cellspacing="0" style="width: 1400px !important">
+                                        <thead style="zoom:85%; border: solid 1px #ABBAD0!important">
+                                            <tr class="cabeceragrid letraGlobal">
+                                                <th rowspan="2">Lin.</th>
+                                                <th colspan="3">Cuenta Contable</th>
+                                                <th rowspan="2">Tipo Auxiliar</th>
+                                                <th rowspan="2">Auxiliar</th>
+                                                <th rowspan="2">Movimiento</th>
+                                            </tr>
+                                            <tr class="cabeceragrid letraGlobal">
+                                                <th>Codigo</th>
+                                                <th>Descripcion</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="cuerpogrid">
+                                            <tr *ngFor="let row of iDocumento.detalle" class="clsForeColor{{row.color}}">
+                                                <td data-title="Linea" (click)="clickGrid(row);" style="text-align: center !important; width: 20px; ">{{row.cdi_linea}}</td>
+                                                <td data-title="Codigo" (click)="clickGrid(row);" style="text-align: center !important; width: 35px; ">{{row.cpc_codigo_co}}</td>
+                                                <td data-title="Descripcion" (click)="clickGrid(row);" style="text-align: center !important; width: 120px;">{{row.cpc_descripcion}}</td>
+                                                <td data-title="" (click)="cargaPlanCuenta(row);clickGrid(row);" style="width: 1%; cursor: pointer !important; "><mat-icon class="azul600 ">search</mat-icon></td>
+                                                <td data-title="Tipo Auxiliar" (click)="clickGrid(row);" style="text-align: right !important; width: 100px">
+                                                    <select [(ngModel)]="row.cta_codigo" class="custom-select form-controlselect letraGlobal" panelClass="my-select-panel-class" (change)="cargaAuxiliar(row)" [disabled]="habilitaobjetofrom" id="inputGroupSelect01">
+                                                        <option [value]="comp.cta_codigo" *ngFor="let comp of listtipoauxiliar">{{comp.cta_descripcion}}</option>
+                                                    </select>
+                                                </td>
+                                                <td data-title="Auxiliar" (click)="clickGrid(row);" style="text-align: right !important; width: 100px">
+                                                    <select [(ngModel)]="row.coa_codigo" class="custom-select form-controlselect letraGlobal" panelClass="my-select-panel-class" [disabled]="habilitaobjetofrom" id="inputGroupSelect01">
+                                                        <option [value]="comp.coa_codigo" *ngFor="let comp of row.listauxiliar">{{comp.coa_descripcion}}</option>
+                                                    </select>
+                                                </td>
+                                                <td data-title="Movimiento" (click)="clickGrid(row);" style="text-align: right !important; width: 100px">
+                                                    <select [(ngModel)]="row.cdi_naturaleza" class="custom-select form-controlselect letraGlobal" panelClass="my-select-panel-class" [disabled]="habilitaobjetofrom" id="inputGroupSelect01">
+                                                        <option [value]="comp.valor" *ngFor="let comp of listnaturaleza">{{comp.texto}}</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl amumen" title="Agregar" [disabled]="habilitaobjetofrom" (click)="agregarlinea()" mat-button><mat-icon class="gren600 ">add</mat-icon></button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl amumen" title="Eliminar" [disabled]="habilitaobjetofrom" (click)="borrarlinea()" mat-button><mat-icon class="red600 ">remove</mat-icon></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<ng-template #modalbusquedainterfazcontable style="z-index:50000">
+    <div class=" modal-primary modal-lg" role="document" dynamicHeight dynamicweiht>
+        <div class="modal-content ">
+            <div class="modal-body">
+                <app-busquedainterfazcontable (confirmacionCierre)="cierreInterfazContable($event)" (cierreModal)="cierreModalforma($event)" [listcabecera]="listcabecera"></app-busquedainterfazcontable>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+
+<ng-template #modalbusquedaplancuenta style="z-index:50000">
+    <div class=" modal-primary modal-lg" role="document" dynamicHeight dynamicweiht>
+        <div class="modal-content ">
+            <div class="modal-body">
+                <app-busquedaplancuenta (confirmacionCierre)="cierrePlanCuenta($event)" (cierreModal)="cierreModalforma($event)" [listcuentas]="listcuentas"></app-busquedaplancuenta>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+
+
+
+<app-modales [llamarModal]="llamarmodal" (aceptarOk)="aceptarOk($event)"></app-modales>
+

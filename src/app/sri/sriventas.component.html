@@ -1,0 +1,316 @@
+  <!--INICIO SESSION BOTONES-->
+<div class="row barra-accion">
+  <div class=" col-md-12">
+    <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnnuevo" mat-button (click)="nuevo()"><mat-icon class="orange600">description</mat-icon>Nuevo</button>
+    <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnmodificar" (click)="modificar()" mat-button><mat-icon class="azul600 ">edit</mat-icon>Modificar</button>
+    <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btngrabar" (click)="guardar();" mat-button><mat-icon class="gren600 ">save</mat-icon>Guardar</button>
+    <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btneliminar" (click)="eliminar()" mat-button><mat-icon class="red600 ">close</mat-icon>Eliminar</button>
+    <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btncancelar" mat-button (click)="cancelar()"><mat-icon class="redf600 ">redo</mat-icon>Cancelar</button>
+    <mat-divider class="material-devider">|</mat-divider>
+    <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnsalir" mat-button (click)="salir()"><mat-icon class="redoff600 ">power_settings_new</mat-icon>Salir</button>
+    <mat-divider class="material-devider">|</mat-divider>
+    <label class="bordetitulopagina letraGlobalTitulo2 "><span class="d-none d-xl-block">&nbsp;&nbsp;&nbsp;&nbsp;SERVICIO DE RENTAS INTERNAS - Ingreso de Ventas SRI&nbsp;&nbsp;&nbsp;&nbsp;</span></label>
+  </div>
+</div>
+<!--FIN SESSION BOTONES-->
+<div class="custom-panel" [hidden]="isAccion!=''">
+  <div class="row custom-panel2 b">
+    <div class="col-md-12">
+      <br />
+      <div class="row">
+        <div class="col-auto">
+          <div class="form-group ">
+            <label class="col-form-label negrillas letraGlobal">Mes</label>
+          </div>
+        </div>
+        <div class="col-auto">
+          <div class="form-group ">
+            <select [(ngModel)]="ddw_mes" class="custom-select form-controlselectbarra  letraGlobal" style="width: 100%!important" [disabled]="habilitabuscar" panelClass="my-select-panel-class" [ngModelOptions]="{standalone: true}" id="inputGroupSelect01">
+              <option [value]="comp.mes" *ngFor="let comp of listmes">{{comp.mesD}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl " data-toggle="tooltip" title="Cargar<br />Información" [disabled]="habilitabuscar" mat-button (click)="btn_cargar_Click()"><img class="" src="../../assets/img/Sync32.png" />Cargar<br />Información</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-auto">
+          <div class="form-group ">
+            <label class="col-form-label negrillas letraGlobal">Año</label>
+          </div>
+        </div>
+        <div class="col-md-1">
+          <div class="form-group ">
+            <input type="number" class="form-control letraGlobal colornone" [(ngModel)]="ne_anio" maxlength="4" onkeypress="return numbersonly(event);" [disabled]="habilitabuscar" [ngModelOptions]="{standalone: true}" value="0">
+          </div>
+        </div>
+        <div class="col-auto">
+          <br />
+          <div class="form-check-inline">
+            <input type="checkbox" name="tiporeporte" id="tiporeporte" style="display: inherit !important" (change)="cbx_error_CheckedChanged()" [(ngModel)]="cbx_error">
+            <label class="form-check-label" for="tiporeporte">
+              <span class="letraGlobal">&nbsp;Solo con Error</span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-auto">
+          <div class="form-group ">
+            <label class="col-form-label negrillas letraGlobal">Número Identificación</label>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group ">
+            <input type="text" class="form-control letraGlobal colornone" [(ngModel)]="txt_identificacion" maxlength="15" [disabled]="habilitabuscar" [ngModelOptions]="{standalone: true}" value="0">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <div class="row custom-panel2 b">
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-12">
+          <input id="busqueda" type="text" class="busqueda" style="width: 100%; padding: 0.3rem !important " [(ngModel)]="txtbusca" placeholder="Busqueda..." autocomplete="off" />
+        </div>
+      </div>
+      <div class="row">
+        <div id="global" class="col-12">
+          <div id="no-more-tables" class="material-datatables table-responsive">
+            <table responsive="true" class="letraGlobal table table-striped table-bordered table-sm row-border hover" cellspacing="0">
+              <thead>
+                <tr class="cabeceragrid">
+                  <th *ngFor="let head of ColumnaDetalle" scope="col">{{head}} </th>
+                </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let row of dg_ventas | grdFilter:{cl_codigo:txtbusca,tco_descripcion:txtbusca};" class="clsForeColor{{row.color}}">
+                      <td data-title="Sec." (click)="clickGrid(row);" (dblclick)="dblclickGrid(row);" style="text-align:center">{{row.sve_secuncia}}</td>
+                      <td data-title="Id Cliente" (click)="clickGrid(row);" (dblclick)="dblclickGrid(row);" style="text-align:center">{{row.cl_codigo}}</td>
+                      <td data-title="Descripción Comprobante" (click)="clickGrid(row);" (dblclick)="dblclickGrid(row);" style="width: 35% ">{{row.tco_descripcion}}</td>
+                      <td data-title="Facturas" (click)="clickGrid(row);" (dblclick)="dblclickGrid(row);">{{row.sve_cantfacemitidas }}</td>
+                      <td data-title="Base Cero" (click)="clickGrid(row);" (dblclick)="dblclickGrid(row);" style="text-align:left">{{row.sve_basecero | number : '1.2-2' }}</td>
+                      <td data-title="Base Iva" (click)="clickGrid(row);" (dblclick)="dblclickGrid(row);" style="text-align:left">{{row.sve_valor_baseiva| number : '1.2-2' }}</td>
+                      <td data-title="IVA" (click)="clickGrid(row);" (dblclick)="dblclickGrid(row);" style="text-align:left">{{row.sve_valor_iva | number : '1.2-2'}}</td>
+                      <td data-title="" (click)="clickGrid(row);veredit(row);" style="cursor: pointer !important; text-align: center !important; align-content: center !important; width: 3%  "><mat-icon data-toggle="tooltip" title="Editar Comprobante" class="azul600 ">edit</mat-icon></td>
+                      <td data-title="" (click)="clickGrid(row);vererror(row);" style="cursor: pointer !important; text-align: center !important; align-content: center !important; width: 3%  "><mat-icon data-toggle="tooltip" title="Mostrar Errores" class="red600">error</mat-icon></td>
+                  </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="custom-panel " [hidden]="isAccion===''">
+  <div class="row ">
+    <div class="md-1">
+    </div>
+    <div class="col-md-9 custom-panel2 b">
+      <div class="row">
+        <div class="col-md-2">
+          <button type="button" class="btn botonpaso letraGlobal" mat-button (click)="regresar()"><mat-icon class="redoff600 ">arrow_back</mat-icon>Regresar</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-auto">
+          <div class="form-group ">
+            <label class="col-form-label negrillas letraGlobal">Cliente</label>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group">
+            <input type="text" class="form-control letraGlobal colorfondo colorBrown campoBloqueado" style="text-align:left!important" [(ngModel)]="iSriVentas.clcodigo" [disabled]="true">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-11">
+                <input type="text" class="form-control letraGlobal colorfondo colorBrown campoBloqueado" style="text-align:left!important" [(ngModel)]="iSriVentas.clnombre" maxlength="100" [disabled]="true">
+              </div>
+              <div class="col-md-1">
+                <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl" style="align-items:inherit!important; min-width: 0px !important; " [disabled]="habilitaobjetofrom" mat-button (click)="buscar(0)"> <span style="cursor:pointer"><mat-icon class="azul600 ">plagiarism</mat-icon></span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-auto">
+          <div class="form-group ">
+            <label class="col-form-label negrillas letraGlobal">Tipo Identificación</label>
+          </div>
+        </div>
+        <div class="col-auto">
+          <div class="form-group">
+            <select [ngModelOptions]="{standalone: true}" [(ngModel)]="iSriVentas.tidcodigo" style="background-color: Khaki !important;text-align:center !important" class="colorfondo colorBrown custom-select form-control letraGlobal" [disabled]="true" panelClass="my-select-panel-class" id="inputGroupSelect01">
+              <option [value]="comp.tidcodigo" *ngFor="let comp of ddw_tipoIdent">{{comp.tiddescripcion}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-auto">
+          <div class="form-group ">
+            <label class="col-form-label negrillas letraGlobal">Identificación</label>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group">
+            <input type="text" class="form-control letraGlobal colorfondo colorBrown" style="text-align:left!important" [disabled]="true" [(ngModel)]="iSriVentas.svenumidcliente" maxlength="50">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-auto">
+          <div class="form-group ">
+            <label class="col-form-label negrillas letraGlobal">Tipo De Emisión</label>
+          </div>
+        </div>
+        <div class="col-auto">
+          <div class="form-group">
+            <select [(ngModel)]="iSriVentas.svetipoemision" class="custom-select form-controlselectbarra  letraGlobal" [disabled]="habilitaobjetofrom" (change)="ddw_tipoEmi_SelectionChanged()" style="width: 100%!important" panelClass="my-select-panel-class" id="inputGroupSelect01">
+              <option [value]="comp.valor" *ngFor="let comp of ddw_tipoEmi">{{comp.texto}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-auto">
+          <div class="form-group ">
+            <label class="col-form-label negrillas letraGlobal">Documento</label>
+          </div>
+        </div>
+        <div class="col-auto">
+          <div class="form-group">
+            <select [(ngModel)]="iSriVentas.tcocodigo" class="custom-select form-controlselectbarra  letraGlobal" [disabled]="habilitaobjetofrom" (change)="ddw_tipoComprobante_SelectionChanged()" style="width: 100%!important" panelClass="my-select-panel-class" id="inputGroupSelect01">
+              <option [value]="comp.tcocodigo" *ngFor="let comp of ddw_tipodocSri">{{comp.tcodescripcion}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-auto">
+          <div class="form-group ">
+            <label class="col-form-label negrillas letraGlobal">Cant. Facturas</label>
+          </div>
+        </div>
+        <div class="col-md-1">
+          <div class="form-group">
+            <input type="text" class="form-control letraGlobal  campoBloqueado" onkeypress="return numbersonly(event);" style="text-align:left!important" [disabled]="habilitaobjetofrom" [(ngModel)]="iSriVentas.svecantfacemitidas" maxlength="5">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-auto">
+          <div class="form-group ">
+            <label class="col-form-label negrillas letraGlobal">Base Iva</label>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group">
+            <input type="text" class="form-control letraGlobal  campoBloqueado" onkeypress="return isNumberKey(this,event,3);" style="text-align: right !important" [disabled]="habilitarvalores" [(ngModel)]="iSriVentas.svevalorbaseiva" maxlength="10">
+          </div>
+        </div>
+        <div class="col-auto">
+          <div class="form-group ">
+            <label class="col-form-label negrillas letraGlobal">Base 0%</label>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group">
+            <input type="text" class="form-control letraGlobal  campoBloqueado" onkeypress="return isNumberKey(this,event,3);" style="text-align:right !important" [disabled]="habilitarvalores" [(ngModel)]="iSriVentas.svebasecero" maxlength="10">
+          </div>
+        </div>
+        <div class="col-auto">
+          <div class="form-group ">
+            <label class="col-form-label negrillas letraGlobal">Base Imponible no Objeto de Iva</label>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group">
+            <input type="text" class="form-control letraGlobal  campoBloqueado" onkeypress="return isNumberKey(this,event,3);" style="text-align: right !important" [disabled]="habilitarvalores" [(ngModel)]="iSriVentas.svebasenoobjetoiva" maxlength="10">
+          </div>
+        </div>
+        <div class="col-auto">
+          <div class="form-group ">
+            <label class="col-form-label negrillas letraGlobal">Monto de Iva</label>
+          </div>
+        </div>
+        <div class="col-md-1">
+          <div class="form-group">
+            <input type="text" class="form-control letraGlobal  campoBloqueado" onkeypress="return isNumberKey(this,event,3);" style="text-align: right !important" [disabled]="habilitarvalores" [(ngModel)]="iSriVentas.svevaloriva" maxlength="10">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-auto">
+          <div class="form-group ">
+            <label class="col-form-label negrillas letraGlobal">Periodo</label>
+          </div>
+        </div>
+        <div class="col-md-1">
+          <div class="form-group ">
+            <input type="text" class="form-control letraGlobal colorfondo colorBrown" [(ngModel)]="iSriVentas.sveanio" maxlength="4" onkeypress="return numbersonly(event);" [disabled]="true" [ngModelOptions]="{standalone: true}" value="0">
+          </div>
+        </div>
+        <div class="col-auto">
+          <div class="form-group ">
+            <select [(ngModel)]="iSriVentas.svemes" style="background-color: Khaki !important;text-align:center !important" class="colorfondo colorBrown custom-select form-control letraGlobal" [disabled]="true" panelClass="my-select-panel-class" [ngModelOptions]="{standalone: true}" id="inputGroupSelect01">
+              <option [value]="comp.mes" *ngFor="let comp of listmes">{{comp.mesD}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-auto">
+          <div class="form-group ">
+            <label class="col-form-label negrillas letraGlobal">Valor Iva que le han retenido</label>
+          </div>
+        </div>
+        <div class="col-md-1">
+          <div class="form-group">
+            <input type="text" class="form-control letraGlobal  campoBloqueado" onkeypress="return isNumberKey(this,event,3);" style="text-align: right !important" [disabled]="habilitaobjetofrom" [(ngModel)]="iSriVentas.svevmivaretenido" maxlength="10">
+          </div>
+        </div>
+        <div class="col-auto">
+          <div class="form-group ">
+            <label class="col-form-label negrillas letraGlobal">Valor Renta que le han retenido</label>
+          </div>
+        </div>
+        <div class="col-md-1">
+          <div class="form-group">
+            <input type="text" class="form-control letraGlobal  campoBloqueado" onkeypress="return isNumberKey(this,event,3);" style="text-align: right !important" [disabled]="habilitaobjetofrom" [(ngModel)]="iSriVentas.svevmrentasretenido" maxlength="10">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #modalbusquedacliente style="z-index:50000">
+  <div class=" modal-primary modal-lg" role="document" dynamicHeight dynamicweiht>
+    <div class="modal-content ">
+      <div class="modal-body">
+        <app-busquedaentidad (confirmacionCierre)="cierreCliente($event)" (cierreModal)="cierreModal($event)" [listadocliente]="listadocliente" [controlmultiple]="false"></app-busquedaentidad>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+
+<ng-template #modalbusquedaretencion style="z-index:50000">
+  <div class=" modal-primary modal-lg" role="document" dynamicHeight dynamicweiht>
+    <div class="modal-content ">
+      <div class="modal-body">
+        <app-busquedaretencionsri (confirmacionCierre)="cierreRetencion($event)" (cierreModal)="cierreModal($event)" [listretencionsri]="listretencionsri" [controlmultiple]="false"></app-busquedaretencionsri>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+
+<app-modales [llamarModal]="llamarmodal" (aceptarOk)="aceptarOk($event)" (aceptarConfi)="aceptarConfi($event)"></app-modales>
+

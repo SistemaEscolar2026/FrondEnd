@@ -1,0 +1,253 @@
+<form [formGroup]="parametrofrom" (ngSubmit)="guardarparametro()">
+  <!--INICIO SESSION BOTONES-->
+  <div class="row barra-accion">
+    <div class=" col-md-12">
+      <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnnuevo" mat-button (click)="limpiabotones(2);habilitarfrom(2);"><mat-icon class="orange600">search</mat-icon>Nuevo</button>
+      <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnmodificar" (click)="habilitarfrom(3);limpiabotones(2);" mat-button><mat-icon class="azul600 ">edit</mat-icon>Modificar</button>
+      <button type="submit" class="btn botonpaso letraGlobal" [disabled]="botones.btngrabar" mat-button><mat-icon class="gren600 ">save</mat-icon>Guardar</button>
+      <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btneliminar" (click)="deleteparametro()" mat-button><mat-icon class="red600 ">close</mat-icon>Eliminar</button>
+      <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btncancelar" mat-button (click)="limpiabotones(1);limpiarparametro();habilitarfrom(1);"><mat-icon class="redf600 ">redo</mat-icon>Cancelar</button>
+      <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnbuscar" mat-button (click)="buscar()"><mat-icon class="azulbu600 ">plagiarism</mat-icon>buscar</button>
+      <mat-divider class="material-devider">|</mat-divider>
+      <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnsalir" mat-button (click)="salir()"><mat-icon class="redoff600 ">power_settings_new</mat-icon>Salir</button>
+      <mat-divider class="material-devider">|</mat-divider>
+      <label class="bordetitulopagina letraGlobalTitulo2 "><span class="d-none d-xl-block">&nbsp;&nbsp;&nbsp;&nbsp;Mantenimiento Plan de Cuenta&nbsp;&nbsp;&nbsp;&nbsp;</span></label>
+    </div>
+  </div>
+  <!--FIN SESSION BOTONES-->
+  <div class="custom-panel">
+      <div class="row">
+          <div class="col-md-7">
+              <div class="row" *ngIf="iAccion==='M'">
+                  <div class="col-md-2">
+                      <div class="form-group ">
+                          <label class="col-form-label negrillas letraGlobal">Codigo</label>
+                      </div>
+                  </div>
+                  <div class="col-md-3 ">
+                      <div class="form-group">
+                          <input type="text" class="form-control letraGlobal" formControlName='codigo' name="codigo" [disabled]="true" maxlength="6" onkeypress="return isNumberKey(this,event,3);">
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-2">
+                      <div class="form-group ">
+                          <label class="col-form-label negrillas letraGlobal">Codigo Cuenta</label>
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="form-group">
+                          <input type="text" class="form-control letraGlobal" formControlName='codigocuenta' name="codigocuenta" [disabled]="true" maxlength="6" onkeypress="return isNumberKey(this,event,3);" required="required" [ngClass]="{ 'is-invalid': submitted && f['codigocuenta'].errors }">
+                          <div *ngIf="submitted && f['codigocuenta'].errors" class="invalid-feedback">
+                              <div *ngIf="f['codigocuenta'].errors['required']">Codigo Cuenta es requerido</div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-2">
+                      <div class="form-group ">
+                          <label class="col-form-label negrillas letraGlobal">Grupo Contable</label>
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="form-group">
+                          <select formControlName="codgrupocontable" class="custom-select form-controlselectbarra  letraGlobal" (change)="cargasubgruposelect('')" style="width: 100%!important" panelClass="my-select-panel-class" id="inputGroupSelect01" required="required" [ngClass]="{ 'is-invalid': submitted && f['codgrupocontable'].errors }">
+                              <option [value]="comp.con_codigo" *ngFor="let comp of listgrupocontable">{{comp.con_descripcion}}</option>
+                          </select>
+                          <div *ngIf="submitted && f['codgrupocontable'].errors" class="invalid-feedback">
+                              <div *ngIf="f['codgrupocontable'].errors['required']">Grupo Contable es requerido</div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-2">
+                      <div class="form-group ">
+                          <label class="col-form-label negrillas letraGlobal">SubGrupo Contable</label>
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="form-group">
+                          <select formControlName="codsubgrupo" class="custom-select form-controlselectbarra  letraGlobal" (change)="cargaclasecontableselect()" style="width: 100%!important" panelClass="my-select-panel-class" id="inputGroupSelect01"  [ngClass]="{ 'is-invalid': submitted && f['codsubgrupo'].errors }">
+                              <option [value]="comp.cos_codigo" *ngFor="let comp of listsubgrupocontable">{{comp.cos_descripcion}}</option>
+                          </select>
+                          <div *ngIf="submitted && f['codsubgrupo'].errors" class="invalid-feedback">
+                              <div *ngIf="f['codsubgrupo'].errors['required']">SubGrupo Contable es requerido</div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-2">
+                      <div class="form-group ">
+                          <label class="col-form-label negrillas letraGlobal">Clase Contable</label>
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="form-group">
+                          <select formControlName="codclasecontable" class="custom-select form-controlselectbarra  letraGlobal" style="width: 100%!important" panelClass="my-select-panel-class" id="inputGroupSelect01"  [ngClass]="{ 'is-invalid': submitted && f['codclasecontable'].errors }">
+                              <option [value]="comp.ccc_codigo" *ngFor="let comp of listclasecontable">{{comp.ccc_descripcion}}</option>
+                          </select>
+                          <div *ngIf="submitted && f['codclasecontable'].errors" class="invalid-feedback">
+                              <div *ngIf="f['codclasecontable'].errors['required']">Clase Contable es requerido</div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-2">
+                      <div class="form-group ">
+                          <label class="col-form-label negrillas letraGlobal">Tipo Cuenta</label>
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="form-group">
+                          <select formControlName="codtipocuenta" class="custom-select form-controlselectbarra  letraGlobal" style="width: 100%!important" panelClass="my-select-panel-class" id="inputGroupSelect01" required="required" [ngClass]="{ 'is-invalid': submitted && f['codtipocuenta'].errors }">
+                              <option [value]="comp.valor" *ngFor="let comp of listtipocuenta">{{comp.texto}}</option>
+                          </select>
+                          <div *ngIf="submitted && f['codtipocuenta'].errors" class="invalid-feedback">
+                              <div *ngIf="f['codtipocuenta'].errors['required']">Tipo Cuenta es requerido</div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-2">
+                      <div class="form-group ">
+                          <label class="col-form-label negrillas letraGlobal">Nivel 2<span class="obligatorio">*</span></label>
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="form-group">
+                          <input type="text" class="form-control letraGlobal" formControlName='nivel2'  name="nivel2" onkeypress="return numbersonly(event);" (input)="cuenta()" maxlength="5" >
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-2">
+                      <div class="form-group ">
+                          <label class="col-form-label negrillas letraGlobal">Nivel 3</label>
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="form-group">
+                          <input type="text" class="form-control letraGlobal" formControlName='nivel3' name="nivel3" onkeypress="return numbersonly(event);" (input)="cuenta()" maxlength="5">
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-2">
+                      <div class="form-group ">
+                          <label class="col-form-label negrillas letraGlobal">Nivel 4</label>
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="form-group">
+                          <input type="text" class="form-control letraGlobal" formControlName='nivel4' name="nivel4" onkeypress="return numbersonly(event);" (input)="cuenta()" maxlength="5">
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-2">
+                      <div class="form-group ">
+                          <label class="col-form-label negrillas letraGlobal">Nivel 5</label>
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="form-group">
+                          <input type="text" class="form-control letraGlobal" formControlName='nivel5' name="nivel5" onkeypress="return numbersonly(event);" (input)="cuenta()" maxlength="5">
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-2">
+                      <div class="form-group ">
+                          <label class="col-form-label negrillas letraGlobal">Nivel 6</label>
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="form-group">
+                          <input type="text" class="form-control letraGlobal" formControlName='nivel6' name="nivel6" onkeypress="return numbersonly(event);" (input)="cuenta()" maxlength="5">
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-2 ">
+                      <div class="form-group ">
+                          <label class="col-form-label negrillas letraGlobal">Naturaleza</label>
+                      </div>
+                  </div>
+                  <div class="col-md-3 ">
+                      <div class="form-group">
+                          <select formControlName="naturaleza" class="custom-select form-controlselectbarra  letraGlobal" style="width: 100%!important" panelClass="my-select-panel-class" id="inputGroupSelect01" required="required" [ngClass]="{ 'is-invalid': submitted && f['codclasecontable'].errors }">
+                              <option [value]="comp.valor" *ngFor="let comp of listnaturaleza">{{comp.texto}}</option>
+                          </select>
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-2">
+                      <div class="form-group ">
+                          <label class="col-form-label negrillas letraGlobal">Descripcion</label>
+                      </div>
+                  </div>
+                  <div class="col-md-4 ">
+                      <div class="form-group">
+                          <input type="text" class="form-control letraGlobal" formControlName='descripcion' name="descripcion" maxlength="100" required="required" [ngClass]="{ 'is-invalid': submitted && f['descripcion'].errors }">
+                          <div *ngIf="submitted && f['descripcion'].errors" class="invalid-feedback">
+                              <div *ngIf="f['descripcion'].errors['required']">Descripcion es requerido</div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-2 ">
+                      <div class="form-group ">
+                          <label class="col-form-label negrillas letraGlobal">Estado</label>
+                      </div>
+                  </div>
+                  <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 ">
+                      <div class="form-group">
+                          <select formControlName='estado' name="estado" class="custom-select form-controlselect letraGlobal" panelClass="my-select-panel-class" id="inputGroupSelect01">
+                              <option [value]="comp.valor" *ngFor="let comp of listEstado">{{comp.texto}}</option>
+                          </select>
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-2">
+                      <div class="form-group ">
+                          <label class="col-form-label negrillas letraGlobal">Auxiliar</label>
+                      </div>
+                  </div>
+                  <div class="col-md-3">
+                      <div class="form-group">
+                          <select formControlName="codauxiliar" class="custom-select form-controlselectbarra  letraGlobal" style="width: 100%!important" panelClass="my-select-panel-class" id="inputGroupSelect01" [ngClass]="{ 'is-invalid': submitted && f['codauxiliar'].errors }">
+                              <option [value]="comp.coa_codigo" *ngFor="let comp of listtipoauxliar">{{comp.coa_descripcion}}</option>
+                          </select>
+                          <div *ngIf="submitted && f['codauxiliar'].errors" class="invalid-feedback">
+                              <div *ngIf="f['codauxiliar'].errors['required']">Auxiliar es requerido</div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      
+  </div>
+</form>
+
+<ng-template #modalbusquedaplancuenta style="z-index:50000">
+  <div class=" modal-primary modal-lg" role="document" dynamicHeight dynamicweiht>
+    <div class="modal-content ">
+      <div class="modal-body">
+        <app-busquedaplancuenta (confirmacionCierre)="cierreParametro($event)" (cierreModal)="cierreModalforma($event)" [listcuentas]="listcuentas"></app-busquedaplancuenta>
+      </div>
+    </div>
+  </div>
+</ng-template>  
+
+
+

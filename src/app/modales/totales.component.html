@@ -1,0 +1,131 @@
+<div class="row" >
+  <div class="col-md-12" style="border-radius: 15px !important; border: solid 1px #000000!important ">
+    <div class="row">
+      <div class="col-md-5">
+        <div class="form-group ">
+          <label class="col-form-label negrillas letraGlobal colorBrown ">Subtotal</label>
+        </div>
+      </div>
+      <div class="col-md-7">
+        <div class="form-group">
+          <input type="text" class="form-control letraGlobal colorfondo"   maxlength="20" [disabled]="true" value="{{totalmodel.subtotal | number : '1.2-2'}}">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-5">
+        <div class="form-group ">
+          <label class="col-form-label negrillas letraGlobal colornegro">(-) Total Descuentos</label>
+        </div>
+      </div>
+
+      <div class="col-md-7">
+        <div class="form-group">
+          <input type="text" class="form-control letraGlobal colorfondo"   maxlength="20" [disabled]="true" value="{{totalmodel.subtotaldescuento | number : '1.2-2'}}">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-5">
+        <div class="form-group ">
+          <label class="col-form-label negrillas letraGlobal colornegro ">(+) Total Recargos</label>
+        </div>
+      </div>
+      <div class="col-md-7">
+        <div class="form-group">
+          <input type="text" class="form-control letraGlobal colorfondo"  maxlength="20" [disabled]="true" value="{{totalmodel.subtotalrecargos | number : '1.2-2'}}">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-5">
+        <div class="form-group ">
+          <label class="col-form-label negrillas letraGlobal colornegro ">Exento</label>
+        </div>
+      </div>
+      <div class="col-md-7">
+        <div class="form-group">
+          <input type="text" class="form-control letraGlobal colorfondonegro colorGreen"  maxlength="20" [disabled]="true" value="{{totalmodel.subtotalexento | number : '1.2-2'}}" >
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-5">
+        <div class="form-group ">
+          <label class="col-form-label negrillas letraGlobal colorNavy ">Gravable</label>
+        </div>
+      </div>
+      <div class="col-md-7">
+        <div class="form-group">
+          <input type="text" class="form-control letraGlobal colorfondonegro colorwhite"   maxlength="20" [disabled]="true" value="{{totalmodel.subtotaliva | number : '1.2-2'}}">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group ">
+          <label class="col-form-label negrillas letraGlobal colorBrown ">Impuestos</label>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-5">
+        <div class="form-group ">
+          <select [(ngModel)]="totalmodel.opcionimp1" class="custom-select form-controlselectbarra  letraGlobal" style="width: 100%!important" [disabled]="habilitacombo" panelClass="my-select-panel-class" (change)="selectopcion()" id="inputGroupSelect01">
+            <option [value]="comp.imcodigo" *ngFor="let comp of listaimpuesto">{{comp.imnombre}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-7">
+        <div class="form-group">
+          <input type="text" class="form-control letraGlobal colorfondo"   maxlength="10" [disabled]="true" value="{{totalmodel.iva1 | number : '1.2-2'}}">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-5">
+        <div class="form-group ">
+          <select [(ngModel)]="totalmodel.opcionimp2" class="custom-select form-controlselectbarra  letraGlobal"style="width: 100%!important"  [disabled]="habilitacombo" panelClass="my-select-panel-class" (change)="selectopcion()"  id="inputGroupSelect01">
+            <option [value]="comp.imcodigo" *ngFor="let comp of listaimpuesto">{{comp.imnombre}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-7">
+        <div class="form-group">
+          <input type="text" class="form-control letraGlobal colorfondo" maxlength="10" [disabled]="true" value="{{totalmodel.iva2 | number : '1.2-2'}}">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-5">
+        <div class="form-group ">
+          <select [(ngModel)]="totalmodel.opcionimp3" class="custom-select form-controlselectbarra  letraGlobal" style="width: 100%!important" [disabled]="habilitacombo" panelClass="my-select-panel-class" (change)="selectopcion()"  id="inputGroupSelect01">
+            <option [value]="comp.imcodigo" *ngFor="let comp of listaimpuesto">{{comp.imnombre}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-7">
+        <div class="form-group">
+          <input type="text" class="form-control letraGlobal colorfondo"   maxlength="10" [disabled]="true" value="{{totalmodel.iva3 | number : '1.2-2'}}">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br />
+<div class="row" style="border-radius: 15px !important; border: solid 1px #000000!important ">
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="form-group ">
+          <label class="col-form-label negrillas letraGlobal colorNavy " style="font-size:18px!important">TOTAL</label>
+        </div>
+      </div>
+      <div class="col-md-9">
+        <div class="form-group">
+          <input type="text" class="form-control letraGlobal colorfondonegro colorwhite"  style="font-size:20px!important;height:35px!important" maxlength="10" [disabled]="true" value="{{totalmodel.total | number : '1.2-2'}}">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

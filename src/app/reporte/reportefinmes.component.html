@@ -1,0 +1,105 @@
+<div style="overflow-y: hidden!important;overflow-x:hidden!important">
+    <!--INICIO SESSION BOTONES-->
+    <div class="row barra-accion">
+        <div class=" col-md-12">
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnbuscar" mat-button (click)="buscar()"><mat-icon class="azulbu600 ">plagiarism</mat-icon>buscar</button>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btneliminar" mat-button (click)="buscarpdf();"><mat-icon class="redf600 ">picture_as_pdf</mat-icon>Exporta PDF</button>
+            <mat-divider class="material-devider">|</mat-divider>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnsalir" mat-button (click)="salir()"><mat-icon class="redoff600 ">power_settings_new</mat-icon>Salir</button>
+            <mat-divider class="material-devider">|</mat-divider>
+            <label class="bordetitulopagina letraGlobalTitulo2 "><span class="d-none d-xl-block">&nbsp;&nbsp;&nbsp;&nbsp;Reporte Fin Mes&nbsp;&nbsp;&nbsp;&nbsp;</span></label>
+        </div>
+    </div>
+    <!--FIN SESSION BOTONES-->
+    <div class="custom-panel">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="row custom-panel2 b">
+
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group ">
+                                    <label class="col-form-label negrillas letraGlobal">A&ntilde;o</label>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group ">
+                                    <input type="number" class="form-control letraGlobal" [(ngModel)]="nfm_anio" [ngModelOptions]="{standalone: true}" maxlength="4" required="required">
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group ">
+                                    <label class="col-form-label negrillas letraGlobal">Mes</label>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group ">
+                                    <select [(ngModel)]="nfm_mes" class="custom-select form-controlselectbarra  letraGlobal" style="width: 100%!important" panelClass="my-select-panel-class" [ngModelOptions]="{standalone: true}" id="inputGroupSelect01">
+                                        <option [value]="comp.mesDec" *ngFor="let comp of listmeses">{{comp.mesD}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <br />
+
+        <div class="row" style="overflow-y: hidden!important;overflow-x:hidden!important">
+            <div id="no-more-tables" class="col-md-12">
+                <div id="global" class="material-datatables table-responsive">
+                    <table responsive="true" class="letraGlobal table table-striped table-bordered table-sm row-border hover" cellspacing="0" style="width:1800px">
+                        <thead style="border: solid 1px #ABBAD0!important">
+                            <tr class="cabeceragrid letraGlobal">
+                                <th *ngFor="let head of ColumnaDetalle" scope="col">{{head}} </th>
+                            </tr>
+                        </thead>
+                        <tbody class="cuerpogrid">
+                            <tr *ngFor="let row of detallenominafinmes" class="clsForeColor{{row.color}}">
+                                <td data-title="Cedula" (click)="clickGrid(row);" style="text-align: center !important; width: 5%  ">{{row.nom_empcodigo}}</td>
+                                <td data-title="Nombre y Apellido" (click)="clickGrid(row);" style="text-align: left !important; width: 15%  ">{{row.empleado}}</td>
+                                <td data-title="Sueldo Fijo" (click)="clickGrid(row);" style="text-align: right !important;  width: 6%  ">{{row.fijo| number : '1.2-2'}}</td>
+                                <td data-title="Dias Trab." (click)="clickGrid(row);" style="text-align: right !important; align-content: center !important; width: 6% ">{{row.dia_trabajados| number : '1.2-2'}}</td>
+                                <td data-title="Sueldo" (click)="clickGrid(row);" style="text-align: right !important;  width: 6%  ">{{row.sueldo| number : '1.2-2'}}</td>
+                                <td data-title="Fondo Reserva" (click)="clickGrid(row);" style="text-align: right !important; align-content: center !important; width: 6% ">{{row.fondo_reserva| number : '1.2-2'}}</td>
+                                <td data-title="Decimo Men." (click)="clickGrid(row);" style="text-align: right !important; align-content: center !important; width: 6% ">{{row.decimo13 + row.decimo14| number : '1.2-2'}}</td>
+                                <td data-title="TOTAL INGRESO" (click)="clickGrid(row);" style="text-align: right !important; align-content: center !important; width: 6% ">{{row.sueldo+row.fondo_reserva+row.decimo13 + row.decimo14| number : '1.2-2'}}</td>
+                                <td data-title="Aporte 9.45%" (click)="clickGrid(row);" style="text-align: right !important; align-content: center !important; width: 6% ">{{row.iess| number : '1.2-2'}}</td>
+                                <td data-title="Ant. Quincena" (click)="clickGrid(row);" style="text-align: right !important; align-content: center !important; width: 6% ">{{row.adelanto_quincena| number : '1.2-2'}}</td>
+                                <td data-title="Prestamo Quiro." (click)="clickGrid(row);" style="text-align: right !important; align-content: center !important; width: 6% ">{{row.prestamo_quirografario| number : '1.2-2'}}</td>
+                                <td data-title="Pres. A Empresa" (click)="clickGrid(row);" style="text-align: right !important; align-content: center !important; width: 6% ">{{row.prestamo| number : '1.2-2'}}</td>
+                                <td data-title="Dsctos  Varios" (click)="clickGrid(row);" style="text-align: right !important; align-content: center !important; width: 6% ">{{row.anticipo_quincena| number : '1.2-2'}}</td>
+                                <td data-title="TOTAL EGRESO" (click)="clickGrid(row);" style="text-align: right !important; align-content: center !important; width:6% ">{{row.iess+row.adelanto_quincena+row.prestamo +row.prestamo_quirografario + row.anticipo_quincena| number : '1.2-2'}}</td>
+                                <td data-title="NETO A PAGAR" (click)="clickGrid(row);" style="text-align: right !important; align-content: center !important; width:6% ">{{row.total| number : '1.2-2'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #modalbusquedaentidad style="z-index:50000">
+    <div class=" modal-primary modal-lg" role="document" dynamicHeight dynamicweiht>
+        <div class="modal-content ">
+            <div class="modal-body">
+                <app-busquedaentidad (confirmacionCierre)="cierreCliente($event)" (cierreModal)="cierreModalcliente($event)" [listadocliente]="listcliente"></app-busquedaentidad>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+
+
+
+<app-modales [llamarModal]="llamarmodal" (aceptarConfi)="aceptarConfi($event)" (aceptarOk)="aceptarOk($event)"></app-modales>
+

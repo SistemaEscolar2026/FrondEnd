@@ -1,0 +1,16 @@
+    <ventas>
+        <detalleVentas>
+            <tpIdCliente>${tipoIdCli}</tpIdCliente>
+            <idCliente>${identCli}</idCliente>
+            <parteRelVtas>NO</parteRelVtas>
+            <tipoComprobante>${tipoCompVta}</tipoComprobante>
+            <tipoEmision>${tipoEmi}</tipoEmision>
+            <numeroComprobantes>${numComp}</numeroComprobantes>
+            <baseNoGraIva>${baseNoGrava}</baseNoGraIva>
+            <baseImponible>${baseImpo}</baseImponible>
+            <baseImpGrav>${baseImpoGrava}</baseImpGrav>
+            <montoIva>${montoIva}</montoIva>
+            <montoIce>${montoIce}</montoIce>
+            <valorRetIva>${valRetIva}</valorRetIva>
+            <valorRetRenta>${valRetRen}</valorRetRenta>
+        </detalleVentas>

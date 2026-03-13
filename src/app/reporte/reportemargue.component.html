@@ -1,0 +1,112 @@
+<div style="overflow-y: hidden!important;overflow-x:hidden!important">
+    <!--INICIO SESSION BOTONES-->
+    <div class="row barra-accion">
+        <div class=" col-md-12">
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnbuscar" mat-button (click)="buscar()"><mat-icon class="azulbu600 ">plagiarism</mat-icon>buscar</button>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btneliminar" mat-button (click)="buscarpdf();"><mat-icon class="redf600 ">picture_as_pdf</mat-icon>Exporta PDF</button>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btneliminar" (click)="buscarexcel()" mat-button><mat-icon class="red600 ">table_chart</mat-icon>Exportar Excel</button>
+            <mat-divider class="material-devider">|</mat-divider>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnsalir" mat-button (click)="salir()"><mat-icon class="redoff600 ">power_settings_new</mat-icon>Salir</button>
+            <mat-divider class="material-devider">|</mat-divider>
+            <label class="bordetitulopagina letraGlobalTitulo2 "><span class="d-none d-xl-block">&nbsp;&nbsp;&nbsp;&nbsp;Reporte de Boletos&nbsp;&nbsp;&nbsp;&nbsp;</span></label>
+        </div>
+    </div>
+    <!--FIN SESSION BOTONES-->
+    <div class="custom-panel">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row custom-panel2 b">
+
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group ">
+                                    <label class="col-form-label negrillas letraGlobal">Fecha Pedido Desde</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="date" class="form-control letraGlobal"  [(ngModel)]="iDocumento.bc_fecha_inicio_viaje" maxlength="10">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group ">
+                                    <label class="col-form-label negrillas letraGlobal">Fecha Pedido Hasta</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="date" class="form-control letraGlobal"  [(ngModel)]="iDocumento.bc_fecha_fin_viaje" maxlength="10">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+
+                <div class="row custom-panel2 b">
+                    <div id="no-more-tables" class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div id="global350" class="material-datatables table-responsive">
+                                    <table responsive="true" class="letraGlobal table table-hover text-nowrap  table-bordered " cellspacing="0">
+                                        <thead style="zoom:85%; border: solid 1px #ABBAD0!important">
+                                            <tr class="cabeceragrid letraGlobal">
+                                                <th rowspan="2" *ngFor="let head of ColumnaDetalle" scope="col">{{head}} </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="cuerpogrid">
+                                            <tr *ngFor="let row of detallereporte " class="clsForeColor{{row.color}}">
+                                                <td data-title="FECHA DE EMISION" (click)="clickGrid(row);" style="text-align: center !important; width: 250px ">{{row.bc_fecha_pedido}}</td>
+                                                <td data-title="OPERADOR" (click)="clickGrid(row);" style="text-align: center !important; width: 250px ">{{row.cl_nombre}}</td>
+                                                <td data-title="N° BOLETO" (click)="clickGrid(row);" style="text-align: center !important; width: 250px ">{{row.bd_ticket}}</td>
+                                                <td data-title="NOMBRE DEL PASAJERO" (click)="clickGrid(row);" style="text-align: center !important; width: 250px ">{{row.bc_nombre_pasajero}}</td>
+                                                <td data-title="RUTA" (click)="clickGrid(row);" style="text-align: center !important; width: 250px ">{{row.rut_ruta}}</td>
+                                                <td data-title="FECHA DE IDA" (click)="clickGrid(row);" style="text-align: center !important; width: 250px ">{{row.bc_fecha_inicio_viaje}}</td>
+                                                <td data-title="FECHA DE RETORNO" (click)="clickGrid(row);" style="text-align: center !important; width: 250px ">{{row.bc_fecha_fin_viaje}}</td>
+                                                <td data-title="VALOR BOLETO" (click)="clickGrid(row);" style="text-align: right !important; width: 250px ">{{row.bd_valor_ticket | number : '1.2-2'}}</td>
+                                                <td data-title="IVA" (click)="clickGrid(row);" style="text-align: right !important; width: 250px ">{{row.bd_valor_iva | number : '1.2-2'}}</td>
+                                                <td data-title="OTROS IMPUESTOS" (click)="clickGrid(row);" style="text-align: right !important; width: 250px ">{{row.bd_otro_impuesto | number : '1.2-2'}}</td>
+                                                <td data-title="TOTAL BOLETO" (click)="clickGrid(row);" style="text-align: right !important; width: 250px ">{{row.bd_total_boleto | number : '1.2-2'}}</td>
+                                                <td data-title="SERVICIO EMISIÓN" (click)="clickGrid(row);" style="text-align: right !important; width: 250px ">{{row.bd_valor_servicio | number : '1.2-2'}}</td>
+                                                <td data-title="IVA SERVICIO" (click)="clickGrid(row);" style="text-align: right !important; width: 250px ">{{row.bd_iva_servicio | number : '1.2-2'}}</td>
+                                                <td data-title="TOTAL SERVICIOS" (click)="clickGrid(row);" style="text-align: right !important; width: 250px ">{{row.bd_total_servicio | number : '1.2-2'}}</td>
+                                                <td data-title="TOTAL BOLETO + SERVICIO" (click)="clickGrid(row);" style="text-align: right !important; width: 250px ">{{row.bd_total_general | number : '1.2-2'}}</td>
+                                                <td data-title="ESTADO" (click)="clickGrid(row);" style="text-align: center !important; width: 250px ">{{row.es_nombre}}</td>
+                                                <td data-title="NETO" (click)="clickGrid(row);" style="text-align: right !important; width: 250px ">{{row.boc_costo_total | number : '1.2-2'}}</td>
+                                                <td data-title="OTRO COSTO" (click)="clickGrid(row);" style="text-align: right !important; width: 250px ">{{row.boc_otro_costo | number : '1.2-2'}}</td>
+                                                <td data-title="COSTO BOLETO" (click)="clickGrid(row);" style="text-align: right !important; width: 250px ">{{row.boc_costo_boleto | number : '1.2-2'}}</td>
+                                                <td data-title="FEES" (click)="clickGrid(row);" style="text-align: right !important; width: 250px ">{{row.boc_costo_fee | number : '1.2-2'}}</td>
+                                                <td data-title="SEGUROS" (click)="clickGrid(row);" style="text-align: right !important; width: 250px ">{{row.boc_costo_seguro | number : '1.2-2'}}</td>
+                                                <td data-title="NAC/INT" (click)="clickGrid(row);" style="text-align: center !important; width: 250px ">{{row.boc_nacional_internacional}}</td>
+                                                <td data-title="# RESERVA" (click)="clickGrid(row);" style="text-align: center !important; width: 250px ">{{row.boc_num_reserva}}</td>
+                                                <td data-title="PAGO" (click)="clickGrid(row);" style="text-align: center !important; width: 250px ">{{row.fp_descripcion}}</td>
+                                                <td data-title="AUTORIZACION" (click)="clickGrid(row);" style="text-align: center !important; width: 250px ">{{row.boc_num_autorizacion}}</td>
+                                                <td data-title="RECIBO" (click)="clickGrid(row);" style="text-align: center !important; width: 250px ">{{row.boc_num_recibo}}</td>
+                                                <td data-title="PROVEEDOR" (click)="clickGrid(row);" style="text-align: center !important; width: 250px ">{{row.pr_nombre }}</td>
+                                                <td data-title="OBSERVACIONES" (click)="clickGrid(row);" style="text-align: right !important; width: 250px ">{{row.boc_observacion }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <br />
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<app-modales [llamarModal]="llamarmodal" (aceptarOk)="aceptarOk($event)"></app-modales>
+

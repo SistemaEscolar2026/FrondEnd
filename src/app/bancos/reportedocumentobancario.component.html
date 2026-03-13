@@ -1,0 +1,105 @@
+  <!--INICIO SESSION BOTONES-->
+<div class="row barra-accion">
+    <div class=" col-md-12">
+        <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btneliminar" mat-button (click)="buscarpdf();"><mat-icon class="redf600 ">picture_as_pdf</mat-icon>Exporta PDF</button>
+        <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btncancelar" mat-button (click)="cancelar()"><mat-icon class="redf600 ">redo</mat-icon>Cancelar</button>
+        <mat-divider class="material-devider">|</mat-divider>
+        <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnsalir" mat-button (click)="salir()"><mat-icon class="redoff600 ">power_settings_new</mat-icon>Salir</button>
+        <mat-divider class="material-devider">|</mat-divider>
+        <label class="bordetitulopagina letraGlobalTitulo2 "><span class="d-none d-xl-block">&nbsp;&nbsp;&nbsp;&nbsp;Reporte Documento Bancario&nbsp;&nbsp;&nbsp;&nbsp;</span></label>
+    </div>
+</div>
+<!--FIN SESSION BOTONES-->
+<div class="custom-panel">
+    <div class="row ">
+        <div class="col-md-4 custom-panel2 b">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Banco</label>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <select [(ngModel)]="iDocumento.ban_codigo" class="custom-select form-controlselect letraGlobal" (change)="cargaNumeroCuenta()" panelClass="my-select-panel-class" [disabled]="habilitaobjetofrom2" id="inputGroupSelect01">
+                            <option [value]="comp.ban_codigo" *ngFor="let comp of listbancos">{{comp.ban_descripcion}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Tipo Cuenta</label>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <select [(ngModel)]="iDocumento.bcb_codigo" class="custom-select form-controlselect letraGlobal" (change)="cargaNumeroCuenta()" panelClass="my-select-panel-class" [disabled]="habilitaobjetofrom2" id="inputGroupSelect01">
+                            <option [value]="comp.bcb_codigo" *ngFor="let comp of listcuentabancaria">{{comp.bcb_descripcion}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Numero Cuenta</label>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <select [(ngModel)]="iDocumento.bnc_codigo" class="custom-select form-controlselect letraGlobal" panelClass="my-select-panel-class" (change)="seleccuenta()" [disabled]="habilitaobjetofrom2" id="inputGroupSelect01">
+                            <option [value]="comp.bnc_codigo" *ngFor="let comp of listnumerocuenta">{{comp.bnc_numero}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Fecha Inicial</label>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <input type="date" class="form-control letraGlobal" [disabled]="habilitaobjetofrom2" [(ngModel)]="iDocumento.bdo_fechaini" maxlength="10">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Fecha Final<span class="obligatorio">*</span></label>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <input type="date" class="form-control letraGlobal" [disabled]="habilitaobjetofrom2" [(ngModel)]="iDocumento.bdo_fechafin" maxlength="10">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br />
+    </div>
+    <br />
+</div>
+<br />
+
+
+<ng-template #modalbusquedadoconciliacion style="z-index:50000">
+    <div class=" modal-primary modal-lg" role="document" dynamicHeight dynamicweiht>
+        <div class="modal-content ">
+            <div class="modal-body">
+                <app-busquedadoconciliacion (confirmacionCierre)="cierreConciliacionBancario($event)" (cierreModal)="cierreModalforma($event)" [listconciliacion]="listconciliacionbusquedad"></app-busquedadoconciliacion>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+
+
+<app-modales [llamarModal]="llamarmodal" (aceptarOk)="aceptarOk($event)" (aceptarConfi)="aceptarConfi($event)" (aceptarConfieli)="aceptarConfiEli($event)"></app-modales>
+
+

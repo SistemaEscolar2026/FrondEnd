@@ -1,0 +1,508 @@
+<div>
+    <!--INICIO SESSION BOTONES-->
+    <div class="row barra-accion">
+        <div class=" col-md-12">
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnnuevo" mat-button (click)="limpiabotones(2);habilitarfrom(2);"><mat-icon class="orange600">search</mat-icon>Nuevo</button>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnmodificar" (click)="habilitarfrom(3);limpiabotones(2);" mat-button><mat-icon class="azul600 ">edit</mat-icon>Modificar</button>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btngrabar" (click)="guardarempleado()" mat-button><mat-icon class="gren600 ">save</mat-icon>Guardar</button>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btneliminar" (click)="deleteempleado()" mat-button><mat-icon class="red600 ">close</mat-icon>Eliminar</button>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btncancelar" mat-button (click)="limpiabotones(1);limpiaritem();habilitarfrom(1);"><mat-icon class="redf600 ">redo</mat-icon>Cancelar</button>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnbuscar" mat-button (click)="buscar()"><mat-icon class="azulbu600 ">plagiarism</mat-icon>buscar</button>
+            <mat-divider class="material-devider">|</mat-divider>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnsalir" mat-button (click)="salir()"><mat-icon class="redoff600 ">power_settings_new</mat-icon>Salir</button>
+            <mat-divider class="material-devider">|</mat-divider>
+            <label class="bordetitulopagina letraGlobalTitulo2 ">
+                <span class="d-none d-xl-block">
+                    &nbsp;&nbsp;&nbsp;&nbsp;MANTENIMIENTOS - Empleados&nbsp;&nbsp;&nbsp;&nbsp;
+                </span>
+            </label>
+        </div>
+    </div>
+    <div class="custom-panel">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group ">
+                            <label class="col-form-label negrillas letraGlobal">Código</label>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group ">
+                            <input type="text" class="form-control letraGlobal" [(ngModel)]="iEmpleado.empcodigo" [disabled]="true" [ngModelOptions]="{standalone: true}" maxlength="10" required="required">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group ">
+                            <label class="col-form-label negrillas letraGlobal">Nombres<span>*</span></label>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-group ">
+                            <input type="text" class="form-control letraGlobal" [(ngModel)]="iEmpleado.empnombres" [disabled]="habilitaobjetofrom" [ngModelOptions]="{standalone: true}" maxlength="100" required="required">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group ">
+                            <label class="col-form-label negrillas letraGlobal">Apellido Paterno<span>*</span></label>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-group ">
+                            <input type="text" class="form-control letraGlobal" [(ngModel)]="iEmpleado.empapellidopaterno" [disabled]="habilitaobjetofrom" [ngModelOptions]="{standalone: true}" maxlength="150" required="required">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group ">
+                            <label class="col-form-label negrillas letraGlobal">Apellido Materno</label>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-group ">
+                            <input type="text" class="form-control letraGlobal" [(ngModel)]="iEmpleado.empapellidomaterno" [disabled]="habilitaobjetofrom" [ngModelOptions]="{standalone: true}" maxlength="150" required="required">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="row">
+                            <img src="{{imagen}}" class="col-md-9" style="border: 1px solid #000;height:100px" />
+                            <button type="button" class="btn botonpaso letraGlobal" (click)="fileInput.click()" mat-button><mat-icon class="red600 ">cloud_upload</mat-icon></button>
+                            <input hidden (change)="handleFileInput($event)" [disabled]="habilitaobjetofrom" #fileInput type="file" accept=".jpeg,.jpg,.png">
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+        </div>
+    </div>
+    <br />
+    <div class="row custom-panel2 b">
+        <div class="col-md-12">
+            <div class="row ">
+                <div class="col-md-2">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Tipo de Identificación</label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group ">
+                        <select [(ngModel)]="iEmpleado.tidcodigo" class="custom-select form-controlselectbarra  letraGlobal" style="width: 100%!important" [disabled]="habilitaobjetobuscar" panelClass="my-select-panel-class" [ngModelOptions]="{standalone: true}" id="inputGroupSelect01">
+                            <option [value]="comp.tidcodigo" *ngFor="let comp of listtipoidentificacion">{{comp.tiddescripcion}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Tipo de Contrato<span>*</span></label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group ">
+                        <select [(ngModel)]="iEmpleado.tconcodigoinicial" class="custom-select form-controlselectbarra  letraGlobal" style="width: 100%!important" [disabled]="habilitaobjetofrom" panelClass="my-select-panel-class" [ngModelOptions]="{standalone: true}" id="inputGroupSelect01">
+                            <option [value]="comp.tconcodigo" *ngFor="let comp of listtipocontrato">{{comp.nombre}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Días de Prueba</label>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group ">
+                        <input type="number" class="form-control letraGlobal" [(ngModel)]="iEmpleado.empdiasprueba" [disabled]="(habilitaobjetofrom===false && iEmpleado.tconcodigoinicial!='')?false:true" [ngModelOptions]="{standalone: true}" maxlength="5" required="required">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Identificación<span>*</span></label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group ">
+                        <input type="text" class="form-control letraGlobal" [(ngModel)]="iEmpleado.empcodigolegal" [disabled]="habilitaobjetobuscar" (blur)="codempleado()" [ngModelOptions]="{standalone: true}" maxlength="15" required="required">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Fecha Inicio Contrato<span>*</span></label>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group ">
+                        <input type="date" class="form-control letraGlobal" [(ngModel)]="iEmpleado.empfeccontratoini" [disabled]="habilitaobjetofrom" [ngModelOptions]="{standalone: true}" maxlength="5" required="required">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Género</label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group ">
+                        <select [(ngModel)]="iEmpleado.empsexo" class="custom-select form-controlselectbarra  letraGlobal" style="width: 100%!important" [disabled]="habilitaobjetofrom" panelClass="my-select-panel-class" [ngModelOptions]="{standalone: true}" id="inputGroupSelect01">
+                            <option [value]="comp.valor" *ngFor="let comp of listtipogenero">{{comp.texto}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Fecha Renovación Contrato</label>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group ">
+                        <input type="date" class="form-control letraGlobal" [(ngModel)]="iEmpleado.empfecharenovacion" [disabled]="habilitaobjetofrom" [ngModelOptions]="{standalone: true}" maxlength="5" required="required">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Estado Civil</label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group ">
+                        <select [(ngModel)]="iEmpleado.empestadocivil" class="custom-select form-controlselectbarra  letraGlobal" style="width: 100%!important" [disabled]="habilitaobjetofrom" panelClass="my-select-panel-class" [ngModelOptions]="{standalone: true}" id="inputGroupSelect01">
+                            <option [value]="comp.valor" *ngFor="let comp of listtipoestadocivil">{{comp.texto}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Fecha Caduca Contrato</label>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group ">
+                        <input type="date" class="form-control letraGlobal" [(ngModel)]="iEmpleado.empfeccadcontrato" [disabled]="habilitaobjetofrom" [ngModelOptions]="{standalone: true}" maxlength="5" required="required">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Tipo Discapacidad</label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group ">
+                        <select [(ngModel)]="iEmpleado.discodigo" class="custom-select form-controlselectbarra  letraGlobal" style="width: 100%!important" [disabled]="habilitaobjetofrom" panelClass="my-select-panel-class" [ngModelOptions]="{standalone: true}" id="inputGroupSelect01">
+                            <option [value]="comp.discodigo" *ngFor="let comp of listtipodiscapacidad">{{comp.nombre}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Tipo de Contrato Definitivo</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group ">
+                        <select [(ngModel)]="iEmpleado.tconcodigodefinitivo" class="custom-select form-controlselectbarra  letraGlobal" style="width: 100%!important" [disabled]="(habilitaobjetofrom===false && isAccion==='M')?false:true" panelClass="my-select-panel-class" [ngModelOptions]="{standalone: true}" id="inputGroupSelect01">
+                            <option [value]="comp.tconcodigo" *ngFor="let comp of listtipocontratodefinitivo">{{comp.nombre}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">% Discapacidad</label>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group ">
+                        <input type="text" class="form-control letraGlobal" [(ngModel)]="iEmpleado.empporcdiscapacidad" [disabled]="habilitaobjetofrom" [ngModelOptions]="{standalone: true}" onkeypress="return numbersonly(event);" maxlength="5" required="required">
+                    </div>
+                </div>
+                <div class="col-md-1">
+
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Fecha Inicio Contrato Defin.</label>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group ">
+                        <input type="date" class="form-control letraGlobal" [(ngModel)]="iEmpleado.empfechacontratodef" [disabled]="(habilitaobjetofrom===false && isAccion==='M')?false:true" [ngModelOptions]="{standalone: true}" maxlength="5" required="required">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Número Registro de Discapacidad</label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group ">
+                        <input type="text" class="form-control letraGlobal" [(ngModel)]="iEmpleado.empnumregdiscapacidad" [disabled]="habilitaobjetofrom" [ngModelOptions]="{standalone: true}" maxlength="5" required="required">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Fecha Reingreso</label>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group ">
+                        <input type="date" class="form-control letraGlobal" [(ngModel)]="iEmpleado.empfechareingreso" [disabled]="(habilitaobjetofrom===false && isAccion==='M')?false:true" [ngModelOptions]="{standalone: true}" maxlength="5" required="required">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Trabajador Sustituto</label>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group ">
+                        <select [(ngModel)]="iEmpleado.emptrabajadorsustituto" class="custom-select form-controlselectbarra  letraGlobal" style="width: 100%!important" [disabled]="habilitaobjetofrom" panelClass="my-select-panel-class" [ngModelOptions]="{standalone: true}" id="inputGroupSelect01">
+                            <option [value]="comp.valor" *ngFor="let comp of listtipotrabajo">{{comp.texto}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-1">
+
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Fecha Caduca Reingreso</label>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group ">
+                        <input type="date" class="form-control letraGlobal" [(ngModel)]="iEmpleado.empfechacadreingreso" [disabled]="(habilitaobjetofrom===false && isAccion==='M')?false:true" [ngModelOptions]="{standalone: true}" maxlength="5" required="required">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Fecha Inclusión Trabajador Sustituto</label>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <input type="date" class="form-control letraGlobal" [(ngModel)]="iEmpleado.empfecinclusiontrabsusti" [disabled]="(habilitaobjetofrom===false && iEmpleado.emptrabajadorsustituto==='S')?false:true" [ngModelOptions]="{standalone: true}" maxlength="5" required="required">
+                </div>
+                <div class="col-md-1">
+
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Fecha Jubilación</label>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group ">
+                        <input type="date" class="form-control letraGlobal" [(ngModel)]="iEmpleado.empfechajubilacion" [disabled]="(habilitaobjetofrom===false && isAccion==='M')?false:true" [ngModelOptions]="{standalone: true}" maxlength="5" required="required">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Estado</label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-check-inline">
+                                <input type="radio" name="selretpersonal" id="selretpersonal" style="display: inherit !important" [disabled]="habilitaobjetofrom" [(ngModel)]="iEmpleado.empestado" [ngModelOptions]="{standalone: true}" [value]="'A'">
+                                <label class="form-check-label" for="selretpersonal">
+                                    <span class="letraGlobal">Activo</span>
+                                </label>
+                            </div>
+                            <div class="form-check-inline">
+                                <input type="radio" name="selretpersonal" id="selretpersonal" style="display: inherit !important" [disabled]="habilitaobjetofrom" [(ngModel)]="iEmpleado.empestado" [ngModelOptions]="{standalone: true}" [value]="'I'">
+                                <label class="form-check-label" for="selretpersonal">
+                                    <span class="letraGlobal">Inactivo</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row custom-panel2 b">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="row">
+                        <div class="col-md-12" style="text-align: center !important; color: white; background-color: Olive ">
+                            <label class="col-form-label negrillas letraGlobal">DOMICILIO</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group ">
+                                <label class="col-form-label negrillas letraGlobal">País<span>*</span></label>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <select [(ngModel)]="iEmpleado.paicodigodom" class="custom-select form-controlselectbarra  letraGlobal" style="width: 100%!important" [disabled]="habilitaobjetofrom" panelClass="my-select-panel-class" [ngModelOptions]="{standalone: true}" id="inputGroupSelect01">
+                                <option [value]="comp.pa_codigo" *ngFor="let comp of listtipopais">{{comp.pa_nombre}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group ">
+                                <label class="col-form-label negrillas letraGlobal">Tipo Vivienda</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <select [(ngModel)]="iEmpleado.emptipovivienda" class="custom-select form-controlselectbarra  letraGlobal" style="width: 100%!important" [disabled]="habilitaobjetofrom" panelClass="my-select-panel-class" [ngModelOptions]="{standalone: true}" id="inputGroupSelect01">
+                                <option [value]="comp.valor" *ngFor="let comp of listtipovivienda">{{comp.texto}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    &nbsp;
+                </div>
+                <div class="col-md-5">
+                    <div class="row">
+                        <div class="col-md-12" style="text-align: center !important; color: white; background-color: Olive ">
+                            <label class="col-form-label negrillas letraGlobal">DATOS DEL NACIMIENTO</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group ">
+                                <label class="col-form-label negrillas letraGlobal">Fecha<span>*</span></label>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group ">
+                                <input type="date" class="form-control letraGlobal" [(ngModel)]="iEmpleado.empfechanac" [disabled]="habilitaobjetofrom" [ngModelOptions]="{standalone: true}" maxlength="5" required="required">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group ">
+                                <label class="col-form-label negrillas letraGlobal">Nacionalidad<span>*</span></label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <select [(ngModel)]="iEmpleado.naccodigo" class="custom-select form-controlselectbarra  letraGlobal" style="width: 100%!important" [disabled]="habilitaobjetofrom" panelClass="my-select-panel-class" [ngModelOptions]="{standalone: true}" id="inputGroupSelect01">
+                                <option [value]="comp.naccodigo" *ngFor="let comp of listtiponacionalidad">{{comp.nacnombre}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group ">
+                                <label class="col-form-label negrillas letraGlobal">País<span>*</span></label>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <select [(ngModel)]="iEmpleado.paicodigonaci" class="custom-select form-controlselectbarra  letraGlobal" style="width: 100%!important" [disabled]="habilitaobjetofrom" panelClass="my-select-panel-class" [ngModelOptions]="{standalone: true}" id="inputGroupSelect01">
+                                <option [value]="comp.pa_codigo" *ngFor="let comp of listtipopais">{{comp.pa_nombre}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="row">
+                        <div class="col-md-1">
+                            <div class="form-group ">
+                                <label class="col-form-label negrillas letraGlobal">Dirección<span>*</span></label>
+                            </div>
+                        </div>
+                        <div class="col-md-11">
+                            <div class="form-group ">
+                                <input type="text" class="form-control letraGlobal" [(ngModel)]="iEmpleado.empdirecciondom" [disabled]="habilitaobjetofrom" [ngModelOptions]="{standalone: true}" maxlength="150" required="required">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-auto">
+                            <div class="form-group ">
+                                <label class="col-form-label negrillas letraGlobal">Telefono FIjo 1</label>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group ">
+                                <input type="text" class="form-control letraGlobal" [(ngModel)]="iEmpleado.empfonofijo1" [disabled]="habilitaobjetofrom" [ngModelOptions]="{standalone: true}" maxlength="30" required="required">
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <div class="form-group ">
+                                <label class="col-form-label negrillas letraGlobal">Telefono FIjo 2</label>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group ">
+                                <input type="text" class="form-control letraGlobal" [(ngModel)]="iEmpleado.empfonofijo2" [disabled]="habilitaobjetofrom" [ngModelOptions]="{standalone: true}" maxlength="30" required="required">
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <div class="form-group ">
+                                <label class="col-form-label negrillas letraGlobal">Telefono Celular</label>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group ">
+                                <input type="text" class="form-control letraGlobal" [(ngModel)]="iEmpleado.empfonocelular" [disabled]="habilitaobjetofrom" [ngModelOptions]="{standalone: true}" maxlength="30" required="required">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-auto">
+                            <div class="form-group ">
+                                <label class="col-form-label negrillas letraGlobal">Correo Electrónico</label>
+                            </div>
+                        </div>
+                        <div class="col-md-10">
+                            <div class="form-group ">
+                                <input type="text" class="form-control letraGlobal" [(ngModel)]="iEmpleado.empmail" [disabled]="habilitaobjetofrom" [ngModelOptions]="{standalone: true}" maxlength="100" required="required">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<ng-template #modalbusquedaempleado style="z-index:50000">
+    <div class=" modal-primary modal-lg" role="document" dynamicHeight dynamicweiht>
+        <div class="modal-content ">
+            <div class="modal-body">
+                <app-busquedaempleado [listadoempleado]="listadoempleado" (confirmacionCierre)="cierreEmpleado($event)" (cierreModal)="cierreModal($event)"></app-busquedaempleado>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+
+
+<app-modales [llamarModal]="llamarmodal" (aceptarOk)="aceptarOk($event)"></app-modales>
+
+
+

@@ -1,0 +1,89 @@
+<div class="login">
+    <form [formGroup]="usuariologin" class="custom-form" style="box-shadow:none!important" (ngSubmit)="login()">
+        <h1>Entrada a AGEVI</h1>
+        <div class="form-group">
+            <input type="text"
+                   class="form-control letraGlobal"
+                   [ngClass]="{ 'is-invalid': submitted && f['usuario'].errors }"
+                   autocomplete="new-password"
+                   formControlName="usuario"
+                   name="usuario"
+                   placeholder="Usuario"
+                   required="required" />
+            <div *ngIf="submitted && f['usuario'].errors" class="invalid-feedback">
+                <div *ngIf="f['usuario'].errors['required']">Usuario es requerido</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <input type="password"
+                   class="form-control letraGlobal"
+                   [ngClass]="{ 'is-invalid': submitted && f['clave'].errors }"
+                   formControlName="clave"
+                   style="text-transform:unset!important"
+                   autocomplete="new-password"
+                   name="clave"
+                   placeholder="Password"
+                   required="required" />
+            <div *ngIf="submitted && f['clave'].errors" class="invalid-feedback">
+                <div *ngIf="f['clave'].errors['required']">Clave es requerido</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <select [(ngModel)]="selectedCompa" class="custom-select form-controlselectbarra  letraGlobal" style="width: 100%!important" panelClass="my-select-panel-class" id="inputGroupSelect01" [ngModelOptions]="{standalone: true}" (change)="seleccionaCompania()">
+                <option [value]="comp.co_codigo" *ngFor="let comp of compania">{{comp.co_nombre}}</option>
+            </select>
+        </div>
+
+        <br />
+        <button type="submit" class=" letraGlobal btn btn-success btn-sm">Iniciar Sesión</button>
+    </form>
+</div>
+
+
+<ngx-spinner template="<img src='../../../assets/imgcabecera/loading.svg'>" [fullScreen]="true"><p style="color: white"> Por favor espere... </p></ngx-spinner>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        var elem = document.documentElement;
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+        } else if (elem.mozRequestFullScreen) { /* Firefox */
+            elem.mozRequestFullScreen();
+        } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+            elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) { /* IE/Edge */
+            elem.msRequestFullscreen();
+        }
+    });
+
+    /* Get the documentElement (<html>) to display the page in fullscreen */
+
+    /* View in fullscreen */
+    function openFullscreen() {
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+        } else if (elem.mozRequestFullScreen) { /* Firefox */
+            elem.mozRequestFullScreen();
+        } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+            elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) { /* IE/Edge */
+            elem.msRequestFullscreen();
+        }
+    }
+
+    /* Close fullscreen */
+    function closeFullscreen() {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.mozCancelFullScreen) { /* Firefox */
+            document.mozCancelFullScreen();
+        } else if (document.webkitExitFullscreen) { /* Chrome, Safari and Opera */
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) { /* IE/Edge */
+            document.msExitFullscreen();
+        }
+    }
+</script>

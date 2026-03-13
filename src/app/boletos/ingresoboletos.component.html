@@ -1,0 +1,430 @@
+<div style="overflow-y: hidden!important;overflow-x:hidden!important">
+    <!--INICIO SESSION BOTONES-->
+    <div class="row barra-accion">
+        <div class=" col-md-12">
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnnuevo" mat-button (click)="limpiabotones(2);habilitarfrom(1);"><mat-icon class="orange600">search</mat-icon>Nuevo</button>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnmodificar" (click)="habilitarfrom(3);limpiabotones(2);" mat-button><mat-icon class="azul600 ">edit</mat-icon>Modificar</button>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btngrabar" (click)="guardarBoleto()" mat-button><mat-icon class="gren600 ">save</mat-icon>Guardar</button>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btneliminar" (click)="deleteboleto()" mat-button><mat-icon class="red600 ">close</mat-icon>Eliminar</button>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btncancelar" mat-button (click)="limpiabotones(1);habilitarfrom(4);"><mat-icon class="redf600 ">redo</mat-icon>Cancelar</button>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnbuscar" mat-button (click)="buscar('1')"><mat-icon class="azulbu600 ">plagiarism</mat-icon>buscar</button>
+            <mat-divider class="material-devider">|</mat-divider>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnsalir" mat-button (click)="salir()"><mat-icon class="redoff600 ">power_settings_new</mat-icon>Salir</button>
+            <mat-divider class="material-devider">|</mat-divider>
+            <label class="bordetitulopagina letraGlobalTitulo2 "><span class="d-none d-xl-block">&nbsp;&nbsp;&nbsp;&nbsp;Ingreso de Boletos&nbsp;&nbsp;&nbsp;&nbsp;</span></label>
+        </div>
+    </div>
+    <!--FIN SESSION BOTONES-->
+    <div class="custom-panel">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row custom-panel2 b">
+                    <div class="col-md-5">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group ">
+                                    <label class="col-form-label negrillas letraGlobal">Cliente<span class="obligatorio">*</span></label>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <input type="text" class="form-control letraGlobal" [(ngModel)]="iDocumento.cl_nombre" [disabled]="true" maxlength="80" [ngClass]="{ 'is-invalid': submitted && iDocumento.cl_nombre==='' }">
+                                    <div *ngIf="submitted && iDocumento.cl_nombre===''" class="invalid-feedback">
+                                        <div *ngIf="iDocumento.cl_nombre===''">Cliente es requerido</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl" [disabled]="habilitaobjetofrom" style="align-items:inherit!important; min-width: 0px !important; " mat-button (click)="cargaCliente()"> <span style="cursor:pointer"><mat-icon class="azul600 ">plagiarism</mat-icon></span></button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group ">
+                                    <label class="col-form-label negrillas letraGlobal">Identificaci&oacute;n</label>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <input type="text" class="form-control letraGlobal" [(ngModel)]="iDocumento.bc_identificacion_pasajero" maxlength="20" onkeypress="return numbersonly(event);" [disabled]="habilitaobjetofrom">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 ">
+                                <div class="form-group ">
+                                    <label class="col-form-label negrillas letraGlobal">Nombre Pasajero<span class="obligatorio">*</span></label>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <input type="text" class="form-control letraGlobal" [(ngModel)]="iDocumento.bc_nombre_pasajero" maxlength="100" [disabled]="habilitaobjetofrom" [ngClass]="{ 'is-invalid': submitted && iDocumento.bc_nombre_pasajero==='' }">
+                                    <div *ngIf="submitted && iDocumento.bc_nombre_pasajero===''" class="invalid-feedback">
+                                        <div *ngIf="iDocumento.bc_nombre_pasajero===''">Nombre Pasajero es requerido</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group ">
+                                    <label class="col-form-label negrillas letraGlobal">Ruta<span class="obligatorio">*</span></label>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <input type="text" class="form-control letraGlobal" [(ngModel)]="iDocumento.rut_discripcion" [disabled]="true" maxlength="80" [ngClass]="{ 'is-invalid': submitted && iDocumento.rut_discripcion==='' }">
+                                    <div *ngIf="submitted && iDocumento.rut_discripcion===''" class="invalid-feedback">
+                                        <div *ngIf="iDocumento.rut_discripcion===''">Ruta es requerido</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl" [disabled]="habilitaobjetofrom" style="align-items:inherit!important; min-width: 0px !important; " mat-button (click)="cargaRuta()"> <span style="cursor:pointer"><mat-icon class="azul600 ">plagiarism</mat-icon></span></button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-auto">
+                                <div class="form-check-inline">
+                                    <input type="radio" name="rededonde" id="rededonde" style="display: inherit !important" (change)="cambiosinorede()" [disabled]="habilitaobjetofrom" [(ngModel)]="iDocumento.bc_redondeo" [ngModelOptions]="{standalone: true}" [value]="'S'">
+                                    <label class="form-check-label" for="rededonde">
+                                        <span class="letraGlobal">Redondeado</span>
+                                    </label>
+                                </div>
+                                <div class="form-check-inline">
+                                    <input type="radio" name="rededonde" id="rededonde" style="display: inherit !important" (change)="cambiosinorede()" [disabled]="habilitaobjetofrom" [(ngModel)]="iDocumento.bc_redondeo" [ngModelOptions]="{standalone: true}" [value]="'N'">
+                                    <label class="form-check-label" for="rededonde">
+                                        <span class="letraGlobal">Sin Redondear</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-check-inline">
+                                    <input type="radio" name="selretpersonal" id="selretpersonal" style="display: inherit !important" (change)="cambiosino()" [disabled]="habilitaobjetofrom" [(ngModel)]="iDocumento.bc_tipo_viaje" [ngModelOptions]="{standalone: true}" [value]="'S'">
+                                    <label class="form-check-label" for="selretpersonal">
+                                        <span class="letraGlobal">Ida y Vuelta</span>
+                                    </label>
+                                </div>
+                                <div class="form-check-inline">
+                                    <input type="radio" name="selretpersonal" id="selretpersonal" style="display: inherit !important" (change)="cambiosino()" [disabled]="habilitaobjetofrom" [(ngModel)]="iDocumento.bc_tipo_viaje" [ngModelOptions]="{standalone: true}" [value]="'N'">
+                                    <label class="form-check-label" for="selretpersonal">
+                                        <span class="letraGlobal">Solo Ida</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-check-inline">
+                                    <input type="checkbox" name="selretpersonal" id="selretpersonal" style="display: inherit !important" [disabled]="habilitaobjetofrom" [(ngModel)]="iDocumento.bc_escala" [ngModelOptions]="{standalone: true}" [value]="false">
+                                    <label class="form-check-label" for="selretpersonal">
+                                        <span class="letraGlobal">Escala</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl" [disabled]="habilitaobjetofrom" style="align-items:inherit!important; min-width: 0px !important; " mat-button (click)="buscar('2')"><mat-icon class="azulbu600 ">content_copy</mat-icon>Boleto Plantilla</button>
+
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group ">
+                                    <label class="col-form-label negrillas letraGlobal">Fecha Emision</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <input type="date" class="form-control letraGlobal" [disabled]="habilitaobjetofrom" [(ngModel)]="iDocumento.bc_fecha_pedido" maxlength="10">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group ">
+                                    <label class="col-form-label negrillas letraGlobal">Fecha Inicial Viaje</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <input type="date" class="form-control letraGlobal" [disabled]="habilitaobjetofrom" [(ngModel)]="iDocumento.bc_fecha_inicio_viaje" maxlength="10">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group ">
+                                    <label class="col-form-label negrillas letraGlobal">Fecha Fin Viaje</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <input type="date" class="form-control letraGlobal" [disabled]="habilitaobjetofrom || iDocumento.bc_tipo_viaje==='N'" [(ngModel)]="iDocumento.bc_fecha_fin_viaje" maxlength="10">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-auto">
+                                <div class="form-group ">
+                                    <label class="col-form-label negrillas letraGlobal">Personal Autorizada<span class="obligatorio">*</span></label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <select [(ngModel)]="iDocumento.bc_persona_solicita" class="custom-select form-controlselect letraGlobal" panelClass="my-select-panel-class" [disabled]="habilitaobjetofrom" id="inputGroupSelect01" [ngClass]="{ 'is-invalid': submitted && iDocumento.bc_persona_solicita==='' }">
+                                        <option [value]="comp.pa_codigo" *ngFor="let comp of listpersona">{{comp.pa_descripcion}}</option>
+                                    </select>
+                                    <div *ngIf="submitted && iDocumento.bc_persona_solicita==''" class="invalid-feedback">
+                                        <div *ngIf="iDocumento.bc_persona_solicita===''">Personal Solicita es requerido</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <div class="form-group ">
+                                    <label class="col-form-label negrillas letraGlobal">Aerolinea<span class="obligatorio">*</span></label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <select [(ngModel)]="iDocumento.ae_codigo" class="custom-select form-controlselect letraGlobal" panelClass="my-select-panel-class" [disabled]="habilitaobjetofrom" id="inputGroupSelect01" [ngClass]="{ 'is-invalid': submitted && iDocumento.ae_codigo===0 }">
+                                        <option [value]="comp.ae_codigo" *ngFor="let comp of listaerolinea">{{comp.ae_descripcion}}</option>
+                                    </select>
+                                    <div *ngIf="submitted && iDocumento.ae_codigo===0" class="invalid-feedback">
+                                        <div *ngIf="iDocumento.ae_codigo===0">Aerolinea es requerido</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group ">
+                                    <label class="col-form-label negrillas letraGlobal">Boleto Cambio</label>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <input type="text" class="form-control letraGlobal" [(ngModel)]="iDocumento.bc_boleto_cambio" [disabled]="true" maxlength="80">
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl" [disabled]="habilitaobjetofrom" style="align-items:inherit!important; min-width: 0px !important; " mat-button (click)="buscarcam()"> <span style="cursor:pointer"><mat-icon class="azul600 ">plagiarism</mat-icon></span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+
+                <div class="row custom-panel2 b">
+                    <div id="no-more-tables" class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-11">
+                                <div id="globalAU" style="min-height:{{alto}}px!important" class="material-datatables table-responsive">
+                                    <table responsive="true" class="letraGlobal table table-hover text-nowrap  table-bordered " cellspacing="0">
+                                        <thead style="zoom:85%; border: solid 1px #ABBAD0!important">
+                                            <tr class="cabeceragrid letraGlobal">
+                                                <th style="width:150px">IVA</th>
+                                                <th style="width:400px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# DE TICKET&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                                <th style="width:200px">VALOR BOLETO</th>
+                                                <th style="width:200px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IVA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                                <th style="width: 200px">OTROS IMPUESTOS</th>
+                                                <th style="width: 200px">TOTAL BOLETO + OTROS IMPUESTOS</th>
+                                                <th style="width: 200px">SERVICIO EMISION</th>
+                                                <th style="width: 200px">IVA SERVICIO</th>
+                                                <th style="width: 200px">TOTAL SERVICIOS</th>
+                                                <th style="width: 200px">TOTAL BOLETO + OTROS IMPUESTOS + SERVICIO</th>
+                                                <th style="width: 200px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ESTADO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                                <th style="width:0px"></th>
+                                                <th style="width: 200px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SERVICIO ADICIONAL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                                <th style="width: 200px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALOR ADICIONAL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                                <th style="width: 200px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NETO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                                <th style="width: 200px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;COSTO BOLETOS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                                <th style="width: 200px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FEES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                                <th style="width: 200px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SEGUROS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                                <th style="width: 200px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTRO COSTO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                                <th style="width: 200px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NAC/INT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                                <th style="width: 200px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# RESERVA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                                <th style="width: 200px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PAGO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                                <th style="width:0px"></th>
+                                                <th style="width: 200px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AUTORIZACION&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                                <th style="width: 200px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RECIBO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                                <th style="width: 200px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PROVEEDOR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                                <th style="width:0px"></th>
+                                                <th style="width: 200px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OBSERVACIONES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="cuerpogrid">
+                                            <tr *ngFor="let row of iDocumento.detalle_bo " class="clsForeColor{{row.color}}">
+                                                <td data-title="Sel." (click)="clickGrid(row);" style="width: 35px; padding: 10px">
+                                                    <input type="checkbox" name="exampleRadios" id="exampleRadios1" [disabled]="habilitaobjetofrom" (change)="cambio(row)" [(ngModel)]="row.bd_iva" [value]="row.bd_iva">
+                                                </td>
+                                                <td data-title="# DE TICKET" (click)="clickGrid(row);" style="text-align: center !important; align-content: center !important; width: 400px">
+                                                    <input id="sec{{row.sec}}" type="text" class="form-control letraGlobal  " maxlength="20" [disabled]="habilitaobjetofrom" [(ngModel)]="row.bd_ticket" (blur)="buscarTicket(row)">
+                                                </td>
+                                                <td data-title="VALOR TICKET" (click)="clickGrid(row);" style="text-align: right !important; width: 200px">
+                                                    <input type="text" class="form-control letraGlobal  " maxlength="8" style="text-align: right !important; " (input)="calculo(row)" [disabled]="habilitaobjetofrom" onkeypress="return isNumberKey(this,event,3);" [(ngModel)]="row.bd_valor_ticket">
+                                                </td>
+                                                <td data-title="IVA" (click)="clickGrid(row);" style="text-align: right !important; width: 200px">{{row.bd_valor_iva | number : '1.2-2'}}</td>
+                                                <td data-title="OTROS IMPUESTOS" (click)="clickGrid(row);" style="text-align: right !important; width: 250px ">
+                                                    <input type="text" class="form-control letraGlobal  " maxlength="8" style="text-align: right !important; " (input)="calculo(row)" [disabled]="habilitaobjetofrom" onkeypress="return isNumberKey(this,event,3);" [(ngModel)]="row.bd_otro_impuesto">
+                                                </td>
+                                                <td data-title="TOTAL BOLETO" (click)="clickGrid(row);" style="text-align: center !important; width: 250px ">{{row.bd_total_boleto | number : '1.2-2'}}</td>
+                                                <td data-title="SERVICIO EMISION" (click)="clickGrid(row);" style="text-align: right !important; width: 200px ">
+                                                    <input type="text" class="form-control letraGlobal  " maxlength="8" style="text-align: right !important; " (input)="calculo(row)" [disabled]="habilitaobjetofrom" onkeypress="return isNumberKey(this,event,3);" [(ngModel)]="row.bd_valor_servicio">
+                                                </td>
+                                                <td data-title="IVA SERVICIO" (click)="clickGrid(row);" style="text-align: right !important; width: 200px">{{row.bd_iva_servicio | number : '1.2-2'}}</td>
+                                                <td data-title="TOTAL SERVICIOS" (click)="clickGrid(row);" style="text-align: right !important; width: 200px">{{row.bd_total_servicio | number : '1.2-2'}}</td>
+                                                <td data-title="TOTAL BOLETO + SERVICIO" (click)="clickGrid(row);" style="text-align: center !important; width: 200px">{{row.bd_total_general | number : '1.2-2'}}</td>
+                                                <td data-title="ESTADO" (click)="clickGrid(row);" style="text-align: right !important; width: 200px">
+                                                    <select [(ngModel)]="row.bd_estado" class="custom-select form-controlselect letraGlobal" panelClass="my-select-panel-class" [disabled]="habilitaobjetofrom" id="inputGroupSelect01">
+                                                        <option [value]="comp.es_codigo" *ngFor="let comp of listEstado">{{comp.es_nombre}}</option>
+                                                    </select>
+                                                </td>
+                                                <td data-title="" (click)="clickGrid(row);" style="width: 5px"></td>
+                                                <td data-title="SERVICIO ADICIONAL" (click)="clickGrid(row);" style="text-align: right !important; width: 200px">
+                                                    <select [(ngModel)]="row.costos_bo.sa_codigo" class="custom-select form-controlselect letraGlobal" panelClass="my-select-panel-class" [disabled]="habilitaobjetofrom" id="inputGroupSelect01">
+                                                        <option [value]="comp.sa_codigo" *ngFor="let comp of listservicio">{{comp.sa_descripcion}}</option>
+                                                    </select>
+                                                </td>
+                                                <td data-title="VALOR ADICIONAL" (click)="clickGrid(row);" style="text-align: right !important; width: 200px">
+                                                    <input type="text" class="form-control letraGlobal  " maxlength="8" style="text-align: right !important; " [disabled]="habilitaobjetofrom" (input)="calculo(row)" onkeypress="return isNumberKey(this,event,3);" [(ngModel)]="row.costos_bo.boc_valor_adicional" separator>
+                                                </td>
+                                                <td data-title="NETO" (click)="clickGrid(row);" style="text-align: right !important; width: 200px">
+                                                    {{row.costos_bo.boc_costo_total | number : '1.2-2'}}
+                                                </td>
+                                                <td data-title="COSTO BOLETOS" (click)="clickGrid(row);" style="text-align: right !important; width: 200px">
+                                                    <input type="text" class="form-control letraGlobal  " maxlength="8" style="text-align: right !important; " (input)="calculo(row)" [disabled]="habilitaobjetofrom" onkeypress="return isNumberKey(this,event,3);" [(ngModel)]="row.costos_bo.boc_costo_boleto" separator>
+                                                </td>
+                                                <td data-title="FEES" (click)="clickGrid(row);" style="text-align: right !important; width: 200px">
+                                                    <input type="text" class="form-control letraGlobal  " maxlength="8" style="text-align: right !important; " (input)="calculo(row)" [disabled]="habilitaobjetofrom" onkeypress="return isNumberKey(this,event,3);" [(ngModel)]="row.costos_bo.boc_costo_fee" separator>
+                                                </td>
+                                                <td data-title="SEGUROS" (click)="clickGrid(row);" style="text-align: right !important; width: 200px">
+                                                    <input type="text" class="form-control letraGlobal  " maxlength="8" style="text-align: right !important; " (input)="calculo(row)" [disabled]="habilitaobjetofrom" onkeypress="return isNumberKey(this,event,3);" [(ngModel)]="row.costos_bo.boc_costo_seguro" separator>
+                                                </td>
+                                                <td data-title="OTROS COSTO" (click)="clickGrid(row);" style="text-align: right !important; width: 200px">
+                                                    <input type="text" class="form-control letraGlobal  " maxlength="8" style="text-align: right !important; " (input)="calculo(row)" [disabled]="habilitaobjetofrom" onkeypress="return isNumberKey(this,event,3);" [(ngModel)]="row.costos_bo.boc_otro_costo" separator>
+                                                </td>
+                                                <td data-title="NAC/INT" (click)="clickGrid(row);" style="text-align: right !important; width: 200px">
+                                                    <select [(ngModel)]="row.costos_bo.boc_nacional_internacional" class="custom-select form-controlselect letraGlobal" panelClass="my-select-panel-class" [disabled]="habilitaobjetofrom" id="inputGroupSelect01">
+                                                        <option [value]="comp.valor" *ngFor="let comp of listTipoViaje">{{comp.texto}}</option>
+                                                    </select>
+                                                </td>
+                                                <td data-title="# RESERVA" (click)="clickGrid(row);" style="text-align: right !important; width: 200px">
+                                                    <input type="text" class="form-control letraGlobal  " maxlength="20" [disabled]="habilitaobjetofrom" [(ngModel)]="row.costos_bo.boc_num_reserva">
+                                                </td>
+                                                <td data-title="PAGO" (click)="clickGrid(row);" style="text-align: right !important; width: 200px">{{row.costos_bo.ds_forma}}</td>
+                                                <td style="cursor: pointer !important; " (click)="clickGrid(row);cargaForma()"><mat-icon class="azul600 ">search</mat-icon></td>
+                                                <td data-title="AUTORIZACION" (click)="clickGrid(row);" style="text-align: right !important; width: 200px">
+                                                    <input type="text" class="form-control letraGlobal  " maxlength="500" [disabled]="habilitaobjetofrom" [(ngModel)]="row.costos_bo.boc_num_autorizacion">
+                                                </td>
+                                                <td data-title="RECIBO" (click)="clickGrid(row);" style="text-align: right !important; width: 200px">
+                                                    <input type="text" class="form-control letraGlobal  " maxlength="500" [disabled]="habilitaobjetofrom" [(ngModel)]="row.costos_bo.boc_num_recibo">
+                                                </td>
+                                                <td data-title="PROVEEDOR" (click)="clickGrid(row);" style="text-align: right !important; width: 200px">{{row.costos_bo.costo_proveedor.pr_codigodesc }}</td>
+                                                <td style="cursor: pointer !important; " (click)="clickGrid(row);cargaProveedor()"><mat-icon class="azul600 ">search</mat-icon></td>
+                                                <td data-title="OBSERVACIONES" (click)="clickGrid(row);" style="text-align: right !important; width: 50px">
+                                                    <input type="text" rows="2" class="form-control letraGlobal " [(ngModel)]="row.costos_bo.boc_observacion" maxlength="500" [disabled]="habilitaobjetofrom" value="" />
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl amumen" title="Agregar" [disabled]="habilitaobjetofrom" (click)="agregarlinea()" mat-button><mat-icon class="gren600 ">add</mat-icon></button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl amumen" title="Eliminar" [disabled]="habilitaobjetofrom" (click)="borrarlinea()" mat-button><mat-icon class="red600 ">remove</mat-icon></button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl amumen" title="Duplicar" [disabled]="habilitaobjetofrom" (click)="duplicarlinea()" mat-button><mat-icon class="azul600 ">folder_copy</mat-icon></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <br />
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #modalbusquedaboleto style="z-index:50000">
+    <div class=" modal-primary modal-lg" role="document" dynamicHeight dynamicweiht>
+        <div class="modal-content ">
+            <div class="modal-body">
+                <app-busquedaboleto (confirmacionCierre)="cierreBoleto($event)" (cierreModal)="cierreModalcliente($event)" [listadoboleto]="listboleto"></app-busquedaboleto>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<ng-template #modalbusquedaboletocm style="z-index:50000">
+    <div class=" modal-primary modal-lg" role="document" dynamicHeight dynamicweiht>
+        <div class="modal-content ">
+            <div class="modal-body">
+                <app-busquedaboleto (confirmacionCierre)="cierreBoletocm($event)" (cierreModal)="cierreModalcliente($event)" [listadoboleto]="listboleto"></app-busquedaboleto>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+
+<ng-template #modalbusquedaentidad style="z-index:50000">
+    <div class=" modal-primary modal-lg" role="document" dynamicHeight dynamicweiht>
+        <div class="modal-content ">
+            <div class="modal-body">
+                <app-busquedaentidad (confirmacionCierre)="cierreCliente($event)" (cierreModal)="cierreModalcliente($event)" [listadocliente]="listcliente"></app-busquedaentidad>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #modalbusquedaruta style="z-index:50000">
+    <div class=" modal-primary modal-lg" role="document" dynamicHeight dynamicweiht>
+        <div class="modal-content ">
+            <div class="modal-body">
+                <app-busquedaruta (confirmacionCierre)="cierreRutas($event)" (cierreModal)="cierreModalrutas($event)" [listadoruta]="listrutas"></app-busquedaruta>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #modalbusquedaforma style="z-index:50000">
+    <div class=" modal-primary modal-lg" role="document" dynamicHeight dynamicweiht>
+        <div class="modal-content ">
+            <div class="modal-body">
+                <app-busquedaforma (confirmacionCierre)="cierreForma($event)" (cierreModal)="cierreModalforma($event)" [listadoforma]="listforma"></app-busquedaforma>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #modalbusquedaproveedor style="z-index:50000">
+    <div class=" modal-primary modal-lg" role="document" dynamicHeight dynamicweiht>
+        <div class="modal-content ">
+            <div class="modal-body">
+                <app-busquedaproveedor (confirmacionCierre)="cierreProveedor($event)" (cierreModal)="cierreModalproveedor($event)" [listadoproveedor]="listproveedor"></app-busquedaproveedor>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+
+
+
+
+
+<app-modales [llamarModal]="llamarmodal" (aceptarOk)="aceptarOk($event)"></app-modales>
+

@@ -1,0 +1,198 @@
+<div style="overflow-y: hidden!important;overflow-x:hidden!important">
+    <!--INICIO SESSION BOTONES-->
+    <div class="row barra-accion">
+        <div class=" col-md-12">
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnbuscar" mat-button (click)="buscar()"><mat-icon class="azulbu600 ">plagiarism</mat-icon>buscar</button>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btngrabar" (click)="confirmarguardar()"  mat-button><mat-icon class="gren600 ">save</mat-icon>Guardar</button>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btncancelar" mat-button (click)="cancelar()"><mat-icon class="redf600 ">redo</mat-icon>Cancelar</button>
+            <mat-divider class="material-devider">|</mat-divider>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnsalir" mat-button (click)="salir()"><mat-icon class="redoff600 ">power_settings_new</mat-icon>Salir</button>
+            <mat-divider class="material-devider">|</mat-divider>
+            <label class="bordetitulopagina letraGlobalTitulo2 "><span class="d-none d-xl-block">&nbsp;&nbsp;&nbsp;&nbsp;Registro de Pago CXP&nbsp;&nbsp;&nbsp;&nbsp;</span></label>
+        </div>
+    </div>
+
+    <!--FIN SESSION BOTONES-->
+    <div class="custom-panel">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row custom-panel2 b">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-1">
+                                <div class="form-group ">
+                                    <label class="col-form-label negrillas letraGlobal">Entidad</label>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <input type="text" class="form-control letraGlobal" [(ngModel)]="iDocumento.cl_nombre" [disabled]="true" maxlength="80" [ngClass]="{ 'is-invalid': submitted && iDocumento.cl_nombre==='' }">
+                                    <div *ngIf="submitted && iDocumento.cl_nombre===''" class="invalid-feedback">
+                                        <div *ngIf="iDocumento.cl_nombre===''">Entidad es requerido</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl" [disabled]="!habilitaobjetofrom" style="align-items:inherit!important; min-width: 0px !important; " mat-button (click)="cargaCliente()"> <span style="cursor:pointer"><mat-icon class="azul600 ">plagiarism</mat-icon></span></button>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group ">
+                                    <label class="col-form-label negrillas letraGlobal">Fecha Orden</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <input type="date" class="form-control letraGlobal" [disabled]="!habilitaobjetofrom" [(ngModel)]="iDocumento.bc_fecha_fin_viaje" maxlength="10">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+
+                <div class="row custom-panel2 b">
+                    <div id="no-more-tables" class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div id="global350" class="material-datatables table-responsive">
+                                    <table responsive="true" class="letraGlobal table table-hover text-nowrap  table-bordered " cellspacing="0">
+                                        <thead style="zoom:85%; border: solid 1px #ABBAD0!important">
+                                            <tr class="cabeceragrid letraGlobal">
+                                                <th rowspan="2" *ngFor="let head of ColumnaDetalle" scope="col">{{head}} </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="cuerpogrid">
+                                            <tr *ngFor="let row of detalleboletopago " class="clsForeColor{{row.color}}">
+                                                <td data-title="Sel." (click)="clickGrid(row);" style="cursor:pointer; width: 2%; padding: 10px">
+                                                    <img *ngIf="row.color!=''" src="../../assets/img/CheckMark.png" />
+                                                    <img *ngIf="row.color===''" src="../../assets/img/CheckMarkD.png" />
+                                                </td>
+                                                <td data-title="FACTURA" style="text-align: center !important; width: 250px ">{{row.factura}}</td>
+                                                <td data-title="ENTIDAD" style="text-align: center !important; width: 250px ">{{row.cl_nombre}}</td>
+                                                <td data-title="FECHA DE FACTURA" style="text-align: center !important; width: 250px ">{{row.fa_fecha_factura}}</td>
+                                                <td data-title="RUTA" style="text-align: center !important; width: 250px ">{{row.rut_ruta}}</td>
+                                                <td data-title="ABONO" style="text-align: right !important; width: 250px ">{{row.bc_abono | number : '1.2-2'}}</td>
+                                                <td data-title="TOTAL FACTURA" style="text-align: right !important; width: 250px ">{{row.fa_total | number : '1.2-2'}}</td>
+                                                <td data-title="SALDO" style="text-align: right !important; width: 250px ">{{row.fa_total-row.bc_abono | number : '1.2-2'}}</td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot *ngIf="detalleboletopago.length>0">
+                                            <tr>
+                                                <th colspan="5"></th>
+                                                <th style="text-align: right !important; width: 250px ">{{totalColumna(3)}}</th>
+                                                <th style="text-align: right !important; width: 250px ">{{totalColumna(1)}}</th>
+                                                <th style="text-align: right !important; width: 250px ">{{totalColumna(4)}}</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <br />
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group ">
+                            <label class="titulopersonales">{{lineaselect}}</label>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div id="vesAqui"></div>
+                <div class="row custom-panel2 b">
+                    <div id="no-more-tables" class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-11">
+                                <div id="global350" class="material-datatables table-responsive">
+                                    <table responsive="true" class="letraGlobal table table-hover text-nowrap  table-bordered " cellspacing="0">
+                                        <thead style="zoom:85%; border: solid 1px #ABBAD0!important">
+                                            <tr class="cabeceragrid letraGlobal">
+                                                <th rowspan="2" scope="col">TIPO PAGO</th>
+                                                <th rowspan="2" scope="col">VALOR EFECTIVO</th>
+                                                <th rowspan="2" scope="col">N&#176; DEPOSITO</th>
+                                                <th rowspan="2" scope="col">VALOR DEPOSITO</th>
+                                                <th rowspan="2" scope="col">N&#176; CHEQUE</th>
+                                                <th rowspan="2" scope="col">VALOR CHEQUE</th>
+                                                <th rowspan="2" scope="col">N&#176; TRANSFERENCIA</th>
+                                                <th rowspan="2" scope="col">VALOR TRANSFERENCIA</th>
+                                                <th rowspan="2" scope="col">TOTAL</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="cuerpogrid">
+                                            <tr *ngFor="let row of detalleregistropago " class="clsForeColor{{row.color}}">
+                                                <td data-title="TIPO PAGO" (click)="clickGridp(row);" style="text-align: center !important; width: 15% ">
+                                                    <select [(ngModel)]="row.tipo_pago" class="custom-select form-controlselectbarra  letraGlobal" (change)="selecttipo(row)" style="width: 100%!important" [disabled]="!habilitaobjetofrom" panelClass="my-select-panel-class" [ngModelOptions]="{standalone: true}" id="inputGroupSelect01">
+                                                        <option [value]="comp.valor" *ngFor="let comp of listtipopago">{{comp.texto}}</option>
+                                                    </select>
+                                                </td>
+                                                <td data-title="VALOR EFECTIVO" (click)="clickGridp(row);" style="text-align: right !important; width: 250px ">
+                                                    <input type="text" class="form-control letraGlobal  " maxlength="20" style="text-align: right !important; " (input)="calculo(row,1)" [disabled]="(row.tipo_pago==='E')?false:true" onkeypress="return isNumberKey(this,event,3);" [(ngModel)]="row.valor_efectivo" >
+                                                </td>
+                                                <td data-title="N&#176; DEPOSITO" (click)="clickGridp(row);" style="text-align: center !important; width: 250px ">
+                                                    <input type="text" class="form-control letraGlobal  " maxlength="20" style="text-align: right !important; " [disabled]="(row.tipo_pago==='D')?false:true" [(ngModel)]="row.num_deposito">
+                                                </td>
+                                                <td data-title="VALOR DEPOSITO" (click)="clickGridp(row);" style="text-align: right !important; width: 250px ">
+                                                    <input type="text" class="form-control letraGlobal  " maxlength="20" style="text-align: right !important; " (input)="calculo(row,2)" [disabled]="(row.tipo_pago==='D')?false:true" onkeypress="return isNumberKey(this,event,3);" [(ngModel)]="row.valor_deposito">
+                                                </td>
+                                                <td data-title="N&#176; CHEQUE" (click)="clickGridp(row);" style="text-align: center !important; width: 250px ">
+                                                    <input type="text" class="form-control letraGlobal  " maxlength="20" style="text-align: right !important; " [disabled]="(row.tipo_pago==='C')?false:true" [(ngModel)]="row.num_cheque">
+                                                </td>
+                                                <td data-title="VALOR CHEQUE" (click)="clickGridp(row);" style="text-align: right !important; width: 250px ">
+                                                    <input type="text" class="form-control letraGlobal  " maxlength="20" style="text-align: right !important; " (input)="calculo(row,3)" [disabled]="(row.tipo_pago==='C')?false:true" onkeypress="return isNumberKey(this,event,3);" [(ngModel)]="row.valor_cheque">
+                                                </td>
+                                                <td data-title="N&#176; TRANSFERENCIA" (click)="clickGridp(row);" style="text-align: center !important; width: 250px ">
+                                                    <input type="text" class="form-control letraGlobal  " maxlength="20" style="text-align: right !important; " [disabled]="(row.tipo_pago==='T')?false:true" [(ngModel)]="row.num_transferencia">
+                                                </td>
+                                                <td data-title="VALOR TRANSFERENCIA" (click)="clickGridp(row);" style="text-align: right !important; width: 250px ">
+                                                    <input type="text" class="form-control letraGlobal  " maxlength="20" style="text-align: right !important; " (input)="calculo(row,4)" [disabled]="(row.tipo_pago==='T')?false:true" onkeypress="return isNumberKey(this,event,3);" [(ngModel)]="row.valor_transferencia">
+                                                </td>
+                                                <td data-title="TOTAL" (click)="clickGridp(row);" style="text-align: right !important; width: 250px ">{{row.total | number : '1.2-2'}}</td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot *ngIf="detalleregistropago.length>0">
+                                            <tr>
+                                                <th colspan="8"></th>
+                                                <th style="text-align: right !important; width: 250px ">{{totalColumna(2)}}</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl amumen" [disabled]="!habilitaobjetofrom" (click)="agregarlinea()" mat-button><mat-icon class="gren600 ">add</mat-icon></button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl amumen" [disabled]="!habilitaobjetofrom" (click)="borrarlinea()" mat-button><mat-icon class="red600 ">remove</mat-icon></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #modalbusquedaentidad style="z-index:50000">
+    <div class=" modal-primary modal-lg" role="document" dynamicHeight dynamicweiht>
+        <div class="modal-content ">
+            <div class="modal-body">
+                <app-busquedaentidad (confirmacionCierre)="cierreCliente($event)" (cierreModal)="cierreModalcliente($event)" [listadocliente]="listcliente"></app-busquedaentidad>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+
+
+ 
+<app-modales [llamarModal]="llamarmodal" (aceptarOk)="aceptarOk($event)" (aceptarConfi)="aceptarConfi($event)"></app-modales>
+

@@ -1,0 +1,36 @@
+<div class="row" style="overflow-y: hidden!important;overflow-x:hidden!important">
+  <div id="no-more-tables" class="col-9">
+    <div id="globalpantalla" class="material-datatables table-responsive">
+      <table responsive="true" class="letraGlobal table table-striped table-bordered table-sm row-border hover" cellspacing="0">
+        <thead style="border: solid 1px #ABBAD0!important">
+          <tr class="cabeceragrid letraGlobal">
+            <th rowspan="2" *ngFor="let head of ColumnaDetalleformapago" scope="col">{{head}} </th>
+          </tr>
+        </thead>
+        <tbody class="cuerpogrid">
+          <tr *ngFor="let rowpg of detgriformapago">
+            <td data-title="Forma de Pago">
+              <select [(ngModel)]="rowpg.fpago" class="custom-select form-controlselectbarra  letraGlobal" (change)="selectformapago(rowpg)" style="width: 100%!important" [disabled]="habilitabotones" panelClass="my-select-panel-class" [ngModelOptions]="{standalone: true}" id="inputGroupSelect01">
+                <option [value]="comp.fpcodigo" *ngFor="let comp of listformapago">{{comp.fpnombre}}</option>
+              </select>
+            </td>
+            <td data-title="Pago" style="text-align: right !important;">{{rowpg.pago | number : '1.2-2'}}</td>
+            <td data-title="Vencimiento">{{rowpg.vencimiento}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class="row">
+      <div class="col-md-12">
+        <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl" [disabled]="habilitabotones" (click)="agregarlinea()" mat-button><mat-icon class="gren600 ">add</mat-icon>Aumenta Línea</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl " [disabled]="habilitabotones" mat-button><mat-icon class="red600 ">remove</mat-icon>Disminuye Línea</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,81 @@
+<div style="overflow-y: hidden!important;overflow-x:hidden!important">
+    <!--INICIO SESSION BOTONES-->
+    <div class="row barra-accion">
+        <div class=" col-md-12">
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnbuscar" mat-button (click)="buscar()"><mat-icon class="azulbu600 ">save</mat-icon>Actualizar</button>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btncancelar" mat-button (click)="cancelar();"><mat-icon class="redf600 ">redo</mat-icon>Cancelar</button>
+            <mat-divider class="material-devider">|</mat-divider>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnsalir" mat-button (click)="salir()"><mat-icon class="redoff600 ">power_settings_new</mat-icon>Salir</button>
+            <mat-divider class="material-devider">|</mat-divider>
+            <label class="bordetitulopagina letraGlobalTitulo2 "><span class="d-none d-xl-block">&nbsp;&nbsp;&nbsp;&nbsp;Mantenimiento Menu&nbsp;&nbsp;&nbsp;&nbsp;</span></label>
+        </div>
+    </div>
+    <!--FIN SESSION BOTONES-->
+    <div class="custom-panel">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row custom-panel2 b">
+
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group ">
+                                    <label class="col-form-label negrillas letraGlobal">Modulo</label>
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="form-group">
+                                    <select [(ngModel)]="selectmenu" (change)="cambioMenu()" class="custom-select form-controlselect letraGlobal" panelClass="my-select-panel-class" id="inputGroupSelect01">
+                                        <option [value]="comp.mo_codigo" *ngFor="let comp of listmodulo">{{comp.mo_descripcion}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <br />
+
+
+                <div class="row custom-panel2 b">
+                    <div id="no-more-tables" class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div id="global350" class="material-datatables table-responsive">
+                                    <table responsive="true" class="letraGlobal table table-hover text-nowrap  table-bordered " cellspacing="0">
+                                        <thead style="zoom:85%; border: solid 1px #ABBAD0!important">
+                                            <tr class="cabeceragrid letraGlobal">
+                                                <th rowspan="2" *ngFor="let head of ColumnaDetalle" scope="col">{{head}} </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="cuerpogrid">
+                                            <tr *ngFor="let row of detallereporte " class="clsForeColor{{row.color}}">
+                                                <td data-title="MODULO" (click)="clickGrid(row);" style="text-align: center !important; width: 40% ">{{row.mo_descripcion}}</td>
+                                                <td data-title="OPCION DE MENU" (click)="clickGrid(row);" style="text-align: center !important; width: 40% ">
+                                                    <input type="text" class="form-control letraGlobal  " maxlength="50" [(ngModel)]="row.pe_nombre_pagina">
+                                                </td>
+                                                <td data-title="ORDEN" (click)="clickGrid(row);" style="text-align: center !important; width: 20% ">
+                                                    <input type="number" class="form-control letraGlobal  " maxlength="8" style="text-align: right !important; vertical-align: middle; align-content: center; " min="1" max="{{detallereporte.length}}" [(ngModel)]="row.pe_orden">
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <br />
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<app-modales [llamarModal]="llamarmodal" (aceptarOk)="aceptarOk($event)"></app-modales>
+

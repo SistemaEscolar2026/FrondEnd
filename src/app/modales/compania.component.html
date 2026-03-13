@@ -1,0 +1,12 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="input-group mb-3 col-md-12">
+      <div class="input-group-prepend">
+        <label class="input-group-text d-none d-sm-block d-sm-none d-md-block" for="inputGroupSelect01">Compañías</label>
+      </div>
+      <select [(ngModel)]="selectedCompa" class="custom-select  col-md-8 col-sm-12 col-12" panelClass="my-select-panel-class" id="inputGroupSelect01" (change)="seleccionaCompania()">
+        <option [value]="comp.cia_codigo" *ngFor="let comp of compania">{{comp.cia_descripcion}}</option>
+      </select>
+    </div>
+  </div>
+</div>

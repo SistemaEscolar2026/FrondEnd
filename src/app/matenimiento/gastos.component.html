@@ -1,0 +1,175 @@
+  <!--INICIO SESSION BOTONES-->
+  <div class="row barra-accion">
+    <div class=" col-md-12">
+      <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnnuevo" mat-button (click)="limpiabotones(2);habilitarfrom(2);"><mat-icon class="orange600">search</mat-icon>Nuevo</button>
+      <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnmodificar" (click)="habilitarfrom(3);limpiabotones(2);" mat-button><mat-icon class="azul600 ">edit</mat-icon>Modificar</button>
+      <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btngrabar" (click)="guardargastos();" mat-button><mat-icon class="gren600 ">save</mat-icon>Guardar</button>
+      <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btneliminar" (click)="deletegastos()" mat-button><mat-icon class="red600 ">close</mat-icon>Eliminar</button>
+      <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btncancelar" mat-button (click)="limpiabotones(1);limpiarbodega();habilitarfrom(1);"><mat-icon class="redf600 ">redo</mat-icon>Cancelar</button>
+      <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnbuscar" mat-button (click)="buscar()"><mat-icon class="azulbu600 ">plagiarism</mat-icon>buscar</button>
+      <mat-divider class="material-devider">|</mat-divider>
+      <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnsalir" mat-button (click)="salir()"><mat-icon class="redoff600 ">power_settings_new</mat-icon>Salir</button>
+      <mat-divider class="material-devider">|</mat-divider>
+      <label class="bordetitulopagina letraGlobalTitulo2 "><span class="d-none d-xl-block">&nbsp;&nbsp;&nbsp;&nbsp;MANTENIMIENTOS - Mantenimiento de Gastos&nbsp;&nbsp;&nbsp;&nbsp;</span></label>
+    </div>
+  </div>
+  <!--FIN SESSION BOTONES-->
+  <div class="custom-panel">
+    <div class="row">
+      <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 ">
+        <div class="form-group ">
+          <label class="col-form-label negrillas letraGlobal">Código</label>
+        </div>
+      </div>
+      <div class="col-md-1">
+        <div class="form-group">
+          <input type="text" class="form-control letraGlobal" onkeypress="return omit_special_char(event);" [(ngModel)]="iGasto.ga_cod_descripcion" name="codigo"  maxlength="3" [disabled]="(isAccion==='I')?false:true">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 ">
+        <div class="form-group ">
+          <label class="col-form-label negrillas letraGlobal">Descripción</label>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
+        <div class="form-group">
+          <input type="text" class="form-control letraGlobal" [(ngModel)]="iGasto.ga_descripcion" name="descripcion" [disabled]="habilitaobjetofrom" maxlength="40" required="required" >
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 ">
+        <div class="form-group ">
+          <label class="col-form-label negrillas letraGlobal">Estado</label>
+        </div>
+      </div>
+      <div class="col-md-1">
+        <div class="form-group">
+          <select [(ngModel)]="iGasto.ga_estado" name="estado" class="custom-select form-controlselect letraGlobal" [disabled]="habilitaobjetofrom" panelClass="my-select-panel-class" id="inputGroupSelect01">
+            <option [value]="comp.valor" *ngFor="let comp of listEstado">{{comp.texto}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-7">
+        <fieldset class="border p-1" style="border-radius: 15px!important;border-color:black!important">
+          <legend class="float-none w-auto p-1 letraGlobal">Cuentas</legend>
+          <div class="row">
+            <div class="col-auto">
+              <div class="form-group ">
+                <label class="col-form-label negrillas letraGlobal">Cuenta:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+              </div>
+            </div>
+            <div class="col-md-10">
+                <div class="form-group">
+                    <select [ngModelOptions]="{standalone: true}" [(ngModel)]="iGasto.cpc_codigo" class="custom-select form-controlselect letraGlobal" (change)="cambiotipo()" [disabled]="habilitaobjetofrom" panelClass="my-select-panel-class" id="inputGroupSelect01">
+                        <option [value]="comp.id" *ngFor="let comp of listcuenta">{{comp.text}}</option>
+                    </select>
+                </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-auto">
+              <div class="form-group ">
+                <label class="col-form-label negrillas letraGlobal">Tipo Auxiliar:</label>
+              </div>
+            </div>
+            <div class="col-md-5">
+              <select [ngModelOptions]="{standalone: true}" [(ngModel)]="iGasto.cta_codigo" class="custom-select form-control letraGlobal" [disabled]="true" panelClass="my-select-panel-class" id="inputGroupSelect01">
+                  <option [value]="comp.cta_codigo" *ngFor="let comp of listtipoauxiliar">{{comp.cta_descripcion}}</option>
+              </select>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-7">
+        <fieldset class="border p-1" style="border-radius: 15px!important;border-color:black!important">
+          <legend class="float-none w-auto p-1 letraGlobal">Configuraciones</legend>
+          <!--<div class="row">
+            <div class="col-auto">
+              <div class="form-group ">
+                <label class="col-form-label negrillas letraGlobal">Afecta Liquidación</label>
+              </div>
+            </div>
+            <div class="col-auto" style="align-content:center">
+              <div class="form-check-inline">
+                <input type="radio" name="afecconfi" id="afecconfi" style="display: inherit !important" [disabled]="habilitaobjetofrom" [(ngModel)]="iGasto.ga_afecta_liqui" [value]="'S'">
+                <label class="form-check-label" for="afecconfi">
+                  <span class="letraGlobal">SI</span>
+                </label>
+              </div>
+            </div>
+            <div class="col-auto" style="align-content:center">
+              <div class="form-check-inline">
+                <input type="radio" name="afecconfi" id="afecconfi" style="display: inherit !important" [disabled]="habilitaobjetofrom" [(ngModel)]="iGasto.ga_afecta_liqui" [value]="'N'">
+                <label class="form-check-label" for="afecconfi">
+                  <span class="letraGlobal">NO</span>
+                </label>
+              </div>
+            </div>
+            <div class="col-md-1">
+
+            </div>
+            <div class="col-auto">
+              <div class="form-group ">
+                <label class="col-form-label negrillas letraGlobal">Afecta Costeo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+              </div>
+            </div>
+            <div class="col-auto" style="align-content:center">
+              <div class="form-check-inline">
+                <input type="radio" name="afeccoste" id="afeccoste" style="display: inherit !important" [disabled]="habilitaobjetofrom" [(ngModel)]="iGasto.ga_afecta_costeo" [value]="'S'">
+                <label class="form-check-label" for="afeccoste">
+                  <span class="letraGlobal">SI</span>
+                </label>
+              </div>
+            </div>
+            <div class="col-auto" style="align-content:center">
+              <div class="form-check-inline">
+                <input type="radio" name="afeccoste" id="afeccoste" style="display: inherit !important" [disabled]="habilitaobjetofrom" [(ngModel)]="iGasto.ga_afecta_costeo" [value]="'N'">
+                <label class="form-check-label" for="afeccoste">
+                  <span class="letraGlobal">NO</span>
+                </label>
+              </div>
+            </div>
+          </div>-->
+      
+          <div class="row">
+            <div class="col-auto">
+              <div class="form-group ">
+                <label class="col-form-label negrillas letraGlobal">Tipo de Gasto:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+              </div>
+            </div>
+            <div class="col-auto">
+              <div class="form-group">
+                <select [(ngModel)]="iGasto.ga_tipo_gastos" name="estado" class="custom-select form-controlselect letraGlobal" [disabled]="habilitaobjetofrom" panelClass="my-select-panel-class" id="inputGroupSelect01">
+                  <option [value]="comp.valor" *ngFor="let comp of listipogasto">{{comp.texto}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+  
+  </div>
+
+
+
+
+<ng-template #modalbusquedagastos style="z-index:50000">
+  <div class=" modal-primary modal-lg" role="document" dynamicHeight dynamicweiht>
+    <div class="modal-content ">
+      <div class="modal-body">
+        <app-busquedagastos (confirmacionCierre)="cierreGastos($event)" (cierreModal)="cierreModal($event)" [listadogastos]="listadogastos"></app-busquedagastos>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<app-modales [llamarModal]="llamarmodal" (aceptarOk)="aceptarOk($event)"></app-modales>
+

@@ -1,0 +1,155 @@
+<form [formGroup]="rubrofrom" (ngSubmit)="guardarforma()">
+  <!--INICIO SESSION BOTONES-->
+  <div class="row barra-accion">
+    <div class=" col-md-12">
+      <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnnuevo" mat-button (click)="limpiabotones(2);habilitarfrom(2);"><mat-icon class="orange600">search</mat-icon>Nuevo</button>
+      <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnmodificar" (click)="habilitarfrom(3);limpiabotones(2);" mat-button><mat-icon class="azul600 ">edit</mat-icon>Modificar</button>
+      <button type="submit" class="btn botonpaso letraGlobal" [disabled]="botones.btngrabar" mat-button><mat-icon class="gren600 ">save</mat-icon>Guardar</button>
+      <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btneliminar" (click)="deleteforma()" mat-button><mat-icon class="red600 ">close</mat-icon>Eliminar</button>
+      <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btncancelar" mat-button (click)="limpiabotones(1);limpiarforma();habilitarfrom(1);"><mat-icon class="redf600 ">redo</mat-icon>Cancelar</button>
+      <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnbuscar" mat-button (click)="buscar()"><mat-icon class="azulbu600 ">plagiarism</mat-icon>buscar</button>
+      <mat-divider class="material-devider">|</mat-divider>
+      <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnsalir" mat-button (click)="salir()"><mat-icon class="redoff600 ">power_settings_new</mat-icon>Salir</button>
+      <mat-divider class="material-devider">|</mat-divider>
+      <label class="bordetitulopagina letraGlobalTitulo2 "><span class="d-none d-xl-block">&nbsp;&nbsp;&nbsp;&nbsp;Mantenimiento Rubro&nbsp;&nbsp;&nbsp;&nbsp;</span></label>
+    </div>
+  </div>
+  <!--FIN SESSION BOTONES-->
+  <div class="custom-panel">
+      <div class="row" *ngIf="iAccion==='M'">
+          <div class="col-md-2">
+              <div class="form-group ">
+                  <label class="col-form-label negrillas letraGlobal">Codigo</label>
+              </div>
+          </div>
+          <div class="col-md-1 ">
+              <div class="form-group">
+                  <input type="text" class="form-control letraGlobal" formControlName='codigo' name="codigo" [disabled]="true" maxlength="6" onkeypress="return isNumberKey(this,event,3);">
+              </div>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-md-2">
+              <div class="form-group ">
+                  <label class="col-form-label negrillas letraGlobal">Nombre<span class="obligatorio">*</span></label>
+              </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
+              <div class="form-group">
+                  <input type="text" class="form-control letraGlobal" formControlName='nombre' name="nombre" maxlength="100" required="required" [ngClass]="{ 'is-invalid': submitted && f['nombre'].errors }">
+                  <div *ngIf="submitted && f['nombre'].errors" class="invalid-feedback">
+                      <div *ngIf="f['nombre'].errors['required']">Nombre es requerido</div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-md-2 ">
+              <div class="form-group ">
+                  <label class="col-form-label negrillas letraGlobal">Estado</label>
+              </div>
+          </div>
+          <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 ">
+              <div class="form-group">
+                  <select formControlName='estado' name="estado" class="custom-select form-controlselect letraGlobal" panelClass="my-select-panel-class" id="inputGroupSelect01">
+                      <option [value]="comp.valor" *ngFor="let comp of listEstado">{{comp.texto}}</option>
+                  </select>
+              </div>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-md-2 ">
+              <div class="form-group ">
+                  <label class="col-form-label negrillas letraGlobal">Tipo</label>
+              </div>
+          </div>
+          <div class="col-md-2">
+              <div class="form-check-inline">
+                  <input type="radio" style="display: inherit !important" id="tipocomision" name="tiporubro" formControlName='tiporubro' [value]="'R'">
+                  <label class="form-check-label" for="tipocomision">
+                      <span class="letraGlobal">RUBRO</span>
+                  </label>
+              </div>
+              <div class="form-check-inline">
+                  <input type="radio" style="display:inherit !important" id="tipocomision" name="tiporubro" formControlName='tiporubro' [value]="'T'">
+                  <label class="form-check-label" for="tipocomision">
+                      <span class="letraGlobal">TRANSACCION</span>
+                  </label>
+              </div>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-md-2">
+              <div class="form-group ">
+                  <label class="col-form-label negrillas letraGlobal">Se Muestra en pagos de Nómina</label>
+              </div>
+          </div>
+          <div class="col-md-2">
+              <div class="form-check-inline">
+                  <input type="radio" style="display: inherit !important" id="tipocomision" name="pagonomina" formControlName='pagonomina' [value]="'S'">
+                  <label class="form-check-label" for="tipocomision">
+                      <span class="letraGlobal">SI</span>
+                  </label>
+              </div>
+              <div class="form-check-inline">
+                  <input type="radio" style="display:inherit !important" id="tipocomision" name="pagonomina" formControlName='pagonomina' [value]="'N'">
+                  <label class="form-check-label" for="tipocomision">
+                      <span class="letraGlobal">NO</span>
+                  </label>
+              </div>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-md-2 ">
+              <div class="form-group ">
+                  <label class="col-form-label negrillas letraGlobal">Concepto de Pago</label>
+              </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
+              <div class="form-group">
+                  <input type="text" class="form-control letraGlobal" formControlName='conceptopago' name="conceptopago" maxlength="100">
+
+              </div>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-md-2 ">
+              <div class="form-group ">
+                  <label class="col-form-label negrillas letraGlobal">Cuenta Contable</label>
+              </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
+              <div class="form-group">
+                  <input type="text" class="form-control letraGlobal" formControlName='cuentacontable' name="cuentacontable" maxlength="20">
+              </div>
+          </div>
+          <div class="col-md-2">
+              <button type="button" class="btn botonpaso letraGlobal" [disabled]="busca" mat-button (click)="cargaPlanCuenta()"><mat-icon class="azulbu600 ">plagiarism</mat-icon></button>
+          </div>
+      </div>
+  </div>
+</form>
+
+<ng-template #modalbusquedarubro style="z-index:50000">
+  <div class=" modal-primary modal-lg" role="document" dynamicHeight dynamicweiht>
+    <div class="modal-content ">
+      <div class="modal-body">
+        <app-busquedarubro (confirmacionCierre)="cierreForma($event)" (cierreModal)="cierreModalforma($event)" [listrubro]="listrubro"></app-busquedarubro>
+      </div>
+    </div>
+  </div>
+</ng-template>  
+
+
+<ng-template #modalbusquedaplancuenta style="z-index:50000">
+    <div class=" modal-primary modal-lg" role="document" dynamicHeight dynamicweiht>
+        <div class="modal-content ">
+            <div class="modal-body">
+                <app-busquedaplancuenta (confirmacionCierre)="cierrePlanCuenta($event)" (cierreModal)="cierreModalforma($event)" [listcuentas]="listcuentas"></app-busquedaplancuenta>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+
+

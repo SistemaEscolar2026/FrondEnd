@@ -1,0 +1,200 @@
+  <!--INICIO SESSION BOTONES-->
+<div class="row barra-accion">
+    <div class=" col-md-12">
+        <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnnuevo" mat-button (click)="nuevo();"><mat-icon class="orange600">search</mat-icon>Nuevo</button>
+        <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnmodificar" (click)="modificar()" mat-button><mat-icon class="azul600 ">edit</mat-icon>Modificar</button>
+        <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btngrabar" (click)="confirmarguardar()" mat-button><mat-icon class="gren600 ">save</mat-icon>Guardar</button>
+        <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btneliminar" (click)="deletebancos()" mat-button><mat-icon class="red600 ">close</mat-icon>Eliminar</button>
+        <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btncancelar" mat-button (click)="cancelar()"><mat-icon class="redf600 ">redo</mat-icon>Cancelar</button>
+        <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnbuscar" mat-button (click)="buscar()"><mat-icon class="azulbu600 ">plagiarism</mat-icon>buscar</button>
+        <mat-divider class="material-devider">|</mat-divider>
+        <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnsalir" mat-button (click)="salir()"><mat-icon class="redoff600 ">power_settings_new</mat-icon>Salir</button>
+        <mat-divider class="material-devider">|</mat-divider>
+        <label class="bordetitulopagina letraGlobalTitulo2 "><span class="d-none d-xl-block">&nbsp;&nbsp;&nbsp;&nbsp;Ingreso Documento Bancario&nbsp;&nbsp;&nbsp;&nbsp;</span></label>
+    </div>
+</div>
+<!--FIN SESSION BOTONES-->
+<div class="custom-panel">
+    <div class="row custom-panel2 b">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-1">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Banco<span class="obligatorio">*</span></label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <select [(ngModel)]="iDocumento.ban_codigo" class="custom-select form-controlselect letraGlobal" (change)="cargaNumeroCuenta()" panelClass="my-select-panel-class" [disabled]="habilitaobjetofrom2" id="inputGroupSelect01">
+                            <option [value]="comp.ban_codigo" *ngFor="let comp of listbancos">{{comp.ban_descripcion}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Tipo Documento<span class="obligatorio">*</span></label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <select [(ngModel)]="iDocumento.btd_codigo" class="custom-select form-controlselect letraGlobal" (change)="agregalinea()" panelClass="my-select-panel-class" [disabled]="habilitaobjetofrom2" id="inputGroupSelect01">
+                            <option [value]="comp.btd_codigo" *ngFor="let comp of listtipodocumento">{{comp.btd_descripcion}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Tipo Cuenta<span class="obligatorio">*</span></label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <select [(ngModel)]="iDocumento.bcb_codigo" class="custom-select form-controlselect letraGlobal" (change)="cargaNumeroCuenta()" panelClass="my-select-panel-class" [disabled]="habilitaobjetofrom2" id="inputGroupSelect01">
+                            <option [value]="comp.bcb_codigo" *ngFor="let comp of listcuentabancaria">{{comp.bcb_descripcion}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Numero Cuenta<span class="obligatorio">*</span></label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <select [(ngModel)]="iDocumento.bnc_codigo" class="custom-select form-controlselect letraGlobal" (change)="agregalinea()" panelClass="my-select-panel-class" [disabled]="habilitaobjetofrom2" id="inputGroupSelect01">
+                            <option [value]="comp.bnc_codigo" *ngFor="let comp of listnumerocuenta">{{comp.bnc_numero}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Fecha<span class="obligatorio">*</span></label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <input type="date" class="form-control letraGlobal" [disabled]="habilitaobjetofrom2" [(ngModel)]="iDocumento.bdo_fecha" maxlength="10">
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Referencia<span class="obligatorio">*</span></label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <input type="text" class="form-control letraGlobal" [disabled]="habilitaobjetofrom" [(ngModel)]="iDocumento.bdo_referencia" maxlength="20">
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">N. Asiento</label>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <input type="text" class="form-control letraGlobal" [disabled]="true" [(ngModel)]="iDocumento.cob_codigo" maxlength="20">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1 ">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Observaci&oacute;n</label>
+                    </div>
+                </div>
+                <div class="col-md-11 col-sm-11">
+                    <div class="form-group">
+                        <textarea type="text" rows="30" class="textinput letraGlobal col-md-12 col-sm-12" [(ngModel)]="iDocumento.bdo_observacion" maxlength="300" [disabled]="habilitaobjetofrom" value=""></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+    </div>
+    <br />
+    <div class="row custom-panel2 b">
+        <div id="no-more-tables" class="col-md-12">
+            <div class="row">
+                <div class="col-md-11">
+                    <div id="globalAU" style="min-height:{{alto}}px!important;" class="material-datatables table-responsive">
+                        <table responsive="true" class="letraGlobal table table-hover text-nowrap  table-bordered " cellspacing="0" style="width: 1900px !important">
+                            <thead style=" border: solid 1px #ABBAD0!important">
+                                <tr class="cabeceragrid letraGlobalgrid">
+                                    <th rowspan="2">Linea</th>
+                                    <th colspan="3">Cuenta Contable</th>
+                                    <th rowspan="2">Movimiento</th>
+                                    <th rowspan="2">Valor</th>
+                                    <th rowspan="2">Glosa</th>
+                                </tr>
+                                <tr class="cabeceragrid letraGlobalgrid">
+                                    <th>Codigo</th>
+                                    <th>Descripcion</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody class="cuerpogrid">
+                                <tr *ngFor="let row of detalleregistro" class="clsForeColor{{row.color}}">
+                                    <td data-title="Linea" (click)="clickGrid(row);" style="text-align: center !important; width: 20px; vertical-align: middle !important ">{{row.bdd_linea}}</td>
+                                    <td data-title="Codigo" (click)="clickGrid(row);" style="text-align: center !important; width: 35px;vertical-align:middle!important ">{{row.cpc_codigo_co}}</td>
+                                    <td data-title="Descripcion" (click)="clickGrid(row);" style="text-align: center !important; width: 120px; vertical-align: middle !important">{{row.cpc_descripcion}}</td>
+                                    <td data-title="" (click)="cargaPlanCuenta(row);clickGrid(row);" style="width: 1%; cursor: pointer !important; vertical-align: middle !important "><mat-icon class="azul600 ">search</mat-icon></td>
+                                    <td data-title="Movimiento" (click)="clickGrid(row);" style="text-align: right !important; width: 100px; vertical-align: middle !important">
+                                        <select [(ngModel)]="row.cpc_naturaleza" class="custom-select form-controlselect letraGlobal" panelClass="my-select-panel-class" [disabled]="(row.bdd_linea===1)?true:habilitaobjetofrom" id="inputGroupSelect01">
+                                            <option [value]="comp.valor" *ngFor="let comp of listnaturaleza">{{comp.texto}}</option>
+                                        </select>
+                                    </td>
+                                    <td data-title="Valor" (click)="clickGrid(row);" style="text-align: right !important; width: 80px; vertical-align: middle !important">
+                                        <input type="text" class="form-control letraGlobal  " maxlength="8" style="text-align: right !important; " (input)="calculo(row)" [disabled]="habilitaobjetofrom" onkeypress="return isNumberKey(this,event,3);" [(ngModel)]="row.bdd_valor">
+                                    </td>
+                                    <td data-title="Concepto" (click)="clickGrid(row);" style="text-align: left !important; width: 200px; vertical-align: middle !important">
+                                        <input type="text" class="form-control letraGlobal  " maxlength="100" style="text-align: left !important; " [disabled]="habilitaobjetofrom" [(ngModel)]="row.bdd_glosa">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl amumen" title="Agregar" [disabled]="habilitaobjetofrom" (click)="agregarlinea()" mat-button><mat-icon class="gren600 ">add</mat-icon></button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <button type="button" class="btn botonpaso letraGlobal mdc-buttoncl amumen" title="Eliminar" [disabled]="habilitaobjetofrom" (click)="borrarlinea()" mat-button><mat-icon class="red600 ">remove</mat-icon></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #modalbusquedaplancuenta style="z-index:50000">
+    <div class=" modal-primary modal-lg" role="document" dynamicHeight dynamicweiht>
+        <div class="modal-content ">
+            <div class="modal-body">
+                <app-busquedaplancuenta (confirmacionCierre)="cierrePlanCuenta($event)" (cierreModal)="cierreModalforma($event)" [listcuentas]="listcuentas"></app-busquedaplancuenta>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #modalbusquedadocbancario style="z-index:50000">
+    <div class=" modal-primary modal-lg" role="document" dynamicHeight dynamicweiht>
+        <div class="modal-content ">
+            <div class="modal-body">
+                <app-busquedadocbancario (confirmacionCierre)="cierreDocumentoBancario($event)" (cierreModal)="cierreModalforma($event)" [listbancos]="listbancosbusquedad"></app-busquedadocbancario>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<app-modales [llamarModal]="llamarmodal" (aceptarOk)="aceptarOk($event)" (aceptarConfi)="aceptarConfi($event)" (aceptarConfieli)="aceptarConfiEli($event)"></app-modales>
+
+

@@ -1,0 +1,173 @@
+<form [formGroup]="usuariofrom" (ngSubmit)="guardarusuario()">
+  <!--INICIO SESSION BOTONES-->
+  <div class="row barra-accion">
+    <div class=" col-md-12">
+      <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnnuevo" mat-button (click)="limpiabotones(2);habilitarfrom(2);"><mat-icon class="orange600">search</mat-icon>Nuevo</button>
+      <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnmodificar" (click)="habilitarfrom(3);limpiabotones(2);" mat-button><mat-icon class="azul600 ">edit</mat-icon>Modificar</button>
+      <button type="submit" class="btn botonpaso letraGlobal" [disabled]="botones.btngrabar" mat-button><mat-icon class="gren600 ">save</mat-icon>Guardar</button>
+      <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btneliminar" (click)="deleteusuario()" mat-button><mat-icon class="red600 ">close</mat-icon>Eliminar</button>
+      <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btncancelar" mat-button (click)="limpiabotones(1);limpiarcliente();habilitarfrom(1);"><mat-icon class="redf600 ">redo</mat-icon>Cancelar</button>
+      <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnbuscar" mat-button (click)="buscar()"><mat-icon class="azulbu600 ">plagiarism</mat-icon>buscar</button>
+      <mat-divider class="material-devider">|</mat-divider>
+      <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnsalir" mat-button (click)="salir()"><mat-icon class="redoff600 ">power_settings_new</mat-icon>Salir</button>
+      <mat-divider class="material-devider">|</mat-divider>
+      <label class="bordetitulopagina letraGlobalTitulo2 "><span class="d-none d-xl-block">&nbsp;&nbsp;&nbsp;&nbsp;Mantenimiento de Usuario&nbsp;&nbsp;&nbsp;&nbsp;</span></label>
+    </div>
+  </div>
+  <!--FIN SESSION BOTONES-->
+  <div class="custom-panel">
+      <div class="row">
+          <div class="col-md-5">
+              <div class="row">
+                  <div class="col-md-2">
+                      <div class="form-group ">
+                          <label class="col-form-label negrillas letraGlobal">Nombre<span class="obligatorio">*</span></label>
+                      </div>
+                  </div>
+                  <div class="col-md-8">
+                      <div class="form-group">
+                          <input type="text" class="form-control letraGlobal" formControlName='nombre' name="nombre" maxlength="100" required="required" [ngClass]="{ 'is-invalid': submitted && f['nombre'].errors }">
+                          <div *ngIf="submitted && f['nombre'].errors" class="invalid-feedback">
+                              <div *ngIf="f['nombre'].errors['required']">Nombre Usuario es requerido</div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-2">
+                      <div class="form-group ">
+                          <label class="col-form-label negrillas letraGlobal">Usuario<span class="obligatorio">*</span></label>
+                      </div>
+                  </div>
+                  <div class="col-md-5">
+                      <div class="form-group">
+                          <input type="text" class="form-control letraGlobal" formControlName='usuario' name="usuario" maxlength="10" required="required" [ngClass]="{ 'is-invalid': submitted && f['usuario'].errors }">
+                          <div *ngIf="submitted && f['usuario'].errors" class="invalid-feedback">
+                              <div *ngIf="f['usuario'].errors['required']">Usuario es requerido</div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-2">
+                      <div class="form-group ">
+                          <label class="col-form-label negrillas letraGlobal">Clave<span class="obligatorio">*</span></label>
+                      </div>
+                  </div>
+                  <div class="col-md-5">
+                      <div class="form-group">
+                          <input type="password" class="form-control letraGlobal" formControlName='clave' name="clave" maxlength="15">
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-2">
+                      <div class="form-group ">
+                          <label class="col-form-label negrillas letraGlobal">Dirección</label>
+                      </div>
+                  </div>
+                  <div class="col-md-8">
+                      <div class="form-group">
+                          <input type="text" class="form-control letraGlobal" formControlName='direccion' maxlength="80" name="direccion">
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-2">
+                      <div class="form-group ">
+                          <label class="col-form-label negrillas letraGlobal">Perfil</label>
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="form-group">
+                          <select formControlName='perfil' name="perfil" class="custom-select form-controlselect letraGlobal" panelClass="my-select-panel-class" id="inputGroupSelect01">
+                              <option [value]="comp.sp_sec" *ngFor="let comp of listperfil">{{comp.sp_nombre}}</option>
+                          </select>
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-2">
+                      <div class="form-group ">
+                          <label class="col-form-label negrillas letraGlobal">Estado</label>
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="form-group">
+                          <select formControlName='estado' name="estado" class="custom-select form-controlselect letraGlobal" panelClass="my-select-panel-class" id="inputGroupSelect01">
+                              <option [value]="comp.valor" *ngFor="let comp of listEstado">{{comp.texto}}</option>
+                          </select>
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-auto">
+                      <div class="form-group ">
+                          <label class="col-form-label negrillas letraGlobal">Clave Temporal</label>
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="form-check-inline">
+                          <input type="radio" style="display: inherit !important" id="tipocomision" name="tipocomision" formControlName='clave_provisional' [value]="'S'">
+                          <label class="form-check-label" for="tipocomision">
+                              <span class="letraGlobal">SI</span>
+                          </label>
+                      </div>
+                      <div class="form-check-inline">
+                          <input type="radio" style="display:inherit !important" id="tipocomision" name="tipocomision" formControlName='clave_provisional' [value]="'N'">
+                          <label class="form-check-label" for="tipocomision">
+                              <span class="letraGlobal">NO</span>
+                          </label>
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-2">
+                      <div class="form-group ">
+                          <label class="col-form-label negrillas letraGlobal">Telefono</label>
+                      </div>
+                  </div>
+                  <div class="col-md-5">
+                      <div class="form-group">
+                          <input type="text" class="form-control letraGlobal" formControlName='telefono' maxlength="10" name="telefono">
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-2">
+                      <div class="form-group ">
+                          <label class="col-form-label negrillas letraGlobal">E-mail</label>
+                      </div>
+                  </div>
+                  <div class="col-md-5">
+                      <div class="form-group">
+                          <input type="email" class="form-control letraGlobal" formControlName='correo' maxlength="400" name="correo">
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-1">
+              <div class="row">
+                  <img formControlName='imagen'src="{{imagen}}" class="col-md-12" style="border: 1px solid #000;height:150px" />
+                  <button type="button" class="btn botonpaso letraGlobal" (click)="fileInput.click()" mat-button><mat-icon class="red600 ">cloud_upload</mat-icon></button>
+                  <input hidden (change)="handleFileInput($event)"[disabled]="habilitabotones" #fileInput type="file" accept=".jpeg,.jpg,.png">
+              </div>
+             
+          </div>
+      </div>
+   
+  </div>
+</form>
+
+<ng-template #modalbusquedausuario style="z-index:50000">
+  <div class=" modal-primary modal-lg" role="document" dynamicHeight dynamicweiht>
+    <div class="modal-content ">
+      <div class="modal-body">
+        <app-busquedausuario (confirmacionCierre)="cierreUsuario($event)" (cierreModal)="cierreModalusuario($event)" [listadousuario]="listusuario"></app-busquedausuario>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+
+

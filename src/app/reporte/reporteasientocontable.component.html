@@ -1,0 +1,121 @@
+<div style="overflow-y: hidden!important;overflow-x:hidden!important">
+    <!--INICIO SESSION BOTONES-->
+    <div class="row barra-accion">
+        <div class=" col-md-12">
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnbuscar" mat-button (click)="buscar()"><mat-icon class="azulbu600 ">plagiarism</mat-icon>buscar</button>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btneliminar" mat-button (click)="buscarpdf();"><mat-icon class="redf600 ">picture_as_pdf</mat-icon>Exporta PDF</button>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btneliminar" (click)="buscarexcel()" mat-button><mat-icon class="red600 ">table_chart</mat-icon>Exportar Excel</button>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btncancelar" mat-button (click)="cancelar();"><mat-icon class="redf600 ">redo</mat-icon>Cancelar</button>
+            <mat-divider class="material-devider">|</mat-divider>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnsalir" mat-button (click)="salir()"><mat-icon class="redoff600 ">power_settings_new</mat-icon>Salir</button>
+            <mat-divider class="material-devider">|</mat-divider>
+            <label class="bordetitulopagina letraGlobalTitulo2 "><span class="d-none d-xl-block">&nbsp;&nbsp;&nbsp;&nbsp;Reporte de Comprobantes Contable&nbsp;&nbsp;&nbsp;&nbsp;</span></label>
+        </div>
+    </div>
+    <!--FIN SESSION BOTONES-->
+    <div class="custom-panel">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row custom-panel2 b">
+
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group ">
+                                    <label class="col-form-label negrillas letraGlobal">Tipo Comprobante</label>
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="form-group">
+                                    <select [(ngModel)]="iDocumento.cob_tipo" class="custom-select form-controlselect letraGlobal" panelClass="my-select-panel-class"  id="inputGroupSelect01" [ngClass]="{ 'is-invalid': submitted && iDocumento.cob_tipo==='' }">
+                                        <option [value]="comp.cob_tipo" *ngFor="let comp of listitipocomprobante">{{comp.cob_tipo}}-{{comp.ctc_descripcion}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group ">
+                                    <label class="col-form-label negrillas letraGlobal">Fecha Factura Desde</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="date" class="form-control letraGlobal" [(ngModel)]="iDocumento.bc_fecha_inicio_viaje" maxlength="10">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group ">
+                                    <label class="col-form-label negrillas letraGlobal">Fecha Factura Hasta</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="date" class="form-control letraGlobal" [(ngModel)]="iDocumento.bc_fecha_fin_viaje" maxlength="10">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+
+                <div class="row custom-panel2 b">
+                    <div id="no-more-tables" class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div id="global350" class="material-datatables table-responsive">
+                                    <table responsive="true" class="letraGlobal table table-hover text-nowrap  table-bordered " cellspacing="0">
+                                        <thead style="zoom:85%; border: solid 1px #ABBAD0!important">
+                                            <tr class="cabeceragrid letraGlobal">
+                                                <th rowspan="2" *ngFor="let head of ColumnaDetalle" scope="col">{{head}} </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="cuerpogrid">
+                                            <tr *ngFor="let row of detallereporte " class="clsForeColor{{row.color}}">
+                                                <td data-title="N° COMPROBANTE" (click)="clickGrid(row);" style="text-align: center !important; width: 250px ">{{row.cob_codigo}}</td>
+                                                <td data-title="TIPO COMPORBANTE" (click)="clickGrid(row);" style="text-align: center !important; width: 250px ">{{row.ctc_descripcion}}</td>
+                                                <td data-title="CLASE COMPROBANTE" (click)="clickGrid(row);" style="text-align: center !important; width: 250px ">{{row.ccc_descripcion}}</td>
+                                                <td data-title="FECHA COMPROBANTE" (click)="clickGrid(row);" style="text-align: center !important; width: 250px ">{{row.cob_fecha_registro}}</td>
+                                                <td data-title="GLOSA" (click)="clickGrid(row);" style="text-align: left !important; width: 250px ">{{row.cob_glosa}}</td>
+                                                <td data-title="TOTAL COMPROBANTE" (click)="clickGrid(row);" style="text-align: center !important; width: 250px ">{{row.total_asiento | number : '1.2-2'}}</td>
+                                                <td data-title="TIPO AUXILIAR" (click)="clickGrid(row);" style="text-align: center !important; width: 250px ">{{row.cta_descripcion}}</td>
+                                                <td data-title="AUXILIAR" (click)="clickGrid(row);" style="text-align: center !important; width: 250px ">{{row.coa_descripcion}}</td>
+                                                <td data-title="N° CUENTA" (click)="clickGrid(row);" style="text-align: center !important; width: 250px ">{{row.cpc_codigo_co}}</td>
+                                                <td data-title="NOMBRE CUENTA" (click)="clickGrid(row);" style="text-align: left !important; width: 250px ">{{row.cpc_descripcion}}</td>
+                                                <td data-title="DEBER" (click)="clickGrid(row);" style="text-align: right !important; width: 250px ">{{row.cod_debe | number : '1.2-2'}}</td>
+                                                <td data-title="HABER" (click)="clickGrid(row);" style="text-align: right !important; width: 250px ">{{row.cod_haber | number : '1.2-2'}}</td>
+                                                <td data-title="DOC. RELACIONADO" (click)="clickGrid(row);" style="text-align: right !important; width: 250px ">{{row.cob_numero_documento}}</td>
+                                            </tr>
+                                        </tbody>
+                                     </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <br />
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #modalbusquedaentidad style="z-index:50000">
+    <div class=" modal-primary modal-lg" role="document" dynamicHeight dynamicweiht>
+        <div class="modal-content ">
+            <div class="modal-body">
+                <app-busquedaentidad (confirmacionCierre)="cierreCliente($event)" (cierreModal)="cierreModalcliente($event)" [listadocliente]="listcliente"></app-busquedaentidad>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+
+
+
+<app-modales [llamarModal]="llamarmodal" (aceptarOk)="aceptarOk($event)"></app-modales>
+
+

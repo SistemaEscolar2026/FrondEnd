@@ -1,0 +1,265 @@
+  <!--INICIO SESSION BOTONES-->
+<div class="row barra-accion">
+    <div class=" col-md-12">
+        <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnnuevo" mat-button (click)="nuevo();"><mat-icon class="orange600">search</mat-icon>Nuevo</button>
+        <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnmodificar" (click)="modificar()" mat-button><mat-icon class="azul600 ">edit</mat-icon>Modificar</button>
+        <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btngrabar" (click)="confirmarguardar()" mat-button><mat-icon class="gren600 ">save</mat-icon>Guardar</button>
+        <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btneliminar" (click)="deletebancos()" mat-button><mat-icon class="red600 ">close</mat-icon>Eliminar</button>
+        <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btncancelar" mat-button (click)="cancelar()"><mat-icon class="redf600 ">redo</mat-icon>Cancelar</button>
+        <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnbuscar" mat-button (click)="buscar()"><mat-icon class="azulbu600 ">plagiarism</mat-icon>buscar</button>
+        <mat-divider class="material-devider">|</mat-divider>
+        <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnsalir" mat-button (click)="salir()"><mat-icon class="redoff600 ">power_settings_new</mat-icon>Salir</button>
+        <mat-divider class="material-devider">|</mat-divider>
+        <label class="bordetitulopagina letraGlobalTitulo2 "><span class="d-none d-xl-block">&nbsp;&nbsp;&nbsp;&nbsp;Conciliacion Bancaria&nbsp;&nbsp;&nbsp;&nbsp;</span></label>
+    </div>
+</div>
+<!--FIN SESSION BOTONES-->
+<div class="custom-panel">
+    <div class="row custom-panel2 b">
+        <div class="col-md-4">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Banco</label>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <select [(ngModel)]="iDocumento.ban_codigo" class="custom-select form-controlselect letraGlobal" (change)="cargaNumeroCuenta()" panelClass="my-select-panel-class" [disabled]="habilitaobjetofrom2" id="inputGroupSelect01">
+                            <option [value]="comp.ban_codigo" *ngFor="let comp of listbancos">{{comp.ban_descripcion}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Tipo Cuenta</label>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <select [(ngModel)]="iDocumento.bcb_codigo" class="custom-select form-controlselect letraGlobal" (change)="cargaNumeroCuenta()" panelClass="my-select-panel-class" [disabled]="habilitaobjetofrom2" id="inputGroupSelect01">
+                            <option [value]="comp.bcb_codigo" *ngFor="let comp of listcuentabancaria">{{comp.bcb_descripcion}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Numero Cuenta</label>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <select [(ngModel)]="iDocumento.bnc_codigo" class="custom-select form-controlselect letraGlobal" panelClass="my-select-panel-class" (change)="seleccuenta()" [disabled]="habilitaobjetofrom2" id="inputGroupSelect01">
+                            <option [value]="comp.bnc_codigo" *ngFor="let comp of listnumerocuenta">{{comp.bnc_numero}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Fecha Inicial</label>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <input type="date" class="form-control letraGlobal" [disabled]="habilitaobjetofrom2" [(ngModel)]="iDocumento.bdo_fechaini" maxlength="10">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group ">
+                        <label class="col-form-label negrillas letraGlobal">Fecha Final</label>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <input type="date" class="form-control letraGlobal" [disabled]="habilitaobjetofrom2" [(ngModel)]="iDocumento.bdo_fechafin" maxlength="10">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn botonpaso letraGlobal" [disabled]="habilitaobjetofrom2" mat-button (click)="buscardatos()"><mat-icon class="orange600">sync</mat-icon>trae informaci&oacute;n</button>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <br />
+            <div class="row custom-panel2 b">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group " style="align-items:center!important">
+                                <br />
+                                <br />
+                                <label class="col-form-label negrillas letraGlobal" style="vertical-align:central!important;color:red!important">Saldo Anterior</label>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group" style="text-align:center!important">
+                                <label class="col-form-label negrillas letraGlobal" style="text-align:center!important; vertical-align:central!important;color:red!important">Segun Libro</label>
+                                <input type="text" class="form-control letraGlobal" style="text-align:right!important" [disabled]="true" [(ngModel)]="iDocumento.bdo_anteriorlibro" maxlength="20">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group" style="text-align:center!important">
+                                <label class="col-form-label negrillas letraGlobal" style="vertical-align:central!important;color:red!important">Segun Bancos</label>
+                                <input type="text" class="form-control letraGlobal" style="text-align:right!important" [disabled]="habilitaobjetofrom" (input)="selec()" onkeypress="return isNumberKey(this,event,3);" [(ngModel)]="iDocumento.bdo_anteriorbanco" maxlength="20">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group" style="text-align:center!important">
+                                <label class="col-form-label negrillas letraGlobal" style="vertical-align:central!important;color:red!important">Segun Conciliacion</label>
+                                <input type="text" class="form-control letraGlobal" style="text-align:right!important" [disabled]="true" [(ngModel)]="iDocumento.bdo_anteriorconciliacion" maxlength="20">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group " style="align-items:center!important">
+                                <label class="col-form-label negrillas letraGlobal" style="vertical-align:central!important;color:red!important">Total Deber</label>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <input type="text" class="form-control letraGlobal" style="text-align:right!important" [disabled]="true" [(ngModel)]="iDocumento.bdo_debelibro" maxlength="20">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <input type="text" class="form-control letraGlobal" style="text-align:right!important" [disabled]="habilitaobjetofrom" (input)="selec()" onkeypress="return isNumberKey(this,event,3);" [(ngModel)]="iDocumento.bdo_debebanco" maxlength="20">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <input type="text" class="form-control letraGlobal" style="text-align:right!important" [disabled]="true" [(ngModel)]="iDocumento.bdo_debeconciliacion" maxlength="20">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group " style="align-items:center!important">
+                                <label class="col-form-label negrillas letraGlobal" style="vertical-align:central!important;color:red!important">Total Haber</label>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <input type="text" class="form-control letraGlobal" style="text-align:right!important" [disabled]="true" [(ngModel)]="iDocumento.bdo_haberlibro" maxlength="20">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <input type="text" class="form-control letraGlobal" style="text-align:right!important" [disabled]="habilitaobjetofrom" (input)="selec()" onkeypress="return isNumberKey(this,event,3);" [(ngModel)]="iDocumento.bdo_haberbanco" maxlength="20">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <input type="text" class="form-control letraGlobal" style="text-align:right!important" [disabled]="true" [(ngModel)]="iDocumento.bdo_haberconciliacion" maxlength="20">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group " style="align-items:center!important">
+                                <label class="col-form-label negrillas letraGlobal" style="vertical-align:central!important;color:red!important">Saldo Actual</label>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <input type="text" class="form-control letraGlobal" style="text-align:right!important" [disabled]="true" [(ngModel)]="iDocumento.bdo_actuallibro" maxlength="20">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <input type="text" class="form-control letraGlobal" style="text-align:right!important" [disabled]="true" [(ngModel)]="iDocumento.bdo_actualbanco" maxlength="20">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <input type="text" class="form-control letraGlobal" style="text-align:right!important" [disabled]="true" [(ngModel)]="iDocumento.bdo_actualconciliacion" maxlength="20">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+        </div>
+        <br />
+    </div>
+    <br />
+</div>
+<br />
+<div class="row custom-panel2 b">
+    <div id="no-more-tables" class="col-md-12">
+        <div class="row">
+            <div class="col-md-11">
+                <div id="globalAU" style="min-height:{{alto}}px!important;" class="material-datatables table-responsive">
+                    <table responsive="true" class="letraGlobal table table-hover text-nowrap  table-bordered " cellspacing="0" style="width: 1200px !important">
+                        <thead style="zoom:85%; border: solid 1px #ABBAD0!important">
+                            <tr class="cabeceragrid letraGlobal">
+                                <th rowspan="2">Sele</th>
+                                <th rowspan="2">Documento</th>
+                                <th rowspan="2">Orden Pago</th>
+                                <th rowspan="2">Fecha Documento</th>
+                                <th rowspan="2">Banco</th>
+                                <th rowspan="2">Tipo Cuenta</th>
+                                <th rowspan="2">Numero Cuenta</th>
+                                <th rowspan="2">Tipo Documento</th>
+                                <th rowspan="2">Referencia</th>
+                                <th rowspan="2">Deber</th>
+                                <th rowspan="2">Haber</th>
+</thead>
+                        <tbody class="cuerpogrid">
+                            <tr *ngFor="let row of detalleregistro" class="clsForeColor{{row.color}}">
+                                <th style="width: 35px; padding: 10px">
+                                    <input type="checkbox" name="exampleRadios" id="exampleRadios1" [(ngModel)]="row.sele" [disabled]="habilitaobjetofrom" (change)="selec()">
+                                </th>
+                                <td data-title="Documento" (click)="clickGrid(row);" style="text-align: center !important; width: 10px; vertical-align: middle !important ">{{row.bdo_codigo}}</td>
+                                <td data-title="Orden Pago" (click)="clickGrid(row);" style="text-align: center !important; width: 10px; vertical-align: middle !important">{{row.bop_codigo}}</td>
+                                <td data-title="Fecha Documento" (click)="clickGrid(row);" style="text-align: center !important; width: 20px; vertical-align: middle !important ">{{row.bdo_fecha}}</td>
+                                <td data-title="Banco" (click)="clickGrid(row);" style="text-align: center !important; width: 50px; vertical-align: middle !important">{{row.ban_descripcion}}</td>
+                                <td data-title="Tipo Cuenta" (click)="clickGrid(row);" style="text-align: center !important; width: 50px; vertical-align: middle !important">{{row.bcb_descripcion}}</td>
+                                <td data-title="Numero Cuenta" (click)="clickGrid(row);" style="text-align: center !important; width: 50px; vertical-align: middle !important">{{row.bnc_numero}}</td>
+                                <td data-title="Tipo Documento" (click)="clickGrid(row);" style="text-align: center !important; width: 50px; vertical-align: middle !important">{{row.btd_descripcion}}</td>
+                                <td data-title="Referencia" (click)="clickGrid(row);" style="text-align: center !important; width: 150px; vertical-align: middle !important">{{row.bdo_referencia}}</td>
+                                <td data-title="Deber" (click)="clickGrid(row);" style="text-align: right !important; width: 50px; vertical-align: middle !important">{{row.bdo_deber | number : '1.2-2'}}</td>
+                                <td data-title="Haber" (click)="clickGrid(row);" style="text-align: right !important; width: 50px; vertical-align: middle !important ">{{row.bdo_haber | number : '1.2-2'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<ng-template #modalbusquedaplancuenta style="z-index:50000">
+    <div class=" modal-primary modal-lg" role="document" dynamicHeight dynamicweiht>
+        <div class="modal-content ">
+            <div class="modal-body">
+                <app-busquedaplancuenta (confirmacionCierre)="cierrePlanCuenta($event)" (cierreModal)="cierreModalforma($event)" [listcuentas]="listcuentas"></app-busquedaplancuenta>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #modalbusquedadoconciliacion style="z-index:50000">
+    <div class=" modal-primary modal-lg" role="document" dynamicHeight dynamicweiht>
+        <div class="modal-content ">
+            <div class="modal-body">
+                <app-busquedadoconciliacion (confirmacionCierre)="cierreConciliacionBancario($event)" (cierreModal)="cierreModalforma($event)" [listconciliacion]="listconciliacionbusquedad"></app-busquedadoconciliacion>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<app-modales [llamarModal]="llamarmodal" (aceptarOk)="aceptarOk($event)" (aceptarConfi)="aceptarConfi($event)" (aceptarConfieli)="aceptarConfiEli($event)"></app-modales>
+
+
