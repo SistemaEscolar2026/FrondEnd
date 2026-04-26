@@ -7,6 +7,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { FullCalendarModule } from '@fullcalendar/angular';
+
+
 import { CommonModule } from '@angular/common';
 import { BsModalRef, ModalModule } from 'ngx-bootstrap/modal'
 import { BusquedaCompaniaComponent } from '@modales/busquedacompania.component';
@@ -86,6 +89,7 @@ import { SeparatorDirective } from '../../environments/SeparatorDirective';
         ReporteDocumentoBancarioComponent
     ],
     imports: [
+        FullCalendarModule,
         GrdFilterPipe,
         BusquedaCompaniaComponent,
         BusquedaFormaComponent,

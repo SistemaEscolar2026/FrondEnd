@@ -5,11 +5,11 @@ import { HttpHeaders } from "@angular/common/http";
 */
 export const environment = {
     production: false,
-    API_URLLOGIN: 'http://localhost:5001',
-    API_URL: 'http://localhost:5001',
+    //API_URLLOGIN: 'http://localhost:5000',
+    //API_URL: 'http://localhost:5000',
 
-    //API_URLLOGIN: 'http://194.163.176.253:9000',
-    //API_URL: 'http://194.163.176.253:9000',
+    API_URLLOGIN: 'http://86.48.20.82:5555',
+    API_URL: 'http://86.48.20.82:5555',
 
 
     //API_URLLOGIN: 'http://194.163.176.253:9001',
@@ -112,7 +112,9 @@ export const environment = {
     auxiliarProveedores: '02',
     ctaProveLocal: '21101001',
     ctaProveExterior: '21101002',
-    ciudadCheques: 'GUAYAQUIL'
+    ciudadCheques: 'GUAYAQUIL',
+    anio: 2026,
+    aniomax:2046
 };
 
 /**

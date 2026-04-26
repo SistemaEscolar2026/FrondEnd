@@ -1,0 +1,170 @@
+<form [formGroup]="usuariofrom" (ngSubmit)="guardarusuario()">
+    <!--INICIO SESSION BOTONES-->
+    <div class="row barra-accion">
+        <div class=" col-md-12">
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnnuevo" mat-button (click)="limpiabotones(2);habilitarfrom(2);"><mat-icon class="orange600">search</mat-icon>Nuevo</button>
+            <button type="submit" class="btn botonpaso letraGlobal" [disabled]="botones.btngrabar" mat-button><mat-icon class="gren600 ">save</mat-icon>Guardar</button>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btncancelar" mat-button (click)="limpiabotones(1);limpiarcliente();habilitarfrom(1);"><mat-icon class="redf600 ">redo</mat-icon>Cancelar</button>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnbuscar" mat-button (click)="buscar()"><mat-icon class="azulbu600 ">plagiarism</mat-icon>buscar</button>
+            <mat-divider class="material-devider">|</mat-divider>
+            <button type="button" class="btn botonpaso letraGlobal" [disabled]="botones.btnsalir" mat-button (click)="salir()"><mat-icon class="redoff600 ">power_settings_new</mat-icon>Salir</button>
+            <mat-divider class="material-devider">|</mat-divider>
+            <label class="bordetitulopagina letraGlobalTitulo2 "><span class="d-none d-xl-block">&nbsp;&nbsp;&nbsp;&nbsp;Horario Clase&nbsp;&nbsp;&nbsp;&nbsp;</span></label>
+        </div>
+    </div>
+    <!--FIN SESSION BOTONES-->
+    <div class="custom-panel">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="col-form-label negrillas letraGlobal">Periodo<span class="obligatorio">*</span></label>
+                            <select formControlName='tipoperiodo' name="tipoperiodo" class="custom-select form-controlselect letraGlobal" panelClass="my-select-panel-class" id="inputGroupSelect01">
+                                <option [value]="comp.pe_codigo" *ngFor="let comp of listperiodo">{{comp.pe_tipoanioelectivo}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="col-form-label negrillas letraGlobal">Curso<span class="obligatorio">*</span></label>
+                            <select formControlName='curso' name="curso" class="custom-select form-controlselect letraGlobal" panelClass="my-select-panel-class" (change)="cargaDia()" id="inputGroupSelect01">
+                                <option [value]="comp.cu_codigo" *ngFor="let comp of listcurso">{{comp.cu_nombre}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div #external>
+                        <p>
+                            <strong>Materia</strong>
+                        </p>
+                        <ng-container *ngIf="draggableEvents">
+                            <div class="fc-event" *ngFor="let item of draggableEvents;let index = index" [id]="item.id">
+                                <b>{{item.title}}</b> - duration: {{item.duration}}
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="col-md-12" style="text-align:center!important;">
+                        <label class="col-form-label negrillas " style="font-size: xx-large !important; font-style: italic!important ">Horario de Clase</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <full-calendar #calendar [options]="calendarOptions" [deepChangeDetection]="true"></full-calendar>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</form>
+
+
+
+<ng-template #modalEvent style="z-index:50000">
+    <div class=" modal-primary modal-lg" role="document" dynamicHeight dynamicweiht>
+        <div class="modal-content ">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <label class="input-group-text">Evento Clase</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="button" class="btn botonpaso letraGlobal" mat-button (click)="cancelarmodal()" [disabled]="habilitabotones"><mat-icon class="gren600 ">save</mat-icon>Aceptar</button>
+                        <button type="button" class="btn botonpaso letraGlobal" mat-button (click)="eliminarevento()"><mat-icon class="red600 ">close</mat-icon>Eliminar Evento</button>
+                    </div>
+                </div>
+                <div class="row custom-panel2 b">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group ">
+                                    <label class="col-form-label negrillas letraGlobal">Materia</label>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <input type="text" class="form-control letraGlobal" [disabled]="true" [(ngModel)]="iDocumento.materia" style="text-align:left!important">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group ">
+                                    <label class="col-form-label negrillas letraGlobal">Fecha Desde</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <input type="date" class="form-control letraGlobal" [disabled]="true" [(ngModel)]="iDocumento.fechainicio" style="text-align: left !important">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 ">
+                                <div class="form-group ">
+                                    <label class="col-form-label negrillas letraGlobal">Fecha Hasta</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <input type="date" class="form-control letraGlobal" [disabled]="true" [(ngModel)]="iDocumento.fechafin" style="text-align: left !important">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group ">
+                                    <label class="col-form-label negrillas letraGlobal">Hora Desde</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <input type="time" class="form-control letraGlobal" [disabled]="true" [(ngModel)]="iDocumento.horainicio" style="text-align: left !important">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group ">
+                                    <label class="col-form-label negrillas letraGlobal">Hora Hasta</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <input type="time" class="form-control letraGlobal" [disabled]="true" [(ngModel)]="iDocumento.horafin" style="text-align: left !important">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #modalbusquedadocente style="z-index:50000">
+    <div class=" modal-primary modal-lg" role="document" dynamicHeight dynamicweiht>
+        <div class="modal-content ">
+            <div class="modal-body">
+                <app-busquedadocente (confirmacionCierre)="cierreDocente($event)" (cierreModal)="cierreModalusuario($event)" [listadodocente]="listdocente"></app-busquedadocente>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }" ></ngx-loading>
+
+
+
+
+
+

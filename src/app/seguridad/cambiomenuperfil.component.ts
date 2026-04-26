@@ -402,7 +402,7 @@ export class CambioMenuPerfilComponent implements OnInit {
             content, { class: tipo });
     }
     mensaje(_tipo: string, _mensaje: string) {
-        this.llamarmodal = _tipo + "|Ingreso de Boleto|" + _mensaje + "|" + Funcion.Ramdon().toString();
+        this.llamarmodal = _tipo + "|Ingreso de Menu Perfil|" + _mensaje + "|" + Funcion.Ramdon().toString();
     }
     aceptarOk(event: boolean) {
         if (event) {

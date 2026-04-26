@@ -35,6 +35,11 @@ const routes: Routes = [{
                 import('../app/principal/principal.module').then((m) => m.PrincipalModule)
         },
         {
+            path: 'educativo',
+            loadChildren: () =>
+                import('../app/educativo/educativo.module').then((m) => m.EducativoModule)
+        },
+        {
             path: 'matenimiento',
             loadChildren: () =>
                 import('../app/matenimiento/mantenimiento.module').then((m) => m.MantenimientoModule)

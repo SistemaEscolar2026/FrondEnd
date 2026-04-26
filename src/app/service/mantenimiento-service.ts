@@ -321,6 +321,12 @@ export class MantenimientoService {
         }
         return this._httpClient.post<any>(`${environment.API_URL}/${environment.mantenimientos}GetPersonaAutorizada`, parambusquedad, { headers: headersglobal.headers }).pipe()
     }
+    manDocente(par1: string) {
+        var parambusquedad = {
+            par1: par1
+        }
+        return this._httpClient.post<any>(`${environment.API_URL}/${environment.mantenimientos}GetDocente`, parambusquedad, { headers: headersglobal.headers }).pipe()
+    }
     manUsuario(par1: string) {
         var parambusquedad = {
             par1: par1
@@ -398,6 +404,44 @@ export class MantenimientoService {
             par1: par1
         }
         return this._httpClient.post<any>(`${environment.API_URL}/${environment.seguridades}GetPerfil`, parambusquedad, { headers: headersglobal.headers }).pipe()
+    }
+    cargaHorarioClase(par1: string, par2: string, par3: string) {
+        var parambusquedad = {
+            par1: par1,
+            par2: par2,
+            par3: par3
+        }
+        return this._httpClient.post<any>(`${environment.API_URL}/${environment.mantenimientos}CargaHorarioClase`, parambusquedad, { headers: headersglobal.headers }).pipe()
+    }
+    manPeriodo(par1: string) {
+        var parambusquedad = {
+            par1: par1
+        }
+        return this._httpClient.post<any>(`${environment.API_URL}/${environment.mantenimientos}GetPeriodo`, parambusquedad, { headers: headersglobal.headers }).pipe()
+    }
+    manMateria(par1: string) {
+        var parambusquedad = {
+            par1: par1
+        }
+        return this._httpClient.post<any>(`${environment.API_URL}/${environment.mantenimientos}GetMateria`, parambusquedad, { headers: headersglobal.headers }).pipe()
+    }
+    manNivel(par1: string) {
+        var parambusquedad = {
+            par1: par1
+        }
+        return this._httpClient.post<any>(`${environment.API_URL}/${environment.mantenimientos}GetNivel`, parambusquedad, { headers: headersglobal.headers }).pipe()
+    }
+    manCurso(par1: string) {
+        var parambusquedad = {
+            par1: par1
+        }
+        return this._httpClient.post<any>(`${environment.API_URL}/${environment.mantenimientos}GetCurso`, parambusquedad, { headers: headersglobal.headers }).pipe()
+    }
+    manParalelo(par1: string) {
+        var parambusquedad = {
+            par1: par1
+        }
+        return this._httpClient.post<any>(`${environment.API_URL}/${environment.mantenimientos}GetParalelo`, parambusquedad, { headers: headersglobal.headers }).pipe()
     }
     manPais(par1: string) {
         var parambusquedad = {
@@ -853,7 +897,12 @@ export class MantenimientoService {
 
         return this._httpClient.post<any>(`${environment.API_URL}/${environment.mantenimientos}InsertConsolidadoras`, _model, { headers: headersglobal.headers }).pipe()
     }
-
+    getCursoMateria(par1: string) {
+        var parambusquedad = {
+            par1: par1
+        }
+        return this._httpClient.post<any>(`${environment.API_URLLOGIN}/${environment.mantenimientos}GetCursoMateria`, parambusquedad, { headers: headersglobal.headers }).pipe()
+    }
     getGastos(usvalor: string | null = null) {
         var parambusquedad = {
             par1: usvalor
@@ -918,6 +967,14 @@ export class MantenimientoService {
 
         return this._httpClient.post<any>(`${environment.API_URL}/${environment.mantenimientos}InsertCompania`, _model, { headers: headersglobal.headers }).pipe()
     }
+    insertHorarioClase(_model: any) {
+
+        return this._httpClient.post<any>(`${environment.API_URL}/${environment.mantenimientos}InsertHorarioClase`, _model, { headers: headersglobal.headers }).pipe()
+    }
+    insertDocente(_model: any) {
+
+        return this._httpClient.post<any>(`${environment.API_URL}/${environment.mantenimientos}InsertDocente`, _model, { headers: headersglobal.headers }).pipe()
+    }
     insertUsuario(_model: any) {
 
         return this._httpClient.post<any>(`${environment.API_URL}/${environment.mantenimientos}InsertUsuario`, _model, { headers: headersglobal.headers }).pipe()
@@ -951,9 +1008,33 @@ export class MantenimientoService {
 
         return this._httpClient.post<any>(`${environment.API_URL}/${environment.seguridades}InsertPerfil`, _model, { headers: headersglobal.headers }).pipe()
     }
+    insertCursoMateria(_model: any) {
+
+        return this._httpClient.post<any>(`${environment.API_URL}/${environment.mantenimientos}InsertCursoMateria`, _model, { headers: headersglobal.headers }).pipe()
+    }
+    insertCurso(_model: any) {
+
+        return this._httpClient.post<any>(`${environment.API_URL}/${environment.mantenimientos}InsertCurso`, _model, { headers: headersglobal.headers }).pipe()
+    }
+    insertParalelo(_model: any) {
+
+        return this._httpClient.post<any>(`${environment.API_URL}/${environment.mantenimientos}InsertParalelo`, _model, { headers: headersglobal.headers }).pipe()
+    }
     insertPais(_model: any) {
 
         return this._httpClient.post<any>(`${environment.API_URL}/${environment.mantenimientos}InsertPais`, _model, { headers: headersglobal.headers }).pipe()
+    }
+    insertPeriodo(_model: any) {
+
+        return this._httpClient.post<any>(`${environment.API_URL}/${environment.mantenimientos}InsertPeriodo`, _model, { headers: headersglobal.headers }).pipe()
+    }
+    insertMateria(_model: any) {
+
+        return this._httpClient.post<any>(`${environment.API_URL}/${environment.mantenimientos}InsertMateria`, _model, { headers: headersglobal.headers }).pipe()
+    }
+    insertNivel(_model: any) {
+
+        return this._httpClient.post<any>(`${environment.API_URL}/${environment.mantenimientos}InsertNivel`, _model, { headers: headersglobal.headers }).pipe()
     }
     insertEstado(_model: any) {
 
@@ -1064,6 +1145,9 @@ export class MantenimientoService {
     deleteCompania(_model: any) {
         return this._httpClient.post<any>(`${environment.API_URL}/${environment.mantenimientos}DeleteCompania`, _model, { headers: headersglobal.headers }).pipe()
     }
+    deleteDocente(_model: any) {
+        return this._httpClient.post<any>(`${environment.API_URL}/${environment.mantenimientos}DeleteDocente`, _model, { headers: headersglobal.headers }).pipe()
+    }
     deleteUsuario(_model: any) {
         return this._httpClient.post<any>(`${environment.API_URL}/${environment.mantenimientos}DeleteUsuario`, _model, { headers: headersglobal.headers }).pipe()
     }
@@ -1097,8 +1181,23 @@ export class MantenimientoService {
     deletePerfil(_model: any) {
         return this._httpClient.post<any>(`${environment.API_URL}/${environment.seguridades}DeletePerfil`, _model, { headers: headersglobal.headers }).pipe()
     }
+    deleteCurso(_model: any) {
+        return this._httpClient.post<any>(`${environment.API_URL}/${environment.mantenimientos}DeleteCurso`, _model, { headers: headersglobal.headers }).pipe()
+    }
+    deleteParalelo(_model: any) {
+        return this._httpClient.post<any>(`${environment.API_URL}/${environment.mantenimientos}DeleteParalelo`, _model, { headers: headersglobal.headers }).pipe()
+    }
     deletePais(_model: any) {
         return this._httpClient.post<any>(`${environment.API_URL}/${environment.mantenimientos}DeletePais`, _model, { headers: headersglobal.headers }).pipe()
+    }
+    deletePeriodo(_model: any) {
+        return this._httpClient.post<any>(`${environment.API_URL}/${environment.mantenimientos}DeletePeriodo`, _model, { headers: headersglobal.headers }).pipe()
+    }
+    deleteMateria(_model: any) {
+        return this._httpClient.post<any>(`${environment.API_URL}/${environment.mantenimientos}DeleteMateria`, _model, { headers: headersglobal.headers }).pipe()
+    }
+    deleteNivel(_model: any) {
+        return this._httpClient.post<any>(`${environment.API_URL}/${environment.mantenimientos}DeleteNivel`, _model, { headers: headersglobal.headers }).pipe()
     }
     deleteEstado(_model: any) {
         return this._httpClient.post<any>(`${environment.API_URL}/${environment.mantenimientos}DeleteEstado`, _model, { headers: headersglobal.headers }).pipe()
@@ -1321,6 +1420,9 @@ export class MantenimientoService {
     updateCompania(_model: any) {
         return this._httpClient.post<any>(`${environment.API_URL}/${environment.mantenimientos}UpdateCompania`, _model, { headers: headersglobal.headers }).pipe()
     }
+    updateDocente(_model: any) {
+        return this._httpClient.post<any>(`${environment.API_URL}/${environment.mantenimientos}UpdateDocente`, _model, { headers: headersglobal.headers }).pipe()
+    }
     updateUsuario(_model: any) {
         return this._httpClient.post<any>(`${environment.API_URL}/${environment.mantenimientos}UpdateUsuario`, _model, { headers: headersglobal.headers }).pipe()
     }
@@ -1347,6 +1449,21 @@ export class MantenimientoService {
     }
     updatePerfil(_model: any) {
         return this._httpClient.post<any>(`${environment.API_URL}/${environment.seguridades}UpdatePerfil`, _model, { headers: headersglobal.headers }).pipe()
+    }
+    updatePeriodo(_model: any) {
+        return this._httpClient.post<any>(`${environment.API_URL}/${environment.mantenimientos}UpdatePeriodo`, _model, { headers: headersglobal.headers }).pipe()
+    }
+    updateMateria(_model: any) {
+        return this._httpClient.post<any>(`${environment.API_URL}/${environment.mantenimientos}UpdateMateria`, _model, { headers: headersglobal.headers }).pipe()
+    }
+    updateNivel(_model: any) {
+        return this._httpClient.post<any>(`${environment.API_URL}/${environment.mantenimientos}UpdateNivel`, _model, { headers: headersglobal.headers }).pipe()
+    }
+    updateCurso(_model: any) {
+        return this._httpClient.post<any>(`${environment.API_URL}/${environment.mantenimientos}UpdateCurso`, _model, { headers: headersglobal.headers }).pipe()
+    }
+    updateParalelo(_model: any) {
+        return this._httpClient.post<any>(`${environment.API_URL}/${environment.mantenimientos}UpdateParalelo`, _model, { headers: headersglobal.headers }).pipe()
     }
     updatePais(_model: any) {
         return this._httpClient.post<any>(`${environment.API_URL}/${environment.mantenimientos}UpdatePais`, _model, { headers: headersglobal.headers }).pipe()

@@ -6,7 +6,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { FullCalendarModule } from '@fullcalendar/angular';
 import { CommonModule } from '@angular/common';
 import { BsModalRef, ModalModule } from 'ngx-bootstrap/modal'
 import { BusquedaCompaniaComponent } from '@modales/busquedacompania.component';
@@ -27,6 +27,11 @@ import { BusquedaConsolidadoraComponent } from '@modales/busquedaconsolidadora.c
 import { BusquedaContratoComponent } from '@modales/busquedacontrato.component';
 import { BusquedaProveedorComponent } from '@modales/busquedaproveedor.component';
 import { BusquedaRutaComponent } from '@modales/busquedaruta.component';
+import { BusquedaNivelComponent } from '@modales/busquedanivel.component';
+import { BusquedaMateriaComponent } from '@modales/busquedamateria.component';
+import { BusquedaDocenteComponent } from '@modales/busquedadocente.component';
+import { BusquedaCursoComponent } from '@modales/busquedacurso.component';
+import { BusquedaParaleloComponent } from '@modales/busquedaparalelo.component';
 import { BusquedaTipoSeguroComponent } from '@modales/busquedatiposeguro.component';
 import { BusquedaTipoAlojamientoComponent } from '@modales/busquedatipoalojamiento.component';
 import { BusquedaServicioAdicionalComponent } from '@modales/busquedaservicioadicional.component';
@@ -41,6 +46,7 @@ import { BusquedaRetencionFuenteComponent } from '@modales/busquedaretencionfuen
 import { BusquedaRetencionIvaComponent } from '@modales/busquedaretencioniva.component';
 import { BusquedaServicioComponent } from '@modales/busquedaservicio.component';
 import { BusquedaTipoPrestamoComponent } from '@modales/busquedatipoprestamo.component';
+import { BusquedaPerioroComponent } from '@modales/busquedaperiodo.component';
 import { GrdFilterPipe } from '../pipe/filterGrid';
 import { MantenimientoRoutingModule } from '../matenimiento/mantenimiento-routing.module';
 import { EntidadComponent } from './entidad.component';
@@ -75,7 +81,6 @@ import { GastosComponent } from './gastos.component';
 import { CompaniComponent } from './compania.component';
 import { TipoPrestamoComponent } from './tipoprestamo.component';
 import { SeparatorDirective } from '../../environments/SeparatorDirective';
-
 @NgModule({
     declarations: [
         SeparatorDirective,
@@ -112,11 +117,18 @@ import { SeparatorDirective } from '../../environments/SeparatorDirective';
         ClaseContableComponent
     ],
     imports: [
+        FullCalendarModule,
         GrdFilterPipe,
         BusquedaCompaniaComponent,
         BusquedaFormaComponent,
+        BusquedaMateriaComponent,
         BusquedaGrupoComponent,
+        BusquedaDocenteComponent,
+        BusquedaPerioroComponent,
         BusquedaSubGrupoComponent,
+        BusquedaCursoComponent,
+        BusquedaNivelComponent,
+        BusquedaParaleloComponent,
         BusquedaTipoPrestamoComponent,
         BusquedaServicioAdicionalComponent,
         BusquedaTipoDocumentoComponent,

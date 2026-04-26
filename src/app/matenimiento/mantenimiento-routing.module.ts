@@ -32,6 +32,7 @@ import { GastosComponent } from './gastos.component';
 import { CompaniComponent } from './compania.component';
 import { TipoPrestamoComponent } from './tipoprestamo.component';
 const routes: Routes = [
+   
     {
         path: 'tipoprestamo',
         component: TipoPrestamoComponent,

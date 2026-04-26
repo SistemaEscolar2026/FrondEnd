@@ -8,6 +8,11 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup } from '@angular/f
 import { BotonesModel } from '@modelo/botones-model';
 import { globales, environment } from 'src/environments/environment';
 import { ServiceMensaje } from '@services/config/ServiceMensaje';
+import { CalendarOptions } from '@fullcalendar/core'; // useful for typechecking
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import esLocale from '@fullcalendar/core/locales/es'; // 1. Importar español
 
 /**
 * SESSION DONDE SE DEFINE LOS OBJETO PARA EL COMPONENTE
@@ -17,6 +22,25 @@ import { ServiceMensaje } from '@services/config/ServiceMensaje';
     styleUrls: ['./mantenimientobancos.component.scss']
 })
 export class MantenimientoBancosComponent implements OnInit {
+
+
+    calendarOptions: CalendarOptions = {
+        plugins: [dayGridPlugin, interactionPlugin, timeGridPlugin],
+        locale: esLocale, // 2. Asignar idioma
+        dateClick: (arg) => this.handleDateClick(arg),
+        initialView: 'timeGridWeek', // Vista semanal por horas
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'timeGridWeek'
+        },
+        weekends: true,
+        editable: true,
+        selectable: true
+    };
+    handleDateClick(arg:any) {
+        alert('date click! ' + arg.dateStr)
+    }
     /**
   * DEFINICION DE VARIABLE DE MODAL DE BUSQUEDA DE VENDEDOR
   */

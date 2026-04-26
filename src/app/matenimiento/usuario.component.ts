@@ -9,6 +9,7 @@ import { BotonesModel } from '@modelo/botones-model';
 import { globales, environment } from 'src/environments/environment';
 import { ServiceMensaje } from '@services/config/ServiceMensaje';
 import { AsyncSubject, Observable } from 'rxjs';
+
 export interface SelectedFiles {
     name: string;
     file: any;

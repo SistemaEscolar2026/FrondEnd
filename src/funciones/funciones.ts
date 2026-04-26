@@ -40,9 +40,9 @@ export abstract class Funcion {
             }];
     }
     public static truncateToDecimals(num: number, dec: number) {
-    const calcDec = Math.pow(10, dec);
-    return Math.trunc(num * calcDec) / calcDec;
-}
+        const calcDec = Math.pow(10, dec);
+        return Math.trunc(num * calcDec) / calcDec;
+    }
     public static cloneObjeto(myObject: any) {
         const myClonedObject = Object.assign({}, myObject);
         return myClonedObject;
@@ -365,12 +365,30 @@ export abstract class Funcion {
     /**
   * FUNCION QUE CAMBIA INFORMACION GENERAL A LA VARIABLE DE TRABAJO
   */
+    public static esFinDeSemana(fecha: Date): boolean {
+        const dia = fecha.getDay();
+        // 0 = Domingo, 6 = Sábado
+        return dia === 0 || dia === 6;
+    }
     public static cambiogeneral() {
         globales.cia = Funcion.ReturnUsuario().co_codigo;
         token.tokenglobal = Funcion.ReturnUsuario().us_token;
         Funcion.cambiotoken();
     }
+    public static  addDays(date: Date, days: number): Date {
+        const result = new Date(date); // Create a copy to avoid mutating the original
+        result.setDate(result.getDate() + days);
+        return result;
+    }
 
+    public static calcularDias(fechaInicio: Date, fechaFin: Date): number {
+        const unDia = 1000 * 60 * 60 * 24; // Milisegundos en un día
+        // Convertir a UTC para asegurar precisión
+        const start = Date.UTC(fechaInicio.getFullYear(), fechaInicio.getMonth(), fechaInicio.getDate());
+        const end = Date.UTC(fechaFin.getFullYear(), fechaFin.getMonth(), fechaFin.getDate());
+
+        return Math.floor((end - start) / unDia);
+    }
     /**
   * FUNCION QUE CAMBIA EL TOKEN DE USUARIO EN LA VARIABLE HEADER DE CONEXION CON LOS API
   */
@@ -772,6 +790,37 @@ export abstract class Funcion {
             valor: "D",
             texto: "DESACTIVO"
         }];
+    }
+    public static TipoPeriodo(): any[] {
+        return [{
+            valor: "3",
+            texto: "TRIMESTRAL"
+        },
+        {
+            valor: "5",
+            texto: "QUIMETRAL"
+        }];
+    }
+    public static TipoCalses(): any[] {
+        return [{
+            valor: "1",
+            texto: "4-1-4"
+        },
+        {
+            valor: "2",
+            texto: "3-1-2-1-3"
+        }];
+    }
+    public static AnioElectivo(): any[] {
+        var _anio: number = environment.anio;
+        var _lista: any[] = [];
+        for (var i = _anio; i <= environment.aniomax; i++) {
+            _lista.push({
+                valor: i.toString() + "-" + (i + 1).toString(),
+                texto: i.toString() + "-" + (i + 1).toString()
+            })
+        }
+        return _lista;
     }
     public static Tipo(): any[] {
         return [{

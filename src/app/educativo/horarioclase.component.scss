@@ -1,0 +1,33 @@
+p {
+    font-family: Lato;
+}
+
+.fc-event {
+    border: 1px solid blue;
+    border-radius: 4px;
+    padding: 16px;
+    margin: 4px;
+}
+
+.adjust-input {
+    margin-bottom: 10px;
+}
+
+
+@media print {
+    /* Ocultar botones, menú de navegación y otros elementos que no quieras imprimir */
+    .no-print, .fc-toolbar, .fc-button {
+        display: none !important;
+    }
+
+    /* Asegurar que el calendario ocupe todo el ancho */
+    .fc {
+        max-width: 100% !important;
+        height: auto !important;
+    }
+
+    /* Ajustar el tamaño de fuente y eventos para impresión */
+    .fc-view {
+        font-size: 12px;
+    }
+}
